@@ -611,7 +611,11 @@
     var armed = false;
     clearBtn.addEventListener('click', function(){
       if(!armed){ armed = true; clearBtn.textContent = 'Tap again to confirm'; setTimeout(function(){ armed = false; clearBtn.textContent = 'Clear all dashboard data'; }, 3500); return; }
-      records = []; saveJSON('jd_records', []); updateStats(); render();
+      ['jd_records','jd_tasks','jd_projects','jd_studio_projects','jd_studio_files'].forEach(function(k){
+        try{ localStorage.removeItem(k); }catch(e){}
+        try{ delete memStore[k]; }catch(e){}
+      });
+      location.reload();
     });
 
     root.append(
