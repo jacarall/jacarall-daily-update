@@ -746,7 +746,7 @@
     }
 
     var statsEl = h('div', {class:'st-stats'});
-    var fName = h('input', {type:'text', class:'field-input', placeholder:'Project name'});
+    var fName = h('input', {type:'text', class:'field-input', list:'projects-dl', placeholder:'Project name'});
     var fClient = h('input', {type:'text', class:'field-input', placeholder:'Client name'});
     var addBtn = h('button', {class:'btn btn-primary'}, '+ Start Project (enters at Client Brief)');
     addBtn.addEventListener('click', function(){
@@ -754,6 +754,7 @@
       if(!name || !client){ toast('Enter the project and client name.', 'err'); return; }
       projects.push({id:'sp' + Date.now() + Math.random().toString(36).slice(2,7), name:name, client:client, stage:0,
         assignee:'', notes:'', files:[], stageEnteredAt:Date.now(), createdAt:Date.now()});
+      rememberProject(name);
       fName.value = ''; fClient.value = '';
       filter = null; openSections[0] = true;
       saveProjects(); render();
