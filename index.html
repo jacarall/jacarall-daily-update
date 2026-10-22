@@ -960,7 +960,7 @@
   // device. This is a shared-secret gate, not a real login (there is no backend / no accounts
   // in this file), so anyone who views the page source can find the PIN. It stops casual access
   // from engineers' phones, which is the goal here. Change RESTRICTED_PIN below any time.
-  var RESTRICTED_PIN = '7410';
+  var RESTRICTED_PIN = '123456789';
   function isUnlocked(){ return lsGet('jd_auth') === '1'; }
 
   function Gate(view, label){
