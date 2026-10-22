@@ -1001,7 +1001,7 @@
     return {el:wrap, render:function(){ if(isUnlocked()) showContent(); else showLock(); }};
   }
 
-  var views = { site:TeamForm(TEAMS.site), marketing:TeamForm(TEAMS.marketing), tech:TeamForm(TEAMS.tech), tasks:Gate(TasksView(), 'Tasks'), studio:StudioView(), dash:Gate(DashboardView(), 'Board') };
+  var views = { site:TeamForm(TEAMS.site), marketing:TeamForm(TEAMS.marketing), tech:TeamForm(TEAMS.tech), tasks:TasksView(), studio:StudioView(), dash:Gate(DashboardView(), 'Board') };
 
   var strip = document.getElementById('strip'), app = document.getElementById('app'), chips = {};
   TABS.forEach(function(t){
