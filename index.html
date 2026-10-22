@@ -227,6 +227,9 @@
   'use strict';
 
   var TEAMS = {
+    site:{ key:'site', title:'Site Engineers', short:'Site', hex:'#7B8567', text:'#1C1A18',
+      areaKey:'Area', areaLabel:'Site / Area', areaPlaceholder:'e.g. Villa 12 - Ground Floor',
+      reasons:['Materials shortage / delivery delay','Labor or subcontractor delay','Client change or request','Design or measurement issue','Waiting for approval or payment','Site conditions / access','Other'] },
     marketing:{ key:'marketing', title:'Marketing', short:'Marketing', hex:'#8C1F3B', text:'#F2EEEA',
       areaKey:'Channel / Campaign', areaLabel:'Channel / Campaign', areaPlaceholder:'e.g. Instagram - Ramadan Campaign',
       reasons:['Waiting for client or management approval','Content or design not ready','Budget or vendor delay','Platform or technical issue','Waiting on another department','Priority or schedule change','Other'] },
@@ -444,7 +447,7 @@
     var root = h('div', {class:'hidden'});
     var f = {};
     f.who = h('input', {type:'text', class:'field-input', placeholder:'Engineer name'});
-    f.team = h('select', {class:'field-select'}, h('option', {value:'marketing'}, 'Marketing'), h('option', {value:'tech'}, 'Tech Department'));
+    f.team = h('select', {class:'field-select'}, h('option', {value:'site'}, 'Site Engineers'), h('option', {value:'marketing'}, 'Marketing'), h('option', {value:'tech'}, 'Tech Department'));
     f.project = h('input', {type:'text', class:'field-input', list:'projects-dl', placeholder:'Type or pick a project'});
     f.task = h('textarea', {class:'field-textarea', placeholder:'What needs to be done?'});
     f.priority = h('select', {class:'field-select'}, PRIORITIES.map(function(p){ return h('option', {value:p}, p); }));
@@ -572,7 +575,8 @@
       var fin = (o.finished || '').toLowerCase();
       var status = /not/.test(fin) ? 'not' : /partial/.test(fin) ? 'partial' : 'done';
       var date = /^\d{4}-\d{2}-\d{2}$/.test(o.date || '') ? o.date : todayStr(0);
-      recs.push({team:/tech/i.test(o.team || '') ? 'tech' : 'marketing', date:date, name:o.name || '', project:o.project || '',
+      var teamKey = /tech/i.test(o.team || '') ? 'tech' : /market/i.test(o.team || '') ? 'marketing' : 'site';
+      recs.push({team:teamKey, date:date, name:o.name || '', project:o.project || '',
         area:o.area || o.tasktype || '', yesterday:o.yesterday || '', status:status, reason:o.reason || '',
         reasonDetail:o.details || '', today:o.today || '', blockers:o.blockers || ''});
     });
@@ -650,7 +654,7 @@
       body.textContent = '';
       body.append(h('h2', {class:'section-title'}, '01 · Summary for ' + niceDate(date)));
       var sum = [], tot = [0,0,0,0,0];
-      ['marketing','tech'].forEach(function(k){
+      ['site','marketing','tech'].forEach(function(k){
         var a = forTeam(k, date);
         var r = [TEAMS[k].title, a.length, cnt(a,'done'), cnt(a,'partial'), cnt(a,'not'), blk(a)];
         for(var i = 1; i < 6; i++) tot[i-1] += r[i];
@@ -661,30 +665,30 @@
 
       body.append(h('h2', {class:'section-title'}, '02 · By Project'));
       var pr = allProjects().map(function(p){
-        var s = forTeam('marketing', date, p), t = forTeam('tech', date, p);
+        var s = forTeam('site', date, p), mk = forTeam('marketing', date, p), t = forTeam('tech', date, p);
         var openT = tasks.filter(function(x){ return x.project === p && x.status !== 'Done'; }).length;
-        var nd = cnt(s,'not') + cnt(t,'not');
-        var att = (s.length + t.length === 0) ? 'No update yet' : (nd > 0 ? 'Needs attention' : 'On track');
-        return [p, s.length, cnt(s,'not'), t.length, cnt(t,'not'), openT, att];
+        var nd = cnt(s,'not') + cnt(mk,'not') + cnt(t,'not');
+        var att = (s.length + mk.length + t.length === 0) ? 'No update yet' : (nd > 0 ? 'Needs attention' : 'On track');
+        return [p, s.length, cnt(s,'not'), mk.length, cnt(mk,'not'), t.length, cnt(t,'not'), openT, att];
       });
       if(!pr.length) body.append(h('div', {class:'empty'}, h('div', {class:'et'}, 'No projects yet'), h('div', {class:'es'}, 'They appear after updates or tasks are added.')));
-      else body.append(table(['Project','Marketing Upd.','Marketing Not Done','Tech Upd.','Tech Not Done','Open Tasks','Attention'], pr, function(i, c){
-        if((i === 2 || i === 4) && c > 0) return 'bad';
-        if(i === 6) return c === 'Needs attention' ? 'bad' : c === 'No update yet' ? 'warn' : 'good';
+      else body.append(table(['Project','Site Upd.','Site Not Done','Marketing Upd.','Marketing Not Done','Tech Upd.','Tech Not Done','Open Tasks','Attention'], pr, function(i, c){
+        if((i === 2 || i === 4 || i === 6) && c > 0) return 'bad';
+        if(i === 8) return c === 'Needs attention' ? 'bad' : c === 'No update yet' ? 'warn' : 'good';
         return '';
       }));
 
       body.append(h('h2', {class:'section-title'}, '03 · Last 7 Days'));
       var days = [];
       for(var i = 6; i >= 0; i--){
-        var d = addDays(date, -i), s = forTeam('marketing', d), t = forTeam('tech', d);
-        days.push([niceDate(d), s.length, t.length, cnt(s,'not') + cnt(t,'not'), blk(s) + blk(t)]);
+        var d = addDays(date, -i), s = forTeam('site', d), mk = forTeam('marketing', d), t = forTeam('tech', d);
+        days.push([niceDate(d), s.length, mk.length, t.length, cnt(s,'not') + cnt(mk,'not') + cnt(t,'not'), blk(s) + blk(mk) + blk(t)]);
       }
-      body.append(table(['Date','Marketing Upd.','Tech Upd.','Not Completed','Blockers'], days, function(i, c){ if(i === 3 && c > 0) return 'bad'; if(i === 4 && c > 0) return 'warn'; return ''; }));
+      body.append(table(['Date','Site Upd.','Marketing Upd.','Tech Upd.','Not Completed','Blockers'], days, function(i, c){ if(i === 4 && c > 0) return 'bad'; if(i === 5 && c > 0) return 'warn'; return ''; }));
 
       body.append(h('h2', {class:'section-title'}, '04 · Tasks (open = not Done)'));
       var tr = [], tt = [0,0,0,0];
-      ['marketing','tech'].forEach(function(k){
+      ['site','marketing','tech'].forEach(function(k){
         var o = tasks.filter(function(x){ return x.team === k && x.status !== 'Done'; });
         var r = [TEAMS[k].title, o.length, o.filter(function(x){ return x.due && x.due < date; }).length,
           o.filter(function(x){ return x.priority === 'High'; }).length, o.filter(function(x){ return x.status === 'Blocked'; }).length];
@@ -951,6 +955,7 @@
 
   var TABS = [
     {id:'tech', label:'Tech', hex:'#5C4A52'},
+    {id:'site', label:'Site', hex:'#7B8567'},
     {id:'studio', label:'Studio', hex:'#6B4A38'},
     {id:'marketing', label:'Marketing', hex:'#8C1F3B'},
     {id:'tasks', label:'Tasks', hex:'#C99A4A'},
@@ -996,7 +1001,7 @@
     return {el:wrap, render:function(){ if(isUnlocked()) showContent(); else showLock(); }};
   }
 
-  var views = { marketing:TeamForm(TEAMS.marketing), tech:TeamForm(TEAMS.tech), tasks:Gate(TasksView(), 'Tasks'), studio:StudioView(), dash:Gate(DashboardView(), 'Board') };
+  var views = { site:TeamForm(TEAMS.site), marketing:TeamForm(TEAMS.marketing), tech:TeamForm(TEAMS.tech), tasks:Gate(TasksView(), 'Tasks'), studio:StudioView(), dash:Gate(DashboardView(), 'Board') };
 
   var strip = document.getElementById('strip'), app = document.getElementById('app'), chips = {};
   TABS.forEach(function(t){
