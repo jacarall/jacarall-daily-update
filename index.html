@@ -231,12 +231,13 @@
     site:{ key:'site', title:'Site Engineers', short:'Site', hex:'#7B8567', text:'#1C1A18',
       areaKey:'Area', areaLabel:'Site / Area', areaPlaceholder:'e.g. Villa 12 - Ground Floor',
       reasons:['Materials shortage / delivery delay','Labor or subcontractor delay','Client change or request','Design or measurement issue','Waiting for approval or payment','Site conditions / access','Other'] },
-    marketing:{ key:'marketing', title:'Marketing', short:'Marketing', hex:'#8C1F3B', text:'#F2EEEA',
-      areaKey:'Channel / Campaign', areaLabel:'Channel / Campaign', areaPlaceholder:'e.g. Instagram - Ramadan Campaign',
-      reasons:['Waiting for client or management approval','Content or design not ready','Budget or vendor delay','Platform or technical issue','Waiting on another department','Priority or schedule change','Other'] },
+    design:{ key:'design', title:'Design Department', short:'Design', hex:'#8C1F3B', text:'#F2EEEA',
+      areaKey:'Task Type', areaLabel:'Task Type',
+      areaOptions:['Modeling','3D Design','3D Rendering'],
+      reasons:['Waiting for client or management approval','Reference or brief not ready','Software or rendering issue','Waiting on another department','Priority or schedule change','Other'] },
     tech:{ key:'tech', title:'Tech Department', short:'Tech', hex:'#5C4A52', text:'#F2EEEA',
       areaKey:'Task Type', areaLabel:'Task Type',
-      areaOptions:['Design / Drawings','Shop Drawings','BOQ / Quantities','3D Rendering','MEP Coordination','Site Support','Client Coordination','Other'],
+      areaOptions:['Arch drawing','BOQ','Site support','Client follow up','Other'],
       reasons:['Waiting for client input or approval','Missing information or drawings','Design change','Software or technical issue','Waiting on another department','Priority or workload change','Other'] }
   };
   var TASK_STATUSES = ['Not Started','In Progress','Blocked','Done'];
@@ -315,12 +316,12 @@
     var today = todayStr(0);
     var todayCount = records.filter(function(r){ return r.date === today; }).length;
     var openTasks = tasks.filter(function(t){ return t.status !== 'Done'; }).length;
-    var studioCount = loadJSON('jd_studio_projects', []).length;
+    var studioCount = loadJSON('jd_studio_updates', []).length;
     document.getElementById('stats').innerHTML =
       '<span><b>' + allProjects().length + '</b> projects tracked</span>' +
       '<span><b>' + todayCount + '</b> updates today</span>' +
       '<span><b>' + openTasks + '</b> open tasks</span>' +
-      '<span><b>' + studioCount + '</b> in studio pipeline</span>';
+      '<span><b>' + studioCount + '</b> client updates</span>';
   }
 
   // ---------- update message builder ----------
@@ -448,7 +449,7 @@
     var root = h('div', {class:'hidden'});
     var f = {};
     f.who = h('input', {type:'text', class:'field-input', placeholder:'Engineer name'});
-    f.team = h('select', {class:'field-select'}, h('option', {value:'site'}, 'Site Engineers'), h('option', {value:'marketing'}, 'Marketing'), h('option', {value:'tech'}, 'Tech Department'));
+    f.team = h('select', {class:'field-select'}, h('option', {value:'site'}, 'Site Engineers'), h('option', {value:'design'}, 'Design Department'), h('option', {value:'tech'}, 'Tech Department'));
     f.project = h('input', {type:'text', class:'field-input', list:'projects-dl', placeholder:'Type or pick a project'});
     f.task = h('textarea', {class:'field-textarea', placeholder:'What needs to be done?'});
     f.priority = h('select', {class:'field-select'}, PRIORITIES.map(function(p){ return h('option', {value:p}, p); }));
@@ -576,7 +577,7 @@
       var fin = (o.finished || '').toLowerCase();
       var status = /not/.test(fin) ? 'not' : /partial/.test(fin) ? 'partial' : 'done';
       var date = /^\d{4}-\d{2}-\d{2}$/.test(o.date || '') ? o.date : todayStr(0);
-      var teamKey = /tech/i.test(o.team || '') ? 'tech' : /market/i.test(o.team || '') ? 'marketing' : 'site';
+      var teamKey = /tech/i.test(o.team || '') ? 'tech' : /design/i.test(o.team || '') ? 'design' : 'site';
       recs.push({team:teamKey, date:date, name:o.name || '', project:o.project || '',
         area:o.area || o.tasktype || '', yesterday:o.yesterday || '', status:status, reason:o.reason || '',
         reasonDetail:o.details || '', today:o.today || '', blockers:o.blockers || ''});
@@ -611,7 +612,7 @@
     var armed = false;
     clearBtn.addEventListener('click', function(){
       if(!armed){ armed = true; clearBtn.textContent = 'Tap again to confirm'; setTimeout(function(){ armed = false; clearBtn.textContent = 'Clear all dashboard data'; }, 3500); return; }
-      ['jd_records','jd_tasks','jd_projects','jd_studio_projects','jd_studio_files'].forEach(function(k){
+      ['jd_records','jd_tasks','jd_projects','jd_studio_projects','jd_studio_files','jd_studio_updates'].forEach(function(k){
         try{ localStorage.removeItem(k); }catch(e){}
         try{ delete memStore[k]; }catch(e){}
       });
@@ -659,7 +660,7 @@
       body.textContent = '';
       body.append(h('h2', {class:'section-title'}, '01 · Summary for ' + niceDate(date)));
       var sum = [], tot = [0,0,0,0,0];
-      ['site','marketing','tech'].forEach(function(k){
+      ['site','design','tech'].forEach(function(k){
         var a = forTeam(k, date);
         var r = [TEAMS[k].title, a.length, cnt(a,'done'), cnt(a,'partial'), cnt(a,'not'), blk(a)];
         for(var i = 1; i < 6; i++) tot[i-1] += r[i];
@@ -670,14 +671,14 @@
 
       body.append(h('h2', {class:'section-title'}, '02 · By Project'));
       var pr = allProjects().map(function(p){
-        var s = forTeam('site', date, p), mk = forTeam('marketing', date, p), t = forTeam('tech', date, p);
+        var s = forTeam('site', date, p), dsg = forTeam('design', date, p), t = forTeam('tech', date, p);
         var openT = tasks.filter(function(x){ return x.project === p && x.status !== 'Done'; }).length;
-        var nd = cnt(s,'not') + cnt(mk,'not') + cnt(t,'not');
-        var att = (s.length + mk.length + t.length === 0) ? 'No update yet' : (nd > 0 ? 'Needs attention' : 'On track');
-        return [p, s.length, cnt(s,'not'), mk.length, cnt(mk,'not'), t.length, cnt(t,'not'), openT, att];
+        var nd = cnt(s,'not') + cnt(dsg,'not') + cnt(t,'not');
+        var att = (s.length + dsg.length + t.length === 0) ? 'No update yet' : (nd > 0 ? 'Needs attention' : 'On track');
+        return [p, s.length, cnt(s,'not'), dsg.length, cnt(dsg,'not'), t.length, cnt(t,'not'), openT, att];
       });
       if(!pr.length) body.append(h('div', {class:'empty'}, h('div', {class:'et'}, 'No projects yet'), h('div', {class:'es'}, 'They appear after updates or tasks are added.')));
-      else body.append(table(['Project','Site Upd.','Site Not Done','Marketing Upd.','Marketing Not Done','Tech Upd.','Tech Not Done','Open Tasks','Attention'], pr, function(i, c){
+      else body.append(table(['Project','Site Upd.','Site Not Done','Design Upd.','Design Not Done','Tech Upd.','Tech Not Done','Open Tasks','Attention'], pr, function(i, c){
         if((i === 2 || i === 4 || i === 6) && c > 0) return 'bad';
         if(i === 8) return c === 'Needs attention' ? 'bad' : c === 'No update yet' ? 'warn' : 'good';
         return '';
@@ -686,14 +687,14 @@
       body.append(h('h2', {class:'section-title'}, '03 · Last 7 Days'));
       var days = [];
       for(var i = 6; i >= 0; i--){
-        var d = addDays(date, -i), s = forTeam('site', d), mk = forTeam('marketing', d), t = forTeam('tech', d);
-        days.push([niceDate(d), s.length, mk.length, t.length, cnt(s,'not') + cnt(mk,'not') + cnt(t,'not'), blk(s) + blk(mk) + blk(t)]);
+        var d = addDays(date, -i), s = forTeam('site', d), dsg = forTeam('design', d), t = forTeam('tech', d);
+        days.push([niceDate(d), s.length, dsg.length, t.length, cnt(s,'not') + cnt(dsg,'not') + cnt(t,'not'), blk(s) + blk(dsg) + blk(t)]);
       }
-      body.append(table(['Date','Site Upd.','Marketing Upd.','Tech Upd.','Not Completed','Blockers'], days, function(i, c){ if(i === 4 && c > 0) return 'bad'; if(i === 5 && c > 0) return 'warn'; return ''; }));
+      body.append(table(['Date','Site Upd.','Design Upd.','Tech Upd.','Not Completed','Blockers'], days, function(i, c){ if(i === 4 && c > 0) return 'bad'; if(i === 5 && c > 0) return 'warn'; return ''; }));
 
       body.append(h('h2', {class:'section-title'}, '04 · Tasks (open = not Done)'));
       var tr = [], tt = [0,0,0,0];
-      ['site','marketing','tech'].forEach(function(k){
+      ['site','design','tech'].forEach(function(k){
         var o = tasks.filter(function(x){ return x.team === k && x.status !== 'Done'; });
         var r = [TEAMS[k].title, o.length, o.filter(function(x){ return x.due && x.due < date; }).length,
           o.filter(function(x){ return x.priority === 'High'; }).length, o.filter(function(x){ return x.status === 'Blocked'; }).length];
@@ -713,257 +714,68 @@
   }
 
   function StudioView(){
-    var STAGES = [
-      {name:'Client Brief', short:'Brief', desc:'Meet the client and capture the brief.', hex:'#3A322C', text:'#F2EEEA'},
-      {name:'Art Director Briefing', short:'AD Brief', desc:'Hand the brief to the art director.', hex:'#C99A4A', text:'#1C1A18'},
-      {name:'Moodboard Creation', short:'Moodboard', desc:'Art director builds the moodboard.', hex:'#8C1F3B', text:'#F2EEEA'},
-      {name:'Client Mood Selection', short:'Client Picks', desc:'Client reviews the moodboard and picks a direction.', hex:'#7B8567', text:'#1C1A18'},
-      {name:'2D Technical Plan', short:'2D Plan', desc:'Technical team drafts the 2D plan.', hex:'#52606D', text:'#F2EEEA'},
-      {name:'3D Design', short:'3D Design', desc:'Designers build the 3D design.', hex:'#6B4A38', text:'#F2EEEA'},
-      {name:'Financial Pricing', short:'Pricing', desc:'Finance prices the execution.', hex:'#4B6B5E', text:'#F2EEEA'}
-    ];
-    var FILE_CATS = [
-      {key:'brief', label:'Word Sheets & Briefs', accept:'.doc,.docx,.pdf,.txt,.rtf'},
-      {key:'cad', label:'AutoCAD Files', accept:'.dwg,.dxf,.dwf'},
-      {key:'render', label:'3D Renders', accept:'image/*,.skp,.fbx,.obj,.3ds,.blend,.max,.c4d'}
-    ];
-    var MAX_FILE_BYTES = 1.2 * 1024 * 1024; // kept small — localStorage quota is shared across the whole app
-
     var root = h('div', {class:'hidden'});
-    var projects = loadJSON('jd_studio_projects', []);
-    projects.forEach(function(p){ if(!p.files) p.files = []; });
-    var filesStore = loadJSON('jd_studio_files', {});
-    var filter = null;
-    var openSections = {}; STAGES.forEach(function(s, i){ openSections[i] = true; });
-    var attachOpen = {};
+    var updates = loadJSON('jd_studio_updates', []);
+    function saveUpdates(){ saveJSON('jd_studio_updates', updates); updateStats(); }
 
-    function saveProjects(){ saveJSON('jd_studio_projects', projects); updateStats(); }
-    function persistFiles(){ return lsTrySet('jd_studio_files', JSON.stringify(filesStore)); }
-    function formatSize(bytes){
-      if(bytes < 1024) return bytes + ' B';
-      if(bytes < 1024*1024) return Math.round(bytes/1024) + ' KB';
-      return (bytes/1024/1024).toFixed(1) + ' MB';
-    }
-    function daysIn(ts){
-      var d = Math.floor((Date.now() - ts) / 86400000);
-      if(d <= 0) return 'today'; if(d === 1) return '1 day'; return d + ' days';
-    }
+    var fProject = h('input', {type:'text', class:'field-input', list:'projects-dl', placeholder:'Project name'});
+    var fWho = h('input', {type:'text', class:'field-input', placeholder:'Assigned to'});
+    var fUpdate = h('textarea', {class:'field-textarea', placeholder:'Update'});
+    var addBtn = h('button', {class:'btn btn-primary'}, 'Add Update');
+    var listEl = h('div');
 
-    var statsEl = h('div', {class:'st-stats'});
-    var fName = h('input', {type:'text', class:'field-input', list:'projects-dl', placeholder:'Project name'});
-    var fClient = h('input', {type:'text', class:'field-input', placeholder:'Client name'});
-    var addBtn = h('button', {class:'btn btn-primary'}, '+ Start Project (enters at Client Brief)');
     addBtn.addEventListener('click', function(){
-      var name = fName.value.trim(), client = fClient.value.trim();
-      if(!name || !client){ toast('Enter the project and client name.', 'err'); return; }
-      projects.push({id:'sp' + Date.now() + Math.random().toString(36).slice(2,7), name:name, client:client, stage:0,
-        assignee:'', notes:'', files:[], stageEnteredAt:Date.now(), createdAt:Date.now()});
-      rememberProject(name);
-      fName.value = ''; fClient.value = '';
-      filter = null; openSections[0] = true;
-      saveProjects(); render();
-      toast('Project added to Client Brief.');
+      var project = fProject.value.trim(), who = fWho.value.trim(), note = fUpdate.value.trim();
+      if(!project || !note){ toast('Enter the project and the update.', 'err'); return; }
+      updates.unshift({id:'cu' + Date.now() + Math.random().toString(36).slice(2,7), project:project, assignedTo:who, update:note, date:todayStr(0), createdAt:Date.now()});
+      rememberProject(project);
+      fProject.value = ''; fWho.value = ''; fUpdate.value = '';
+      saveUpdates(); render();
+      toast('Update added.');
     });
 
-    var stripEl = h('div', {class:'st-strip'});
-    var boardEl = h('div');
-
     root.append(
-      h('h2', {class:'section-title'}, 'Studio Pipeline'),
-      h('div', {class:'section-sub'}, 'Client Brief → Art Director → Moodboard → Client Pick → 2D Plan → 3D Design → Pricing.'),
+      h('h2', {class:'section-title'}, 'Client Update'),
+      h('div', {class:'section-sub'}, 'Log an update against a project — saved on this device.'),
       h('div', {class:'panel'},
-        statsEl,
-        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Project name'), fName),
-        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Client name'), fClient),
+        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Project name'), fProject),
+        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Assigned to'), fWho),
+        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Update'), fUpdate),
         h('div', {class:'btn-row'}, addBtn)
       ),
-      stripEl,
-      boardEl
+      listEl
     );
 
-    function renderStats(){
-      var done = projects.filter(function(p){ return p.stage === STAGES.length - 1; }).length;
-      var fileCount = projects.reduce(function(sum, p){ return sum + p.files.length; }, 0);
-      statsEl.innerHTML = '<span><b>' + projects.length + '</b> in the pipeline</span>' +
-        '<span><b>' + done + '</b> at pricing</span><span><b>' + fileCount + '</b> files attached</span>';
-    }
-
-    function renderStrip(){
-      stripEl.textContent = '';
-      var allChip = h('div', {class:'st-chip' + (filter === null ? ' active' : '')}, h('span', {class:'cl'}, 'ALL'), h('span', {class:'cc'}, String(projects.length)));
-      allChip.style.background = '#1C1A18'; allChip.style.color = '#F2EEEA';
-      allChip.addEventListener('click', function(){ filter = null; render(); });
-      stripEl.append(allChip);
-      STAGES.forEach(function(s, i){
-        var count = projects.filter(function(p){ return p.stage === i; }).length;
-        var c = h('div', {class:'st-chip' + (filter === i ? ' active' : ''), title:s.name}, h('span', {class:'cl'}, s.short), h('span', {class:'cc'}, String(count)));
-        c.style.background = s.hex; c.style.color = s.text;
-        c.addEventListener('click', function(){ filter = i; openSections[i] = true; render(); });
-        stripEl.append(c);
+    function renderList(){
+      listEl.textContent = '';
+      if(!updates.length){ listEl.append(h('div', {class:'empty'}, h('div', {class:'et'}, 'No updates yet'), h('div', {class:'es'}, 'Add one above.'))); return; }
+      updates.forEach(function(u){
+        var del = h('button', {class:'btn btn-danger', style:'padding:4px 9px;font-size:11px;'}, '✕');
+        var armed = false;
+        del.addEventListener('click', function(){
+          if(!armed){ armed = true; del.textContent = 'Sure?'; setTimeout(function(){ armed = false; del.textContent = '✕'; }, 3500); return; }
+          updates = updates.filter(function(x){ return x.id !== u.id; });
+          saveUpdates(); render();
+          toast('Update removed.');
+        });
+        listEl.append(h('div', {class:'card'},
+          h('div', {class:'card-top'},
+            h('div', {}, h('div', {class:'card-name'}, u.project), h('div', {class:'card-meta'}, (u.assignedTo || '—') + ' • ' + niceDate(u.date))),
+            del
+          ),
+          h('div', {class:'blk'}, h('p', {}, u.update))
+        ));
       });
     }
-
-    function renderAttachCategory(p, cat){
-      var files = p.files.filter(function(f){ return f.category === cat.key; });
-      var lbl = h('label', {class:'st-attach-add'}, '+ Add');
-      var inp = h('input', {type:'file', multiple:true, accept:cat.accept, class:'hidden'});
-      inp.addEventListener('change', function(e){ handleUpload(p, cat.key, e.target.files); inp.value = ''; });
-      lbl.append(inp);
-      var head = h('div', {class:'st-attach-cat-head'}, h('span', {class:'st-attach-cat-label'}, cat.label), lbl);
-      var list = h('div', {class:'st-attach-list'});
-      if(!files.length) list.append(h('span', {class:'st-attach-empty'}, 'No files yet'));
-      else files.forEach(function(f){ list.append(renderFileItem(p, f)); });
-      return h('div', {class:'st-attach-cat'}, head, list);
-    }
-
-    function renderFileItem(p, f){
-      var isImage = f.mime && f.mime.indexOf('image/') === 0;
-      if(isImage){
-        var img = h('img', {class:'st-thumb', src:filesStore[f.id] || ''});
-        img.addEventListener('click', function(){ downloadFile(f); });
-        var del = h('button', {class:'st-thumb-del'}, '✕');
-        del.addEventListener('click', function(e){ e.stopPropagation(); deleteFile(p, f); });
-        return h('div', {class:'st-thumb-wrap'}, img, del);
-      }
-      var dl = h('button', {class:'st-icon-btn'}, '⬇');
-      dl.addEventListener('click', function(){ downloadFile(f); });
-      var del2 = h('button', {class:'st-icon-btn'}, '✕');
-      del2.addEventListener('click', function(){ deleteFile(p, f); });
-      return h('div', {class:'st-file-chip'},
-        h('div', {}, h('div', {class:'st-file-name'}, f.name), h('div', {class:'st-file-size'}, formatSize(f.size))),
-        h('div', {class:'st-file-actions'}, dl, del2)
-      );
-    }
-
-    function handleUpload(p, catKey, fileList){
-      if(!fileList || !fileList.length) return;
-      var files = Array.prototype.slice.call(fileList);
-      var i = 0;
-      function next(){
-        if(i >= files.length){ saveProjects(); render(); return; }
-        var file = files[i++];
-        if(file.size > MAX_FILE_BYTES){ toast('"' + file.name + '" is over 1.2 MB — try a smaller file.', 'err'); next(); return; }
-        var reader = new FileReader();
-        reader.onload = function(){
-          var id = 'f' + Date.now() + Math.random().toString(36).slice(2,6);
-          filesStore[id] = reader.result;
-          if(!persistFiles()){ delete filesStore[id]; toast('Storage is full on this device — could not save "' + file.name + '".', 'err'); next(); return; }
-          p.files.push({id:id, name:file.name, category:catKey, mime:file.type || 'application/octet-stream', size:file.size, uploadedAt:Date.now()});
-          next();
-        };
-        reader.onerror = function(){ toast('Could not read "' + file.name + '".', 'err'); next(); };
-        reader.readAsDataURL(file);
-      }
-      next();
-    }
-
-    function downloadFile(f){
-      var data = filesStore[f.id];
-      if(!data){ toast('File data not found on this device.', 'err'); return; }
-      var a = h('a', {href:data, download:f.name || 'file'});
-      document.body.append(a); a.click(); a.remove();
-    }
-
-    function deleteFile(p, f){
-      p.files = p.files.filter(function(x){ return x.id !== f.id; });
-      delete filesStore[f.id];
-      persistFiles(); saveProjects(); render();
-      toast('File removed.');
-    }
-
-    function moveProject(p, dir){
-      var next = p.stage + dir;
-      if(next < 0 || next > STAGES.length - 1) return;
-      p.stage = next; p.stageEnteredAt = Date.now();
-      openSections[next] = true;
-      saveProjects(); render();
-      toast(dir > 0 ? ('Moved to ' + STAGES[next].name + '.') : ('Sent back to ' + STAGES[next].name + '.'));
-    }
-
-    function renderCard(p, stageIdx){
-      var isFirst = stageIdx === 0, isLast = stageIdx === STAGES.length - 1;
-      var dotsRow = h('div', {class:'st-progress'});
-      STAGES.forEach(function(s, i){
-        var filled = i <= stageIdx;
-        var d = h('div', {class:'st-pdot'});
-        if(filled){ d.style.background = s.hex; d.style.borderColor = s.hex; }
-        dotsRow.append(d);
-      });
-      var assigneeInput = h('input', {type:'text', class:'field-input', placeholder:'Team member name', value:p.assignee || ''});
-      assigneeInput.addEventListener('change', function(){ p.assignee = assigneeInput.value.trim(); saveProjects(); });
-      var notesArea = h('textarea', {class:'field-textarea', placeholder:'Anything the next team should know...', value:p.notes || ''});
-      notesArea.addEventListener('change', function(){ p.notes = notesArea.value.trim(); saveProjects(); });
-
-      var prevBtn = h('button', {class:'st-move', disabled:isFirst}, isFirst ? '—' : ('‹ ' + STAGES[stageIdx-1].short));
-      prevBtn.addEventListener('click', function(){ moveProject(p, -1); });
-      var nextEl;
-      if(isLast){ nextEl = h('span', {class:'st-done'}, '✓ Priced'); }
-      else{
-        nextEl = h('button', {class:'st-move'}, STAGES[stageIdx+1].short + ' ›');
-        nextEl.addEventListener('click', function(){ moveProject(p, 1); });
-      }
-
-      var delBtn = h('button', {class:'btn btn-danger', style:'padding:4px 9px;font-size:11px;'}, '✕');
-      var armed = false;
-      delBtn.addEventListener('click', function(){
-        if(!armed){ armed = true; delBtn.textContent = 'Sure?'; setTimeout(function(){ armed = false; delBtn.textContent = '✕'; }, 3500); return; }
-        p.files.forEach(function(f){ delete filesStore[f.id]; });
-        projects = projects.filter(function(x){ return x.id !== p.id; });
-        persistFiles(); saveProjects(); render();
-        toast('Project removed.');
-      });
-
-      var isOpen = !!attachOpen[p.id];
-      var attToggle = h('div', {class:'st-attach-toggle'}, '📎 ' + p.files.length + ' file' + (p.files.length !== 1 ? 's' : '') + ' attached ' + (isOpen ? '▴' : '▾'));
-      attToggle.addEventListener('click', function(){ attachOpen[p.id] = !isOpen; render(); });
-      var attPanel = h('div', {class:'st-attach-panel' + (isOpen ? ' open' : '')});
-      FILE_CATS.forEach(function(cat){ attPanel.append(renderAttachCategory(p, cat)); });
-      attPanel.append(h('div', {class:'st-upload-hint'}, 'Files up to 1.2 MB each — stored on this device only.'));
-
-      return h('div', {class:'card'},
-        h('div', {class:'card-top'}, h('div', {}, h('div', {class:'card-name'}, p.name), h('div', {class:'card-meta'}, p.client)), delBtn),
-        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Assigned to'), assigneeInput),
-        h('div', {class:'field-row'}, h('span', {class:'field-label'}, 'Notes'), notesArea),
-        dotsRow,
-        h('div', {class:'st-card-bottom'}, prevBtn, h('span', {class:'st-days'}, daysIn(p.stageEnteredAt) + ' here'), nextEl),
-        attToggle, attPanel
-      );
-    }
-
-    function renderBoard(){
-      boardEl.textContent = '';
-      if(!projects.length){
-        boardEl.append(h('div', {class:'empty'}, h('div', {class:'et'}, 'The board is empty'), h('div', {class:'es'}, 'Start a project above — it begins at Client Brief.')));
-        return;
-      }
-      var idxs = filter === null ? STAGES.map(function(_, i){ return i; }) : [filter];
-      idxs.forEach(function(i){
-        var s = STAGES[i];
-        var list = projects.filter(function(p){ return p.stage === i; }).sort(function(a,b){ return b.stageEnteredAt - a.stageEnteredAt; });
-        var isOpen = !!openSections[i];
-        var head = h('div', {class:'st-section-head'},
-          h('div', {class:'st-dot', style:'background:' + s.hex}),
-          h('div', {class:'st-section-title'}, h('span', {class:'st-section-num'}, '0' + (i+1) + ' · '), s.name),
-          h('div', {class:'st-section-count'}, String(list.length)),
-          h('span', {class:'st-chevron'}, isOpen ? '▴' : '▾')
-        );
-        head.addEventListener('click', function(){ openSections[i] = !openSections[i]; render(); });
-        var body = h('div', {class:'st-section-body' + (isOpen ? ' open' : '')}, h('div', {class:'st-section-desc'}, s.desc));
-        if(!list.length) body.append(h('div', {class:'st-empty'}, 'No projects here right now.'));
-        else list.forEach(function(p){ body.append(renderCard(p, i)); });
-        boardEl.append(h('div', {class:'st-section', style:'border-left-color:' + s.hex}, head, body));
-      });
-    }
-
-    function render(){ renderStats(); renderStrip(); renderBoard(); }
+    function render(){ renderList(); }
     return {el:root, render:render};
   }
 
   var TABS = [
     {id:'tech', label:'Tech', hex:'#5C4A52'},
     {id:'site', label:'Site', hex:'#7B8567'},
-    {id:'studio', label:'Studio', hex:'#6B4A38'},
-    {id:'marketing', label:'Marketing', hex:'#8C1F3B'},
+    {id:'design', label:'Design', hex:'#8C1F3B'},
+    {id:'studio', label:'Client Update', hex:'#6B4A38'},
     {id:'tasks', label:'Tasks', hex:'#C99A4A'},
     {id:'dash', label:'Board', hex:'#5FA87D'}
   ];
@@ -1007,7 +819,7 @@
     return {el:wrap, render:function(){ if(isUnlocked()) showContent(); else showLock(); }};
   }
 
-  var views = { site:TeamForm(TEAMS.site), marketing:TeamForm(TEAMS.marketing), tech:TeamForm(TEAMS.tech), tasks:Gate(TasksView(), 'Tasks'), studio:StudioView(), dash:Gate(DashboardView(), 'Board') };
+  var views = { site:TeamForm(TEAMS.site), design:TeamForm(TEAMS.design), tech:TeamForm(TEAMS.tech), tasks:Gate(TasksView(), 'Tasks'), studio:StudioView(), dash:Gate(DashboardView(), 'Board') };
 
   var strip = document.getElementById('strip'), app = document.getElementById('app'), chips = {};
   TABS.forEach(function(t){
