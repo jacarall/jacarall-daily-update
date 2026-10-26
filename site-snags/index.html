@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>JACARALL – نواقص الموقع</title>
 <link rel="icon" href="../assets/logo.png">
 <style>
@@ -16,7 +17,7 @@
 html{-webkit-text-size-adjust:100%}
 body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--plaster);color:var(--ink);
   background-image:radial-gradient(#1c1a18 1px,transparent 1px);background-size:18px 18px;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:28px 16px 60px}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 60px}
 
 header .logo{height:46px;display:block;margin-bottom:14px}
 .kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--soft);direction:ltr;text-align:right;text-transform:uppercase}
@@ -57,7 +58,10 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   font:400 13px 'IBM Plex Sans Arabic',sans-serif;padding:8px 10px;resize:none;display:none}
 .note:focus{outline:none;border-color:var(--burgundy)}
 .item.has-note .note,.item.open .note{display:block}
-.nbtn{background:none;border:none;color:var(--soft);font:12px 'IBM Plex Sans Arabic',sans-serif;margin-top:6px;cursor:pointer;padding:0}
+.nbtn{display:inline-flex;align-items:center;gap:6px;background:#221d1a;border:1px solid var(--clay);color:#d9cfc4;font:500 13px 'IBM Plex Sans Arabic',sans-serif;margin-top:8px;cursor:pointer;padding:5px 12px;border-radius:20px}
+.nbtn:hover,.item.open .nbtn{border-color:var(--ochre);color:var(--ochre)}
+.item.has-note .nbtn{border-color:var(--ochre);color:var(--ochre);background:#2a2216}
+.nbtn svg{width:14px;height:14px}
 .chk{width:28px;height:28px;flex:none;border:2px solid #6b2a3b;border-radius:7px;background:transparent;cursor:pointer;display:grid;place-items:center;transition:.15s}
 .chk svg{width:16px;height:16px;opacity:0}
 .item.done .chk{background:var(--good);border-color:var(--good)}
@@ -75,22 +79,22 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#111;padding:10px 18px;border-radius:30px;font-size:13px;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-.who{display:flex;align-items:center;gap:8px;margin-top:8px}
-.who label{font-size:12px;color:var(--soft);white-space:nowrap}
-.who input{flex:1;min-width:0;background:#0f0e0d;border:1px solid var(--line);border-radius:8px;color:var(--ink);font:500 13px 'IBM Plex Sans Arabic',sans-serif;padding:6px 10px}
-.who input:focus{outline:none;border-color:var(--burgundy)}
-.who input:not(:placeholder-shown){border-color:#4a2a33;color:#f0d4dc}
-.flag .who input{background:#3d0a10;border-color:#7a2430}
+.who,.ven{display:flex;align-items:center;gap:8px}
+.who label,.ven label{font-size:12px;color:var(--soft);white-space:nowrap;min-width:78px}
+.who input,.ven input{flex:1;min-width:0;background:#0f0e0d;border:1px solid var(--line);border-radius:8px;color:var(--ink);font:500 13px 'IBM Plex Sans Arabic',sans-serif;padding:6px 10px}
+.who input:focus,.ven input:focus{outline:none;border-color:var(--burgundy)}
+.who input:not(:placeholder-shown),.ven input:not(:placeholder-shown){border-color:#4a2a33;color:#f0d4dc}
+.flag .who input,.flag .ven input{background:#3d0a10;border-color:#7a2430}
 
 /* grid rows: num | item | assigned | done */
-.item{display:grid;grid-template-columns:24px minmax(0,1fr) 200px 28px;column-gap:14px;row-gap:8px;align-items:start}
-.num{grid-column:1;grid-row:1}.body{grid-column:2;grid-row:1}.who{grid-column:3;grid-row:1;margin-top:0}.chk{grid-column:4;grid-row:1}
-.who label{display:none}
-.cols{display:grid;grid-template-columns:24px minmax(0,1fr) 200px 28px;column-gap:14px;padding:8px 16px;border-top:1px solid var(--line);background:#121110;font-size:11px;color:var(--soft)}
-.cols span:nth-child(3){direction:ltr;text-align:right;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
-.cols span:nth-child(4){text-align:center}
+.item{display:grid;grid-template-columns:24px minmax(0,1fr) 180px 180px 72px;column-gap:14px;row-gap:8px;align-items:start}
+.num{grid-column:1;grid-row:1}.body{grid-column:2;grid-row:1}.ven{grid-column:3;grid-row:1}.who{grid-column:4;grid-row:1}.chk{grid-column:5;grid-row:1;justify-self:center}
+.who label,.ven label{display:none}
+.cols{display:grid;grid-template-columns:24px minmax(0,1fr) 180px 180px 72px;column-gap:14px;padding:8px 16px;border-top:1px solid var(--line);background:#121110;font-size:11px;color:var(--soft)}
+.cols span:nth-child(3),.cols span:nth-child(4){direction:ltr;text-align:right;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
+.cols span:nth-child(5){text-align:center;white-space:nowrap}
 .flag .cols{display:none}
-.x{background:none;border:none;color:#7a6f66;font-size:12px;cursor:pointer;margin-top:6px;margin-right:12px;font-family:'IBM Plex Sans Arabic',sans-serif}
+.x{background:none;border:1px solid #3a2a2d;border-radius:20px;padding:5px 12px;color:#b08a92;font-size:13px;cursor:pointer;margin-top:8px;margin-right:8px;font-family:'IBM Plex Sans Arabic',sans-serif}
 .x:hover{color:#E0567A}
 .add{border-top:1px dashed var(--clay);padding:10px 16px}
 .addbtn{width:100%;background:none;border:1px dashed var(--clay);color:var(--soft);border-radius:9px;padding:10px;font:600 14px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
@@ -104,12 +108,14 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 @media (max-width:620px){
   .item{grid-template-columns:22px minmax(0,1fr) 28px}
   .chk{grid-column:3}
-  .who{grid-column:2;grid-row:2;display:flex}
-  .who label{display:block}
+  .ven{grid-column:2;grid-row:2;display:flex}
+  .who{grid-column:2;grid-row:3;display:flex}
+  .who label,.ven label{display:block}
   .cols{display:none}
 }
 .copy{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--chalk);border:1px solid var(--line);color:var(--ink);border-radius:30px;padding:8px 14px;font:500 13px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
 .copy svg{width:16px;height:16px}
+.copy.wa-top{background:#1F8F4E;border-color:#25D366;color:#fff;margin-right:8px}
 .copy.ok{border-color:var(--good);color:var(--good)}
 .btn.wa{flex-basis:100%;background:#1F8F4E;border-color:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:600}
 .btn.wa svg{width:20px;height:20px}
@@ -127,7 +133,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   .flag{background:#5C0E14;color:#fff}
   header .logo{filter:invert(1) brightness(.2)}
   .note{display:block;background:#fff;border-color:#ddd;color:#111}
-  .who input{background:#fff;border-color:#ddd;color:#111}
+  .who input,.ven input{background:#fff;border-color:#ddd;color:#111}
 }
 </style>
 </head>
@@ -139,6 +145,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     <h1>نواقص الموقع</h1>
     <p class="lead">علّم على كل بند لما يخلص، وتقدر تكتب ملاحظة تحته.</p>
     <button class="copy" id="copyLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg><span>نسخ الرابط</span></button>
+    <button class="copy wa-top" id="waTop"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2z"/></svg><span>إرسال على واتساب</span></button>
   </header>
 
   <div class="progress">
@@ -227,13 +234,19 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 
   function setup(el, custom){
     var id=el.dataset.id, s=state.items[id]||{}, body=el.querySelector('.body');
-    var nb=document.createElement('button'); nb.className='nbtn'; nb.textContent='+ ملاحظة';
+    var pen='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+    var nb=document.createElement('button'); nb.className='nbtn'; nb.innerHTML=pen+'<span>إضافة ملاحظة</span>';
     var ta=document.createElement('textarea'); ta.className='note'; ta.rows=2; ta.placeholder='اكتب ملاحظة...'; ta.value=s.note||'';
     body.appendChild(nb);
     if(custom){ var x=document.createElement('button'); x.className='x'; x.textContent='حذف البند'; body.appendChild(x);
       x.onclick=function(){ if(!confirm('حذف البند ده؟')) return; var sec=el.closest('.card').dataset.sec;
         state.custom[sec]=(state.custom[sec]||[]).filter(function(c){return c.id!==id}); delete state.items[id]; save(); el.remove(); renumber(); update(); toast('اتحذف البند'); }; }
     body.appendChild(ta);
+    var vr=document.createElement('div'); vr.className='ven';
+    var vl=document.createElement('label'); vl.textContent='Vendor name';
+    var vi=document.createElement('input'); vi.type='text'; vi.placeholder='اسم المورّد'; vi.value=s.ven||'';
+    vr.appendChild(vl); vr.appendChild(vi); el.appendChild(vr);
+    vi.oninput=function(){ st().ven=vi.value; save(); };
     var wr=document.createElement('div'); wr.className='who';
     var wl=document.createElement('label'); wl.textContent='Assigned to';
     var wi=document.createElement('input'); wi.type='text'; wi.placeholder='اسم المسؤول'; wi.value=s.who||'';
@@ -242,10 +255,11 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     function st(){ return state.items[id]=state.items[id]||{}; }
     wi.oninput=function(){ st().who=wi.value; save(); };
     if(s.done) el.classList.add('done');
-    if(s.note){ el.classList.add('has-note'); nb.textContent='ملاحظة'; }
+    function nbl(){ nb.querySelector('span').textContent=ta.value?'الملاحظة':'إضافة ملاحظة'; }
+    if(s.note){ el.classList.add('has-note'); } nbl();
     c.onclick=function(){ el.classList.toggle('done'); st().done=el.classList.contains('done'); save(); update(); toast(st().done?'تم ✓':'اتلغت العلامة'); };
     nb.onclick=function(){ el.classList.toggle('open'); if(el.classList.contains('open')) ta.focus(); };
-    ta.oninput=function(){ st().note=ta.value; el.classList.toggle('has-note',!!ta.value); save(); };
+    ta.oninput=function(){ st().note=ta.value; el.classList.toggle('has-note',!!ta.value); nbl(); save(); };
   }
 
   function makeItem(c){
@@ -265,7 +279,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   document.querySelectorAll('.card[data-sec]').forEach(function(card){
     var sec=card.dataset.sec, box=card.querySelector('.items');
     var cols=document.createElement('div'); cols.className='cols';
-    cols.innerHTML='<span>#</span><span>البند</span><span>Assigned to</span><span>تم</span>';
+    cols.innerHTML='<span>#</span><span>البند</span><span>Vendor name</span><span>Assigned to</span><span>Check list</span>';
     box.insertBefore(cols, box.firstChild);
     (state.custom[sec]||[]).forEach(function(c){ var el=makeItem(c); box.appendChild(el); setup(el,true); });
     var add=document.createElement('div'); add.className='add';
@@ -312,9 +326,9 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
       card.querySelectorAll('.item').forEach(function(it){
         var done=it.classList.contains('done'); t++; if(done) d++;
         var txt=it.querySelector('.t').textContent.replace(/\s+/g,' ').trim();
-        var who=it.querySelector('.who input').value.trim(), note=it.querySelector('.note').value.trim();
+        var who=it.querySelector('.who input').value.trim(), ven=it.querySelector('.ven input').value.trim(), note=it.querySelector('.note').value.trim();
         var num=it.querySelector('.num').textContent.trim();
-        var l=(done?'✅ ':'⬜ ')+num+'. '+txt+(who?' — 👷 '+who:'');
+        var l=(done?'✅ ':'⬜ ')+num+'. '+txt+(ven?' — 🏭 '+ven:'')+(who?' — 👷 '+who:'');
         lines.push(l); if(note) lines.push('    📝 '+note);
       });
       lines.push('');
@@ -322,6 +336,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     lines.push('المنجز: '+d+' / '+t); lines.push(''); lines.push(url);
     window.open('https://wa.me/?text='+encodeURIComponent(lines.join('\n')),'_blank');
   };
+  document.getElementById('waTop').onclick=function(){ document.getElementById('wa').onclick(); };
   document.getElementById('print').onclick=function(){ window.print(); };
   document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والأسماء والملاحظات والبنود المضافة من الجهاز ده؟')) return; state={}; save(); location.reload(); };
 })();
