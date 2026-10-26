@@ -75,6 +75,12 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#111;padding:10px 18px;border-radius:30px;font-size:13px;transition:.25s;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
+.who{display:flex;align-items:center;gap:8px;margin-top:8px}
+.who label{font-size:12px;color:var(--soft);white-space:nowrap}
+.who input{flex:1;min-width:0;background:#0f0e0d;border:1px solid var(--line);border-radius:8px;color:var(--ink);font:500 13px 'IBM Plex Sans Arabic',sans-serif;padding:6px 10px}
+.who input:focus{outline:none;border-color:var(--burgundy)}
+.who input:not(:placeholder-shown){border-color:#4a2a33;color:#f0d4dc}
+.flag .who input{background:#3d0a10;border-color:#7a2430}
 .panel{display:none}.panel.on{display:block}
 
 @media print{
@@ -88,6 +94,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   .flag{background:#5C0E14;color:#fff}
   header .logo{filter:invert(1) brightness(.2)}
   .note{display:block;background:#fff;border-color:#ddd;color:#111}
+  .who input{background:#fff;border-color:#ddd;color:#111}
 }
 </style>
 </head>
@@ -183,6 +190,11 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     var id=el.dataset.id, s=state[id]||{}, body=el.querySelector('.body');
     var nb=document.createElement('button'); nb.className='nbtn'; nb.textContent='+ ملاحظة';
     var ta=document.createElement('textarea'); ta.className='note'; ta.rows=2; ta.placeholder='اكتب ملاحظة...'; ta.value=s.note||'';
+    var wr=document.createElement('div'); wr.className='who';
+    var wl=document.createElement('label'); wl.textContent='Assigned to';
+    var wi=document.createElement('input'); wi.type='text'; wi.placeholder='اسم المسؤول'; wi.value=s.who||'';
+    wr.appendChild(wl); wr.appendChild(wi); body.appendChild(wr);
+    wi.oninput=function(){ state[id]=state[id]||{}; state[id].who=wi.value; save(); };
     body.appendChild(nb); body.appendChild(ta);
     var c=document.createElement('button'); c.className='chk'; c.setAttribute('aria-label','تم'); c.innerHTML=tick; el.appendChild(c);
     if(s.done) el.classList.add('done');
@@ -208,7 +220,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   };});
   document.querySelectorAll('.card-h').forEach(function(h){ h.onclick=function(){ h.parentNode.classList.toggle('closed'); }; });
   document.getElementById('print').onclick=function(){ window.print(); };
-  document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والملاحظات من الجهاز ده؟')) return; state={}; save(); location.reload(); };
+  document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والأسماء والملاحظات من الجهاز ده؟')) return; state={}; save(); location.reload(); };
 })();
 </script>
 </body>
