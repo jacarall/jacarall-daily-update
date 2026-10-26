@@ -45,7 +45,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 .card-h .cnt{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--soft);display:flex;gap:10px;align-items:center}
 .chev{width:9px;height:9px;border-left:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(-45deg);transition:transform .2s;margin-top:-4px}
 .card.closed .chev{transform:rotate(135deg);margin-top:4px}
-.card.closed .items{display:none}
+.card.closed .items,.card.closed .add{display:none}
 
 .item{display:flex;gap:12px;padding:12px 16px;border-top:1px solid var(--line);align-items:flex-start}
 .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ochre);padding-top:3px;min-width:20px}
@@ -81,11 +81,39 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 .who input:focus{outline:none;border-color:var(--burgundy)}
 .who input:not(:placeholder-shown){border-color:#4a2a33;color:#f0d4dc}
 .flag .who input{background:#3d0a10;border-color:#7a2430}
+
+/* grid rows: num | item | assigned | done */
+.item{display:grid;grid-template-columns:24px minmax(0,1fr) 200px 28px;column-gap:14px;row-gap:8px;align-items:start}
+.num{grid-column:1;grid-row:1}.body{grid-column:2;grid-row:1}.who{grid-column:3;grid-row:1;margin-top:0}.chk{grid-column:4;grid-row:1}
+.who label{display:none}
+.cols{display:grid;grid-template-columns:24px minmax(0,1fr) 200px 28px;column-gap:14px;padding:8px 16px;border-top:1px solid var(--line);background:#121110;font-size:11px;color:var(--soft)}
+.cols span:nth-child(3){direction:ltr;text-align:right;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
+.cols span:nth-child(4){text-align:center}
+.flag .cols{display:none}
+.x{background:none;border:none;color:#7a6f66;font-size:12px;cursor:pointer;margin-top:6px;margin-right:12px;font-family:'IBM Plex Sans Arabic',sans-serif}
+.x:hover{color:#E0567A}
+.add{border-top:1px dashed var(--clay);padding:10px 16px}
+.addbtn{width:100%;background:none;border:1px dashed var(--clay);color:var(--soft);border-radius:9px;padding:10px;font:600 14px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
+.addbtn:hover{color:var(--ink);border-color:var(--burgundy)}
+.addform{display:none;gap:8px}
+.add.open .addform{display:flex}.add.open .addbtn{display:none}
+.addform input{flex:1;min-width:0;background:#0f0e0d;border:1px solid var(--burgundy);border-radius:8px;color:var(--ink);font:500 14px 'IBM Plex Sans Arabic',sans-serif;padding:9px 11px}
+.addform input:focus{outline:none}
+.addform button{background:var(--burgundy);border:none;color:#fff;border-radius:8px;padding:0 16px;font:600 14px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
+.addform button.cancel{background:var(--chalk);border:1px solid var(--line);color:var(--soft)}
+@media (max-width:620px){
+  .item{grid-template-columns:22px minmax(0,1fr) 28px}
+  .chk{grid-column:3}
+  .who{grid-column:2;grid-row:2;display:flex}
+  .who label{display:block}
+  .cols{display:none}
+}
 .panel{display:none}.panel.on{display:block}
 
 @media print{
   body{background:#fff;color:#111}
-  .tabs,.tools,.progress,.nbtn,.toast{display:none!important}
+  .tabs,.tools,.progress,.nbtn,.toast,.add,.x{display:none!important}
+  .cols{background:#f4f4f4;color:#555}
   .panel{display:block!important;page-break-after:always}
   .card{background:#fff;border-color:#ddd;border-right-color:#5C0E14}
   .card.closed .items{display:block}
@@ -113,13 +141,13 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   </div>
 
   <div class="tabs">
-    <button class="tab on" data-p="p1">الموقع والكوريدورات<small id="c1">0 / 18</small></button>
-    <button class="tab" data-p="p2">الدور الأرضي – الجاليري<small id="c2">0 / 7</small></button>
+    <button class="tab on" data-p="p1">الموقع والكوريدورات<small id="c1"></small></button>
+    <button class="tab" data-p="p2">الدور الأرضي – الجاليري<small id="c2"></small></button>
   </div>
 
   <div class="panel on" id="p1">
-    <section class="card">
-      <div class="card-h"><h2>الموقع – عام</h2><span class="cnt"><span>13 بند</span><i class="chev"></i></span></div>
+    <section class="card" data-sec="g">
+      <div class="card-h"><h2>الموقع – عام</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
       <div class="items">
         <div class="item" data-id="g1"><span class="num">01</span><div class="body"><div class="t">ديكور الحديد <span class="d">– الأبواب والتجاليد</span></div></div></div>
         <div class="item" data-id="g2"><span class="num">02</span><div class="body"><div class="t">الزجاج <span class="d">– أبواب المكاتب، قطاع ألومنيوم 4×4</span></div></div></div>
@@ -137,8 +165,8 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
       </div>
     </section>
 
-    <section class="card">
-      <div class="card-h"><h2>الكوريدورات</h2><span class="cnt"><span>5 بنود</span><i class="chev"></i></span></div>
+    <section class="card" data-sec="c">
+      <div class="card-h"><h2>الكوريدورات</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
       <div class="items">
         <div class="item" data-id="c1"><span class="num">01</span><div class="body"><div class="t">تنفيذ تصميم الأسانسير</div></div></div>
         <div class="item" data-id="c2"><span class="num">02</span><div class="body"><div class="t">الدهانات <span class="tag">Colortech</span></div></div></div>
@@ -150,8 +178,8 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   </div>
 
   <div class="panel" id="p2">
-    <section class="card">
-      <div class="card-h"><h2>الدور الأرضي – الجاليري</h2><span class="cnt"><span>6 بنود</span><i class="chev"></i></span></div>
+    <section class="card" data-sec="a">
+      <div class="card-h"><h2>الدور الأرضي – الجاليري</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
       <div class="items">
         <div class="item" data-id="a1"><span class="num">01</span><div class="body"><div class="t">الباب الزجاج</div></div></div>
         <div class="item" data-id="a2"><span class="num">02</span><div class="body"><div class="t">الحمام</div></div></div>
@@ -180,31 +208,74 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 (function(){
   var KEY='jacarall-site-snags-v1', state={};
   try{ state=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ state={}; }
+  if(typeof state!=='object'||!state) state={};
+  state.items=state.items||{}; state.custom=state.custom||{};
+  // migrate v1 flat state
+  Object.keys(state).forEach(function(k){ if(k!=='items'&&k!=='custom'){ state.items[k]=state[k]; delete state[k]; } });
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
   var toastT;
   function toast(m){ var t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('on')},1600); }
   var tick='<svg viewBox="0 0 16 16" fill="none" stroke="#0A0A0A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+  function pad(n){ return (n<10?'0':'')+n; }
 
-  var items=[].slice.call(document.querySelectorAll('.item'));
-  items.forEach(function(el){
-    var id=el.dataset.id, s=state[id]||{}, body=el.querySelector('.body');
+  function setup(el, custom){
+    var id=el.dataset.id, s=state.items[id]||{}, body=el.querySelector('.body');
     var nb=document.createElement('button'); nb.className='nbtn'; nb.textContent='+ ملاحظة';
     var ta=document.createElement('textarea'); ta.className='note'; ta.rows=2; ta.placeholder='اكتب ملاحظة...'; ta.value=s.note||'';
+    body.appendChild(nb);
+    if(custom){ var x=document.createElement('button'); x.className='x'; x.textContent='حذف البند'; body.appendChild(x);
+      x.onclick=function(){ if(!confirm('حذف البند ده؟')) return; var sec=el.closest('.card').dataset.sec;
+        state.custom[sec]=(state.custom[sec]||[]).filter(function(c){return c.id!==id}); delete state.items[id]; save(); el.remove(); renumber(); update(); toast('اتحذف البند'); }; }
+    body.appendChild(ta);
     var wr=document.createElement('div'); wr.className='who';
     var wl=document.createElement('label'); wl.textContent='Assigned to';
     var wi=document.createElement('input'); wi.type='text'; wi.placeholder='اسم المسؤول'; wi.value=s.who||'';
-    wr.appendChild(wl); wr.appendChild(wi); body.appendChild(wr);
-    wi.oninput=function(){ state[id]=state[id]||{}; state[id].who=wi.value; save(); };
-    body.appendChild(nb); body.appendChild(ta);
+    wr.appendChild(wl); wr.appendChild(wi); el.appendChild(wr);
     var c=document.createElement('button'); c.className='chk'; c.setAttribute('aria-label','تم'); c.innerHTML=tick; el.appendChild(c);
+    function st(){ return state.items[id]=state.items[id]||{}; }
+    wi.oninput=function(){ st().who=wi.value; save(); };
     if(s.done) el.classList.add('done');
-    if(s.note) { el.classList.add('has-note'); nb.textContent='ملاحظة'; }
-    c.onclick=function(){ el.classList.toggle('done'); state[id]=state[id]||{}; state[id].done=el.classList.contains('done'); save(); update(); toast(state[id].done?'تم ✓':'اتلغت العلامة'); };
+    if(s.note){ el.classList.add('has-note'); nb.textContent='ملاحظة'; }
+    c.onclick=function(){ el.classList.toggle('done'); st().done=el.classList.contains('done'); save(); update(); toast(st().done?'تم ✓':'اتلغت العلامة'); };
     nb.onclick=function(){ el.classList.toggle('open'); if(el.classList.contains('open')) ta.focus(); };
-    ta.oninput=function(){ state[id]=state[id]||{}; state[id].note=ta.value; el.classList.toggle('has-note',!!ta.value); save(); };
-  });
+    ta.oninput=function(){ st().note=ta.value; el.classList.toggle('has-note',!!ta.value); save(); };
+  }
 
-  function count(sel){ var a=document.querySelectorAll(sel+' .item'), d=document.querySelectorAll(sel+' .item.done'); return [d.length,a.length]; }
+  function makeItem(c){
+    var el=document.createElement('div'); el.className='item'; el.dataset.id=c.id;
+    el.innerHTML='<span class="num"></span><div class="body"><div class="t"></div></div>';
+    el.querySelector('.t').textContent=c.text; return el;
+  }
+  function renumber(){
+    document.querySelectorAll('.card[data-sec]').forEach(function(card){
+      var its=card.querySelectorAll('.item'); its.forEach(function(it,i){ it.querySelector('.num').textContent=pad(i+1); });
+      var n=its.length; card.querySelector('.ncnt').textContent=n+(n>2&&n<11?' بنود':' بند');
+    });
+  }
+
+  document.querySelectorAll('.item').forEach(function(el){ setup(el,false); });
+
+  document.querySelectorAll('.card[data-sec]').forEach(function(card){
+    var sec=card.dataset.sec, box=card.querySelector('.items');
+    var cols=document.createElement('div'); cols.className='cols';
+    cols.innerHTML='<span>#</span><span>البند</span><span>Assigned to</span><span>تم</span>';
+    box.insertBefore(cols, box.firstChild);
+    (state.custom[sec]||[]).forEach(function(c){ var el=makeItem(c); box.appendChild(el); setup(el,true); });
+    var add=document.createElement('div'); add.className='add';
+    add.innerHTML='<button class="addbtn">+ إضافة بند</button><div class="addform"><input type="text" placeholder="اسم البند الجديد"><button class="ok">إضافة</button><button class="cancel">إلغاء</button></div>';
+    card.appendChild(add);
+    var inp=add.querySelector('input');
+    add.querySelector('.addbtn').onclick=function(){ add.classList.add('open'); inp.focus(); };
+    add.querySelector('.cancel').onclick=function(){ add.classList.remove('open'); inp.value=''; };
+    function submit(){ var t=inp.value.trim(); if(!t){ inp.focus(); return; }
+      var c={id:'u'+Date.now().toString(36),text:t}; (state.custom[sec]=state.custom[sec]||[]).push(c); save();
+      var el=makeItem(c); box.appendChild(el); setup(el,true); inp.value=''; add.classList.remove('open'); renumber(); update(); toast('اتضاف البند'); }
+    add.querySelector('.ok').onclick=submit;
+    inp.onkeydown=function(e){ if(e.key==='Enter') submit(); if(e.key==='Escape') add.querySelector('.cancel').onclick(); };
+  });
+  renumber();
+
+  function count(sel){ return [document.querySelectorAll(sel+' .item.done').length, document.querySelectorAll(sel+' .item').length]; }
   function update(){
     var a=count('#p1'), b=count('#p2'), d=a[0]+b[0], t=a[1]+b[1];
     document.getElementById('c1').textContent=a[0]+' / '+a[1];
@@ -220,7 +291,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   };});
   document.querySelectorAll('.card-h').forEach(function(h){ h.onclick=function(){ h.parentNode.classList.toggle('closed'); }; });
   document.getElementById('print').onclick=function(){ window.print(); };
-  document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والأسماء والملاحظات من الجهاز ده؟')) return; state={}; save(); location.reload(); };
+  document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والأسماء والملاحظات والبنود المضافة من الجهاز ده؟')) return; state={}; save(); location.reload(); };
 })();
 </script>
 </body>
