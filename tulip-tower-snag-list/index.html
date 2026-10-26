@@ -34,7 +34,7 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
 
 .tabs{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1;min-width:150px;border:1px solid var(--line);background:var(--chalk);color:var(--ink);
+.tab{flex:1;min-width:120px;border:1px solid var(--line);background:var(--chalk);color:var(--ink);
   border-radius:10px;padding:12px 10px;font:600 14px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer;position:relative}
 .tab::before{content:"";position:absolute;top:7px;left:50%;width:7px;height:7px;border-radius:50%;background:#000;transform:translateX(-50%)}
 .tab.on{background:var(--burgundy);border-color:#c45a74}
@@ -108,6 +108,7 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
 .addform button{background:var(--burgundy);border:none;color:#fff;border-radius:8px;padding:0 16px;font:600 14px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
 .addform button.cancel{background:var(--chalk);border:1px solid var(--line);color:var(--soft)}
 @media (max-width:620px){
+  .tab{min-width:0;padding:12px 6px;font-size:13px}
   .item{grid-template-columns:22px minmax(0,1fr) 28px}
   .chk{grid-column:3}
   .ven{grid-column:2;grid-row:2;display:flex}
@@ -159,6 +160,7 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
   <div class="tabs">
     <button class="tab on" data-p="p1">الدور السابع<small id="c1"></small></button>
     <button class="tab" data-p="p2">الدور الأرضي / Gallery<small id="c2"></small></button>
+    <button class="tab" data-p="p3">الكوريدورات<small id="c3"></small></button>
   </div>
 
   <div class="panel on" id="p1">
@@ -195,6 +197,14 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
         <div class="item" data-id="a6"><span class="num">06</span><div class="body"><div class="t">الحوض الرخام</div></div></div>
       </div>
     </section>
+    <section class="card flag">
+      <div class="items">
+        <div class="item" data-id="h1"><span class="num">★</span><div class="body"><div class="t">مقابض الأبواب بالكامل <span class="d" style="color:#e9c6cd">– لكل الأدوار</span></div></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" id="p3">
     <section class="card" data-sec="c">
       <div class="card-h"><h2>الكوريدورات</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
       <div class="items">
@@ -203,11 +213,6 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
         <div class="item" data-id="c3"><span class="num">03</span><div class="body"><div class="t">الجبسون بورد</div></div></div>
         <div class="item" data-id="c4"><span class="num">04</span><div class="body"><div class="t">أعمال MEP</div></div></div>
         <div class="item" data-id="c5"><span class="num">05</span><div class="body"><div class="t">الأبواب الخشب <span class="d">– أبواب الطوارئ</span></div></div></div>
-      </div>
-    </section>
-    <section class="card flag">
-      <div class="items">
-        <div class="item" data-id="h1"><span class="num">★</span><div class="body"><div class="t">مقابض الأبواب بالكامل <span class="d" style="color:#e9c6cd">– لكل الأدوار</span></div></div></div>
       </div>
     </section>
   </div>
@@ -301,9 +306,8 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
 
   function count(sel){ return [document.querySelectorAll(sel+' .item.done').length, document.querySelectorAll(sel+' .item').length]; }
   function update(){
-    var a=count('#p1'), b=count('#p2'), d=a[0]+b[0], t=a[1]+b[1];
-    document.getElementById('c1').textContent=a[0]+' / '+a[1];
-    document.getElementById('c2').textContent=b[0]+' / '+b[1];
+    var d=0,t=0;
+    ['1','2','3'].forEach(function(n){ var c=count('#p'+n), el=document.getElementById('c'+n); if(el) el.textContent=c[0]+' / '+c[1]; d+=c[0]; t+=c[1]; });
     document.getElementById('pDone').textContent=d; document.getElementById('pAll').textContent=t;
     document.getElementById('pBar').style.width=(t?d/t*100:0)+'%';
   }
