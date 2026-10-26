@@ -157,7 +157,7 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
   </div>
 
   <div class="tabs">
-    <button class="tab on" data-p="p1">الموقع والكوريدورات<small id="c1"></small></button>
+    <button class="tab on" data-p="p1">الدور السابع<small id="c1"></small></button>
     <button class="tab" data-p="p2">الدور الأرضي – الجاليري<small id="c2"></small></button>
   </div>
 
@@ -324,7 +324,9 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
   document.getElementById('wa').onclick=function(){
     var url=location.href.split('#')[0], lines=['*JACARALL – Tulip Tower Snag List*','*نواقص الموقع*',''];
     var d=0,t=0;
-    document.querySelectorAll('.panel .card').forEach(function(card){
+    document.querySelectorAll('.panel').forEach(function(panel){
+      var tb=document.querySelector('.tab[data-p="'+panel.id+'"]'); if(tb) lines.push('━━ *'+tb.childNodes[0].textContent.trim()+'* ━━');
+    panel.querySelectorAll('.card').forEach(function(card){
       var h=card.querySelector('.card-h h2'); if(h) lines.push('*'+h.textContent.trim()+'*');
       card.querySelectorAll('.item').forEach(function(it){
         var done=it.classList.contains('done'); t++; if(done) d++;
@@ -335,6 +337,7 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
         lines.push(l); if(note) lines.push('    📝 '+note);
       });
       lines.push('');
+    });
     });
     lines.push('المنجز: '+d+' / '+t); lines.push(''); lines.push(url);
     window.open('https://wa.me/?text='+encodeURIComponent(lines.join('\n')),'_blank');
