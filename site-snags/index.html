@@ -111,6 +111,8 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
 .copy{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--chalk);border:1px solid var(--line);color:var(--ink);border-radius:30px;padding:8px 14px;font:500 13px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
 .copy svg{width:16px;height:16px}
 .copy.ok{border-color:var(--good);color:var(--good)}
+.btn.wa{flex-basis:100%;background:#1F8F4E;border-color:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:600}
+.btn.wa svg{width:20px;height:20px}
 .panel{display:none}.panel.on{display:block}
 
 @media print{
@@ -203,6 +205,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   <div class="tools">
     <button class="btn pri" id="print">طباعة / PDF</button>
     <button class="btn" id="reset">مسح العلامات</button>
+    <button class="btn wa" id="wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.41 1.3-1.95 1.38-.5.07-1.13.1-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.18-4.94-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.24.58.82 2 .89 2.14.07.15.12.32.02.51-.1.19-.14.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.92-1.13.19-.29.38-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/></svg>إرسال على واتساب</button>
   </div>
   <div class="foot">JACARALL · SITE CHECKLIST</div>
 </div>
@@ -300,6 +303,24 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     function done(){ cb.classList.add('ok'); cb.querySelector('span').textContent='اتنسخ ✓'; toast('اتنسخ الرابط'); setTimeout(function(){ cb.classList.remove('ok'); cb.querySelector('span').textContent='نسخ الرابط'; },2000); }
     function fallback(){ var t=document.createElement('textarea'); t.value=url; t.setAttribute('readonly',''); t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); t.setSelectionRange(0,99999); try{ document.execCommand('copy'); done(); }catch(e){ prompt('انسخ الرابط:',url); } document.body.removeChild(t); }
     if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(url).then(done,fallback); } else fallback();
+  };
+  document.getElementById('wa').onclick=function(){
+    var url=location.href.split('#')[0], lines=['*JACARALL – نواقص الموقع*',''];
+    var d=0,t=0;
+    document.querySelectorAll('.panel .card').forEach(function(card){
+      var h=card.querySelector('.card-h h2'); if(h) lines.push('*'+h.textContent.trim()+'*');
+      card.querySelectorAll('.item').forEach(function(it){
+        var done=it.classList.contains('done'); t++; if(done) d++;
+        var txt=it.querySelector('.t').textContent.replace(/\s+/g,' ').trim();
+        var who=it.querySelector('.who input').value.trim(), note=it.querySelector('.note').value.trim();
+        var num=it.querySelector('.num').textContent.trim();
+        var l=(done?'✅ ':'⬜ ')+num+'. '+txt+(who?' — 👷 '+who:'');
+        lines.push(l); if(note) lines.push('    📝 '+note);
+      });
+      lines.push('');
+    });
+    lines.push('المنجز: '+d+' / '+t); lines.push(''); lines.push(url);
+    window.open('https://wa.me/?text='+encodeURIComponent(lines.join('\n')),'_blank');
   };
   document.getElementById('print').onclick=function(){ window.print(); };
   document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والأسماء والملاحظات والبنود المضافة من الجهاز ده؟')) return; state={}; save(); location.reload(); };
