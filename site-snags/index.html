@@ -108,11 +108,14 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
   .who label{display:block}
   .cols{display:none}
 }
+.copy{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--chalk);border:1px solid var(--line);color:var(--ink);border-radius:30px;padding:8px 14px;font:500 13px 'IBM Plex Sans Arabic',sans-serif;cursor:pointer}
+.copy svg{width:16px;height:16px}
+.copy.ok{border-color:var(--good);color:var(--good)}
 .panel{display:none}.panel.on{display:block}
 
 @media print{
   body{background:#fff;color:#111}
-  .tabs,.tools,.progress,.nbtn,.toast,.add,.x{display:none!important}
+  .copy,.tabs,.tools,.progress,.nbtn,.toast,.add,.x{display:none!important}
   .cols{background:#f4f4f4;color:#555}
   .panel{display:block!important;page-break-after:always}
   .card{background:#fff;border-color:#ddd;border-right-color:#5C0E14}
@@ -133,6 +136,7 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     <div class="kicker">Site Snag List · نواقص الموقع</div>
     <h1>نواقص الموقع</h1>
     <p class="lead">علّم على كل بند لما يخلص، وتقدر تكتب ملاحظة تحته.</p>
+    <button class="copy" id="copyLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg><span>نسخ الرابط</span></button>
   </header>
 
   <div class="progress">
@@ -290,6 +294,13 @@ h1{font-size:28px;font-weight:700;margin:6px 0 4px}
     document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')}); document.getElementById(t.dataset.p).classList.add('on');
   };});
   document.querySelectorAll('.card-h').forEach(function(h){ h.onclick=function(){ h.parentNode.classList.toggle('closed'); }; });
+  var cb=document.getElementById('copyLink');
+  cb.onclick=function(){
+    var url=location.href.split('#')[0];
+    function done(){ cb.classList.add('ok'); cb.querySelector('span').textContent='اتنسخ ✓'; toast('اتنسخ الرابط'); setTimeout(function(){ cb.classList.remove('ok'); cb.querySelector('span').textContent='نسخ الرابط'; },2000); }
+    function fallback(){ var t=document.createElement('textarea'); t.value=url; t.setAttribute('readonly',''); t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); t.setSelectionRange(0,99999); try{ document.execCommand('copy'); done(); }catch(e){ prompt('انسخ الرابط:',url); } document.body.removeChild(t); }
+    if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(url).then(done,fallback); } else fallback();
+  };
   document.getElementById('print').onclick=function(){ window.print(); };
   document.getElementById('reset').onclick=function(){ if(!confirm('مسح كل العلامات والأسماء والملاحظات والبنود المضافة من الجهاز ده؟')) return; state={}; save(); location.reload(); };
 })();
