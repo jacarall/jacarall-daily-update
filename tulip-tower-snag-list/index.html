@@ -193,6 +193,11 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
         <div class="item" data-id="a4"><span class="num">04</span><div class="body"><div class="t">الفواصل وتجهيز الأرضيات</div></div></div>
         <div class="item" data-id="a5"><span class="num">05</span><div class="body"><div class="t">اختيار ورق الحائط</div></div></div>
         <div class="item" data-id="a6"><span class="num">06</span><div class="body"><div class="t">الحوض الرخام</div></div></div>
+      </div>
+    </section>
+    <section class="card" data-sec="c">
+      <div class="card-h"><h2>الكوريدورات</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
+      <div class="items">
         <div class="item" data-id="c1"><span class="num">01</span><div class="body"><div class="t">تنفيذ تصميم الأسانسير</div></div></div>
         <div class="item" data-id="c2"><span class="num">02</span><div class="body"><div class="t">الدهانات</div></div></div>
         <div class="item" data-id="c3"><span class="num">03</span><div class="body"><div class="t">الجبسون بورد</div></div></div>
@@ -222,7 +227,6 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
   try{ state=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ state={}; }
   if(typeof state!=='object'||!state) state={};
   state.items=state.items||{}; state.custom=state.custom||{};
-  if(state.custom.c&&state.custom.c.length){ state.custom.a=(state.custom.a||[]).concat(state.custom.c); delete state.custom.c; }
   // migrate v1 flat state
   Object.keys(state).forEach(function(k){ if(k!=='items'&&k!=='custom'){ state.items[k]=state[k]; delete state[k]; } });
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
