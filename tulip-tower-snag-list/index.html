@@ -158,12 +158,12 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
 
   <div class="tabs">
     <button class="tab on" data-p="p1">الدور السابع<small id="c1"></small></button>
-    <button class="tab" data-p="p2">الدور الأرضي – الجاليري<small id="c2"></small></button>
+    <button class="tab" data-p="p2">الدور الأرضي / Gallery<small id="c2"></small></button>
   </div>
 
   <div class="panel on" id="p1">
     <section class="card" data-sec="g">
-      <div class="card-h"><h2>الموقع – عام</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
+      <div class="card-h"><h2>الدور السابع</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
       <div class="items">
         <div class="item" data-id="g1"><span class="num">01</span><div class="body"><div class="t">ديكور الحديد <span class="d">– الأبواب والتجاليد</span></div></div></div>
         <div class="item" data-id="g2"><span class="num">02</span><div class="body"><div class="t">الزجاج <span class="d">– أبواب المكاتب، قطاع ألومنيوم 4×4</span></div></div></div>
@@ -181,21 +181,11 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
       </div>
     </section>
 
-    <section class="card" data-sec="c">
-      <div class="card-h"><h2>الكوريدورات</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
-      <div class="items">
-        <div class="item" data-id="c1"><span class="num">01</span><div class="body"><div class="t">تنفيذ تصميم الأسانسير</div></div></div>
-        <div class="item" data-id="c2"><span class="num">02</span><div class="body"><div class="t">الدهانات</div></div></div>
-        <div class="item" data-id="c3"><span class="num">03</span><div class="body"><div class="t">الجبسون بورد</div></div></div>
-        <div class="item" data-id="c4"><span class="num">04</span><div class="body"><div class="t">أعمال MEP</div></div></div>
-        <div class="item" data-id="c5"><span class="num">05</span><div class="body"><div class="t">الأبواب الخشب <span class="d">– أبواب الطوارئ</span></div></div></div>
-      </div>
-    </section>
   </div>
 
   <div class="panel" id="p2">
     <section class="card" data-sec="a">
-      <div class="card-h"><h2>الدور الأرضي – الجاليري</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
+      <div class="card-h"><h2>الدور الأرضي / Gallery</h2><span class="cnt"><span class="ncnt"></span><i class="chev"></i></span></div>
       <div class="items">
         <div class="item" data-id="a1"><span class="num">01</span><div class="body"><div class="t">الباب الزجاج</div></div></div>
         <div class="item" data-id="a2"><span class="num">02</span><div class="body"><div class="t">الحمام</div></div></div>
@@ -203,6 +193,11 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
         <div class="item" data-id="a4"><span class="num">04</span><div class="body"><div class="t">الفواصل وتجهيز الأرضيات</div></div></div>
         <div class="item" data-id="a5"><span class="num">05</span><div class="body"><div class="t">اختيار ورق الحائط</div></div></div>
         <div class="item" data-id="a6"><span class="num">06</span><div class="body"><div class="t">الحوض الرخام</div></div></div>
+        <div class="item" data-id="c1"><span class="num">01</span><div class="body"><div class="t">تنفيذ تصميم الأسانسير</div></div></div>
+        <div class="item" data-id="c2"><span class="num">02</span><div class="body"><div class="t">الدهانات</div></div></div>
+        <div class="item" data-id="c3"><span class="num">03</span><div class="body"><div class="t">الجبسون بورد</div></div></div>
+        <div class="item" data-id="c4"><span class="num">04</span><div class="body"><div class="t">أعمال MEP</div></div></div>
+        <div class="item" data-id="c5"><span class="num">05</span><div class="body"><div class="t">الأبواب الخشب <span class="d">– أبواب الطوارئ</span></div></div></div>
       </div>
     </section>
     <section class="card flag">
@@ -227,6 +222,7 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
   try{ state=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ state={}; }
   if(typeof state!=='object'||!state) state={};
   state.items=state.items||{}; state.custom=state.custom||{};
+  if(state.custom.c&&state.custom.c.length){ state.custom.a=(state.custom.a||[]).concat(state.custom.c); delete state.custom.c; }
   // migrate v1 flat state
   Object.keys(state).forEach(function(k){ if(k!=='items'&&k!=='custom'){ state.items[k]=state[k]; delete state[k]; } });
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
@@ -325,9 +321,9 @@ h2.ar{font-size:18px;font-weight:600;color:#d9cfc4;margin-bottom:4px}
     var url=location.href.split('#')[0], lines=['*JACARALL – Tulip Tower Snag List*','*نواقص الموقع*',''];
     var d=0,t=0;
     document.querySelectorAll('.panel').forEach(function(panel){
-      var tb=document.querySelector('.tab[data-p="'+panel.id+'"]'); if(tb) lines.push('━━ *'+tb.childNodes[0].textContent.trim()+'* ━━');
+      var tb=document.querySelector('.tab[data-p="'+panel.id+'"]'), tname=tb?tb.childNodes[0].textContent.trim():''; if(tname) lines.push('━━ *'+tname+'* ━━');
     panel.querySelectorAll('.card').forEach(function(card){
-      var h=card.querySelector('.card-h h2'); if(h) lines.push('*'+h.textContent.trim()+'*');
+      var h=card.querySelector('.card-h h2'); if(h&&h.textContent.trim()!==tname) lines.push('*'+h.textContent.trim()+'*');
       card.querySelectorAll('.item').forEach(function(it){
         var done=it.classList.contains('done'); t++; if(done) d++;
         var txt=it.querySelector('.t').textContent.replace(/\s+/g,' ').trim();
