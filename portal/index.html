@@ -295,6 +295,31 @@ a.wchip:hover{border-color:#1F8F4E}
 .cta .go{margin-inline-start:auto;background:var(--ink);color:var(--bg);border-radius:40px;padding:9px 16px;font-weight:600;font-size:13.5px;white-space:nowrap}
 .tab .n.dotn{background:var(--ochre);color:#0A0A0A;padding:1px 6px}
 @media(max-width:720px){.dstep{padding:14px 12px;gap:10px}.dgrid{grid-template-columns:1fr}.dhead{align-items:flex-start}}
+
+/* files */
+.fdrop{display:flex;align-items:center;gap:14px;border:1.5px dashed var(--line2);border-radius:12px;padding:18px;cursor:pointer;background:var(--panel);transition:border-color .12s,background .12s}
+.fdrop:hover,.fdrop.on{border-color:var(--brand-ink);background:rgba(140,31,59,.12)}
+.fdrop b{display:block;font-size:15px}.fdrop span{font-size:12.5px;color:var(--soft)}
+.fdrop-ic{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+.seg .cnt{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mute);margin-inline-start:5px}
+.flist{display:flex;flex-direction:column;gap:6px}
+.frow{display:flex;align-items:center;gap:12px;width:100%;text-align:start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer}
+button.frow:hover{border-color:var(--line2)}
+.frow.up{cursor:default;background:var(--card)}
+.frow.up.ok{border-color:var(--good)}.frow.up.bad{border-color:var(--bad)}
+.fbadge{width:42px;height:48px;border-radius:6px;flex:0 0 auto;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:#fff;background:var(--k);position:relative;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)}
+.fthumb{width:48px;height:48px;border-radius:6px;flex:0 0 auto;background-size:cover;background-position:center;background-color:var(--card)}
+.fmeta{flex:1;min-width:0}
+.fname{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fsub{font-size:12px;color:var(--soft);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.fsub .fp{color:var(--brand-ink)}
+.fnote{font-size:12.5px;color:#CFC8C0;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fsz{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mute);white-space:nowrap}
+.frow .prog{margin-top:6px}
+.fprev{display:grid;place-items:center;background:var(--card);border-radius:10px;padding:16px;margin-top:8px;min-height:120px}
+.fprev img{max-width:100%;max-height:50vh;border-radius:6px;display:block}
+.fprev .fbadge{width:64px;height:76px;font-size:13px}
+.btn[disabled]{opacity:.5;cursor:default}
 @media(max-width:720px){
   .stats{grid-template-columns:repeat(2,1fr)}
   .grid2{grid-template-columns:1fr}
@@ -364,7 +389,7 @@ var T = {
   newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
-  nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by',
+  nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by', files:'Files', fDrop:'Upload files', fDropSub:'PDF, Excel, Word, images — up to 25 MB each', fUpload:'Upload', fUploadTitle:'Upload to shared files', fUploading:'Uploading…', fNote:'Note', fNotePh:'e.g. Final BOQ, revision 2', fDone:'Uploaded — everyone can see it', fFailed:'Some files failed — check your connection', fTooBig:'{n} is bigger than 25 MB', fSearch:'Search files, projects or names', fEmpty:'No files yet. Upload the first one.', fOpen:'Open / Download', fShare:'Share', fPreparing:'Preparing file…', fReady:'Ready', fMissing:'Could not load this file', fBy:'Uploaded by', fSize:'Size',
   daily:'Daily update', dBoard:'Team board', dMine:'My update', dSent:'Update sent', dSentSub:'Supervisors can see it now', dProjPh:'Which project?', dArea:'task', dYesterday:'What did you do yesterday?', dDidPh:'Short and clear — what got done', dDone:'Finished', dPartial:'Partly', dNot:'Not finished', dWhy:'Why wasn\'t it finished?', dNotePh:'Details (optional)', dToday:'What\'s the plan for today?', dPlanPh:'What you\'ll work on today', dFromTasks:'From your tasks:', dHelp:'Need help with anything?', dHelpPh:'Materials, approvals, another team…', optional:'optional', dSend:'Send update', dNeedDid:'Write what you did yesterday', dNeedStatus:'Did you finish it?', dNeedPlan:'Add today\'s plan', dThanks:'Sent — thank you!', dDidShort:'Yesterday', dWhyShort:'Not finished', dPlanShort:'Today', dHelpShort:'Needs help', dSubmitted:'Updates in', dMissing:'Still missing', dNotFinished:'Not finished', dNeedHelp:'Need help', dWaiting:'Waiting for', dNudge:'Remind on WhatsApp', dUpdates:'Updates', dNone:'No updates for this day yet.', dCta:'Your daily update isn\'t in yet', dCtaSub:'Takes under a minute', dCtaGo:'Fill it', dToday2:'Today\'s updates', dCtaSupSub:'See who sent, who didn\'t, and who needs help', dept:'Department' },
  ar:{ hub:'بوابة الفريق', who:'مين بيدخل؟', whoSub:'اختار اسمك واكتب الباسورد بتاعك.', sup:'المشرفين', eg:'مكتب مصر', sa:'مكتب السعودية',
   egS:'القاهرة', saS:'الرياض', pin:'الباسورد', forgot:'نسيته؟ اطلب من إيهاب أو إيمان أو شادي يعملوله reset.', pwFirst:'اعمل باسورد', pwCreate:'اعمل الباسورد بتاعك', pwCreateSub:'أهلاً {n}! أول مرة تدخل — اختار باسورد (٤ حروف أو أرقام على الأقل). هتستخدمه كل مرة تدخل.', pwNew:'الباسورد الجديد', pwAgain:'اكتبه تاني', pwCurrent:'الباسورد الحالي', pwSaveIn:'احفظ وادخل', pwShort:'٤ حروف أو أرقام على الأقل', pwMismatch:'الباسوردين مش زي بعض', pwSaved:'الباسورد اتحفظ', pwChange:'تغيير الباسورد', pwReset:'Reset للباسورد', pwResetDone:'اتعمل reset — هيعمل باسورد جديد أول ما يدخل', pwResetConfirm:'اضغط تاني للتأكيد', enter:'دخول', wrongPin:'الرقم السري غلط', back:'رجوع',
@@ -380,7 +405,7 @@ var T = {
   newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
-  nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من',
+  nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من', files:'الملفات', fDrop:'ارفع ملفات', fDropSub:'PDF، Excel، Word، صور — لحد ٢٥ ميجا للملف', fUpload:'ارفع', fUploadTitle:'رفع للملفات المشتركة', fUploading:'بيترفع…', fNote:'ملاحظة', fNotePh:'مثلاً: BOQ نهائي، تعديل ٢', fDone:'اترفع — الكل يقدر يشوفه', fFailed:'فيه ملفات ما اترفعتش — اتأكد من النت', fTooBig:'{n} أكبر من ٢٥ ميجا', fSearch:'دوّر في الملفات أو المشاريع أو الأسامي', fEmpty:'مفيش ملفات لسه. ارفع أول ملف.', fOpen:'افتح / نزّل', fShare:'مشاركة', fPreparing:'بيجهز الملف…', fReady:'جاهز', fMissing:'مش قادر يفتح الملف ده', fBy:'رفعه', fSize:'الحجم',
   daily:'التحديث اليومي', dBoard:'لوحة الفريق', dMine:'تحديثي', dSent:'التحديث اتبعت', dSentSub:'المشرفين يقدروا يشوفوه دلوقتي', dProjPh:'أنهي مشروع؟', dArea:'نوع الشغل', dYesterday:'عملت إيه امبارح؟', dDidPh:'باختصار — إيه اللي اتعمل', dDone:'خلص', dPartial:'جزء منه', dNot:'ما خلصش', dWhy:'ليه ما خلصش؟', dNotePh:'تفاصيل (اختياري)', dToday:'هتعمل إيه النهارده؟', dPlanPh:'الشغل اللي هتشتغل عليه النهارده', dFromTasks:'من مهامك:', dHelp:'محتاج مساعدة في حاجة؟', dHelpPh:'خامات، موافقات، قسم تاني…', optional:'اختياري', dSend:'ابعت التحديث', dNeedDid:'اكتب عملت إيه امبارح', dNeedStatus:'خلصت ولا لأ؟', dNeedPlan:'اكتب خطة النهارده', dThanks:'اتبعت — شكراً!', dDidShort:'امبارح', dWhyShort:'ما خلصش', dPlanShort:'النهارده', dHelpShort:'محتاج مساعدة', dSubmitted:'بعتوا', dMissing:'لسه ما بعتوش', dNotFinished:'ما خلصش', dNeedHelp:'محتاجين مساعدة', dWaiting:'مستنيين', dNudge:'فكّره على الواتساب', dUpdates:'التحديثات', dNone:'مفيش تحديثات لليوم ده لسه.', dCta:'لسه ما بعتش التحديث اليومي', dCtaSub:'أقل من دقيقة', dCtaGo:'املاه', dToday2:'تحديثات النهارده', dCtaSupSub:'شوف مين بعت ومين لأ ومين محتاج مساعدة', dept:'القسم' }
 };
 var mem = {};
@@ -426,15 +451,16 @@ function sha256(str){
 }
 
 /* ================= data layer ================= */
-var db = { tasks:{}, team:{}, news:{}, meta:{}, daily:{}, auth:{} };
+var db = { tasks:{}, team:{}, news:{}, meta:{}, daily:{}, auth:{}, files:{} };
 var online = !!DB_URL, lastSync = 0;
 function base(){ return DB_URL.replace(/\/+$/,'') + '/' + ROOT; }
-function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; } }catch(e){} }
+function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; db.files = d.files||{}; } }catch(e){} }
 function saveLocal(){ lsSet('jh_db', JSON.stringify(db)); }
+var KEYS = ['tasks','team','news','meta','daily','auth','files'];
 function pull(){
   if(!online){ loadLocal(); seed(); return Promise.resolve(); }
-  return fetch(base() + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; lastSync = Date.now(); saveLocal(); seed();
+  return Promise.all(KEYS.map(function(k){ return fetch(base() + '/' + k + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); })).then(function(vals){
+    KEYS.forEach(function(k, i){ db[k] = vals[i] || {}; }); lastSync = Date.now(); saveLocal(); seed();
   }).catch(function(){ loadLocal(); });
 }
 function write(path, val){
@@ -495,6 +521,7 @@ function render(){
   else if(view === 'team') teamView(body);
   else if(view === 'news') newsView(body);
   else if(view === 'daily') dailyView(body);
+  else if(view === 'files') filesView(body);
   if(!online && me.sup) body.appendChild(h('div', {class:'banner'}, '⚠︎ ' + t('demo')));
   if(me.sup && (view === 'home' || view === 'tasks')) app.appendChild(h('button', {class:'fab', onclick:function(){ taskForm(); }}, '+ ' + t('newTask')));
   if(me.sup && view === 'news') app.appendChild(h('button', {class:'fab', onclick:function(){ newsForm(); }}, '+ ' + t('newPost')));
@@ -621,7 +648,7 @@ function tickClocks(){
 
 function nav(){
   var myOpen = allTasks().filter(function(x){ return isMine(x) && isOpen(x); }).length;
-  var tabs = [['home', t('home')], ['daily', t('daily'), myDailyMissing() ? '•' : 0], ['tasks', t('tasks'), myOpen], ['news', t('news')], ['team', t('team')]];
+  var tabs = [['home', t('home')], ['daily', t('daily'), myDailyMissing() ? '•' : 0], ['tasks', t('tasks'), myOpen], ['files', t('files')], ['news', t('news')], ['team', t('team')]];
   return h('nav', {class:'nav'}, h('div', {class:'nav-in'}, tabs.map(function(tb){
     return h('button', {class:'tab' + (view === tb[0] ? ' on' : ''), onclick:function(){ if(view !== tb[0]) setView(tb[0]); }},
       tb[1], tb[2] ? h('span', {class:'n' + (tb[2] === '•' ? ' dotn' : '')}, tb[2]) : null);
@@ -1048,6 +1075,160 @@ function dailyBoard(body){
   var rank = {not:0, partial:1, done:2};
   entries.sort(function(a,b){ return (b.help?1:0) - (a.help?1:0) || rank[a.status] - rank[b.status] || a.at - b.at; });
   body.appendChild(h('div', {class:'dgrid'}, entries.map(function(e){ return entryCard(e); })));
+}
+
+/* ---------- files ---------- */
+var MAX_FILE = 25 * 1024 * 1024, CHUNK = 2 * 1024 * 1024, memBlobs = {};
+var fFilt = { kind:'all', q:'' };
+function putRaw(path, val){
+  if(!online){ memBlobs[path] = val; return Promise.resolve(); }
+  return fetch(base() + '/' + path + '.json', {method: val == null ? 'DELETE' : 'PUT', body: val == null ? undefined : JSON.stringify(val)}).then(function(r){ if(!r.ok) throw new Error('upload'); });
+}
+function getRaw(path){
+  if(!online) return Promise.resolve(memBlobs[path] || null);
+  return fetch(base() + '/' + path + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('download'); return r.json(); });
+}
+function kindOf(name, type){
+  var e = (name.split('.').pop() || '').toLowerCase();
+  if(/^image\//.test(type || '') || /^(jpe?g|png|gif|webp|heic|heif|bmp)$/.test(e)) return 'img';
+  if(e === 'pdf' || type === 'application/pdf') return 'pdf';
+  if(/^(xlsx?|csv|xlsm|numbers)$/.test(e)) return 'xls';
+  if(/^(docx?|rtf|pages|txt)$/.test(e)) return 'doc';
+  if(/^(pptx?|key)$/.test(e)) return 'ppt';
+  if(/^(dwg|dxf|skp|max|3ds|rvt)$/.test(e)) return 'cad';
+  return 'other';
+}
+var KINDS = { pdf:['PDF','#E0567A'], xls:['Excel','#3FAE6A'], doc:['Word','#5B8DEF'], img:['Images','#C99A4A'], ppt:['PowerPoint','#E07A3E'], cad:['CAD','#8E7CC3'], other:['Other','#7A736B'] };
+function fmtSize(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+function fileBadge(f){ var k = KINDS[f.kind] || KINDS.other; var ext = (f.name.split('.').pop() || '').slice(0, 4).toUpperCase();
+  if(f.thumb) return h('div', {class:'fthumb', style:'background-image:url(' + f.thumb + ')'});
+  return h('div', {class:'fbadge', style:'--k:' + k[1]}, ext || '•'); }
+function readAsDataURL(blob){ return new Promise(function(res, rej){ var r = new FileReader(); r.onload = function(){ res(r.result); }; r.onerror = rej; r.readAsDataURL(blob); }); }
+function loadImg(url){ return new Promise(function(res, rej){ var i = new Image(); i.onload = function(){ res(i); }; i.onerror = rej; i.src = url; }); }
+function resizeImg(img, max, q){
+  var w = img.naturalWidth, hh = img.naturalHeight, sc = Math.min(1, max / Math.max(w, hh));
+  var c = document.createElement('canvas'); c.width = Math.round(w * sc); c.height = Math.round(hh * sc);
+  var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', q);
+}
+function prepFile(file){
+  var kind = kindOf(file.name, file.type);
+  return readAsDataURL(file).then(function(url){
+    if(kind !== 'img' || /gif$/i.test(file.type)) return {url:url, name:file.name, type:file.type || 'application/octet-stream', size:file.size, kind:kind, thumb:''};
+    return loadImg(url).then(function(img){
+      var big = file.size > 1.5 * 1024 * 1024 || Math.max(img.naturalWidth, img.naturalHeight) > 2400;
+      var out = big ? resizeImg(img, 2400, 0.85) : url;
+      var name = big ? file.name.replace(/\.[^.]+$/, '') + '.jpg' : file.name;
+      return {url:out, name:name, type: big ? 'image/jpeg' : file.type, size: Math.round((out.length - out.indexOf(',') - 1) * 0.75), kind:'img', thumb: resizeImg(img, 220, 0.7)};
+    }).catch(function(){ return {url:url, name:file.name, type:file.type, size:file.size, kind:kind, thumb:''}; });
+  });
+}
+function uploadOne(p, meta, onProg){
+  var id = uid(), b64 = p.url.slice(p.url.indexOf(',') + 1), n = Math.ceil(b64.length / CHUNK) || 1, i = 0;
+  function next(){
+    if(i >= n) return Promise.resolve();
+    return putRaw('blobs/' + id + '/' + i, b64.slice(i * CHUNK, (i + 1) * CHUNK)).then(function(){ i++; onProg(i / n); return next(); });
+  }
+  return next().then(function(){
+    return write('files/' + id, {id:id, name:p.name, type:p.type, size:p.size, kind:p.kind, thumb:p.thumb, chunks:n, by:me.id, at:Date.now(), project:meta.project || '', note:meta.note || ''});
+  });
+}
+function pickFiles(list){
+  list = Array.prototype.slice.call(list || []);
+  var tooBig = list.filter(function(f){ return f.size > MAX_FILE; });
+  if(tooBig.length) toast(t('fTooBig').replace('{n}', tooBig[0].name), true);
+  list = list.filter(function(f){ return f.size <= MAX_FILE; });
+  if(!list.length) return;
+  var projects = {}; allTasks().forEach(function(x){ if(x.project) projects[x.project] = 1; }); allFiles().forEach(function(x){ if(x.project) projects[x.project] = 1; });
+  ['Tulip Tower','Solamanya'].forEach(function(p){ projects[p] = 1; });
+  var proj = h('input', {class:'inp', list:'fproj', placeholder:t('dProjPh')});
+  var note = h('input', {class:'inp', placeholder:t('fNotePh')});
+  var rows = list.map(function(f){ var bar = h('i'); return {f:f, bar:bar, el:h('div', {class:'frow up'}, fileBadge({name:f.name, kind:kindOf(f.name, f.type)}),
+    h('div', {class:'fmeta'}, h('div', {class:'fname'}, f.name), h('div', {class:'prog'}, bar)), h('span', {class:'fsz'}, fmtSize(f.size)))}; });
+  var go = h('button', {class:'btn pri', onclick:start}, '↑ ' + t('fUpload') + (list.length > 1 ? ' (' + list.length + ')' : ''));
+  var cancel = h('button', {class:'btn ghost', onclick:function(){ sh.close(); }}, t('cancel'));
+  var sh = sheet(t('fUploadTitle'), [h('div', {class:'flist'}, rows.map(function(r){ return r.el; })),
+    h('label', {class:'lbl'}, t('project') + ' · ' + t('optional')), proj, h('datalist', {id:'fproj'}, Object.keys(projects).map(function(p){ return h('option', {value:p}); })),
+    h('label', {class:'lbl'}, t('fNote') + ' · ' + t('optional')), note, h('div', {class:'btns'}, cancel, go)]);
+  var busy = false;
+  function start(){
+    if(busy) return; busy = true; go.disabled = true; cancel.disabled = true; go.textContent = t('fUploading');
+    var meta = {project:proj.value.trim(), note:note.value.trim()}, k = 0, failed = 0;
+    (function nextFile(){
+      if(k >= rows.length){ sh.close(); toast(failed ? t('fFailed') : t('fDone'), !!failed); render(); return; }
+      var r = rows[k++];
+      prepFile(r.f).then(function(p){ return uploadOne(p, meta, function(x){ r.bar.style.width = Math.round(x * 100) + '%'; }); })
+        .then(function(){ r.el.classList.add('ok'); }, function(){ failed++; r.el.classList.add('bad'); }).then(nextFile);
+    })();
+  }
+}
+function allFiles(){ return Object.keys(db.files || {}).map(function(k){ return db.files[k]; }).filter(Boolean).sort(function(a,b){ return b.at - a.at; }); }
+
+function filesView(body){
+  var input = h('input', {type:'file', multiple:true, style:'display:none', accept:'.pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.dwg,.dxf,.skp,image/*,application/pdf'});
+  input.addEventListener('change', function(){ pickFiles(input.files); input.value = ''; });
+  var drop = h('div', {class:'fdrop', onclick:function(){ input.click(); }},
+    h('div', {class:'fdrop-ic'}, '↑'), h('div', null, h('b', null, t('fDrop')), h('span', null, t('fDropSub'))), input);
+  ['dragover','dragenter'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('on'); }); });
+  ['dragleave','drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('on'); }); });
+  drop.addEventListener('drop', function(e){ if(e.dataTransfer) pickFiles(e.dataTransfer.files); });
+  body.appendChild(h('div', {style:'margin-top:18px'}, drop));
+
+  var files = allFiles();
+  var counts = {}; files.forEach(function(f){ counts[f.kind] = (counts[f.kind] || 0) + 1; });
+  var bar = body.appendChild(h('div', {class:'filters', style:'margin-top:14px'}));
+  bar.appendChild(h('div', {class:'seg'}, [['all', t('all')]].concat(Object.keys(KINDS).filter(function(k){ return counts[k]; }).map(function(k){ return [k, KINDS[k][0]]; })).map(function(o){
+    return h('button', {class: fFilt.kind === o[0] ? 'on' : '', onclick:function(){ fFilt.kind = o[0]; render(); }}, o[1], o[0] !== 'all' ? h('span', {class:'cnt'}, counts[o[0]]) : null); })));
+  var q = h('input', {class:'inp search', type:'search', placeholder:t('fSearch'), value:fFilt.q}); bar.appendChild(q);
+  var holder = body.appendChild(h('div'));
+  q.addEventListener('input', function(){ fFilt.q = q.value; draw(); });
+  function draw(){
+    holder.innerHTML = '';
+    var list = files.filter(function(f){
+      if(fFilt.kind !== 'all' && f.kind !== fFilt.kind) return false;
+      if(fFilt.q){ var m = member(f.by); if((f.name + ' ' + (f.project||'') + ' ' + (f.note||'') + ' ' + (m ? m.name : '')).toLowerCase().indexOf(fFilt.q.toLowerCase()) < 0) return false; }
+      return true; });
+    if(!list.length) return holder.appendChild(h('div', {class:'empty'}, files.length ? t('noTasks') : t('fEmpty')));
+    holder.appendChild(h('div', {class:'flist'}, list.map(function(f){ var m = member(f.by);
+      return h('button', {class:'frow', onclick:function(){ fileDetail(f); }}, fileBadge(f),
+        h('div', {class:'fmeta'}, h('div', {class:'fname'}, f.name),
+          h('div', {class:'fsub'}, f.project ? h('span', {class:'fp'}, '▣ ' + f.project) : null, (m ? m.name.split(' ')[0] : '') + ' · ' + fmtWhen(f.at)),
+          f.note ? h('div', {class:'fnote'}, f.note) : null),
+        h('span', {class:'fsz'}, fmtSize(f.size)));
+    })));
+  }
+  draw();
+}
+function fileDetail(f){
+  var m = member(f.by), canDel = me.sup || f.by === me.id;
+  var status = h('div', {class:'hint'}, t('fPreparing'));
+  var open = h('a', {class:'btn pri', style:'pointer-events:none;opacity:.5', target:'_blank', rel:'noopener'}, '↓ ' + t('fOpen'));
+  var share = h('button', {class:'btn ghost', style:'display:none'}, t('fShare'));
+  var preview = h('div', {class:'fprev'}, f.thumb ? h('img', {src:f.thumb, alt:''}) : fileBadge(f));
+  var sh = sheet(f.name, [preview,
+    h('dl', {class:'kv'}, h('dt', null, t('fBy')), h('dd', null, (m ? m.name : '—') + ' · ' + fmtWhen(f.at)), h('dt', null, t('fSize')), h('dd', null, fmtSize(f.size) + ' · ' + (KINDS[f.kind] || KINDS.other)[0]),
+      f.project ? [h('dt', null, t('project')), h('dd', null, f.project)] : null, f.note ? [h('dt', null, t('fNote')), h('dd', null, f.note)] : null),
+    status, h('div', {class:'btns'}, open, share), canDel ? h('div', {class:'btns'}, delBtn(function(){
+      var jobs = []; for(var i=0;i<(f.chunks||1);i++) jobs.push(putRaw('blobs/' + f.id + '/' + i, null));
+      Promise.all(jobs).catch(function(){}); write('files/' + f.id, null); sh.close(); toast(t('deleted')); render(); })) : null]);
+  var parts = [], i = 0;
+  (function next(){
+    if(i >= (f.chunks || 1)) return done();
+    getRaw('blobs/' + f.id + '/' + i).then(function(c){ if(c == null) throw 0; parts.push(c); i++; status.textContent = t('fPreparing') + ' ' + Math.round(i / (f.chunks||1) * 100) + '%'; next(); })
+      .catch(function(){ status.textContent = t('fMissing'); });
+  })();
+  function done(){
+    try{
+      var bin = atob(parts.join('')), arr = new Uint8Array(bin.length); for(var j=0;j<bin.length;j++) arr[j] = bin.charCodeAt(j);
+      var blob = new Blob([arr], {type:f.type || 'application/octet-stream'}), url = URL.createObjectURL(blob);
+      open.href = url; open.style.pointerEvents = ''; open.style.opacity = '';
+      if(!/^(image\/|application\/pdf)/.test(f.type || '')) open.setAttribute('download', f.name);
+      status.textContent = t('fReady');
+      if(f.kind === 'img'){ preview.innerHTML = ''; preview.appendChild(h('img', {src:url, alt:f.name})); }
+      var file = null; try{ file = new File([blob], f.name, {type:blob.type}); }catch(e){}
+      if(file && navigator.canShare && navigator.canShare({files:[file]})){ share.style.display = ''; share.onclick = function(){ navigator.share({files:[file], title:f.name}).catch(function(){}); }; }
+    }catch(e){ status.textContent = t('fMissing'); }
+  }
 }
 
 /* ---------- news ---------- */
