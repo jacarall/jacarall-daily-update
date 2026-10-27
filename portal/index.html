@@ -187,7 +187,9 @@ html[dir=rtl] .gate h1{font-family:'IBM Plex Sans Arabic',sans-serif}
 .who button{display:flex;align-items:center;gap:12px;width:100%;text-align:start;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:11px 12px;cursor:pointer}
 .who button:hover{border-color:var(--brand)}
 .who .rl{font-size:12px;color:var(--soft)}
-.who .lock{margin-inline-start:auto;font-size:11px;color:var(--brand-ink);font-family:'IBM Plex Mono',monospace}
+.who .lock{margin-inline-start:auto;font-size:12px;color:var(--soft)}
+.who .lock.new{font-size:11px;color:var(--brand-ink);border:1px solid var(--brand);border-radius:20px;padding:3px 9px;white-space:nowrap}
+.hint{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5}
 .grp{margin:18px 2px 8px}
 
 /* sheet */
@@ -341,8 +343,8 @@ var OFFICES = { EG:{ tz:'Africa/Cairo', flag:'🇪🇬' }, SA:{ tz:'Asia/Riyadh'
 
 /* ================= i18n ================= */
 var T = {
- en:{ hub:'Team Hub', who:'Who\'s signing in?', whoSub:'Pick your name. Supervisors need their PIN.', sup:'Supervisors', eg:'Egypt office', sa:'Saudi office',
-  egS:'Cairo', saS:'Riyadh', pin:'PIN', enter:'Enter', wrongPin:'Incorrect PIN', back:'Back',
+ en:{ hub:'Team Hub', who:'Who\'s signing in?', whoSub:'Pick your name and enter your password.', sup:'Supervisors', eg:'Egypt office', sa:'Saudi office',
+  egS:'Cairo', saS:'Riyadh', pin:'Password', forgot:'Forgot it? Ask Ehab, Eman or Shady to reset it.', pwFirst:'Set password', pwCreate:'Create your password', pwCreateSub:'Welcome {n}! First time here — choose a password (at least 4 characters). You\'ll use it every time you sign in.', pwNew:'New password', pwAgain:'Repeat new password', pwCurrent:'Current password', pwSaveIn:'Save & sign in', pwShort:'At least 4 characters', pwMismatch:'Passwords don\'t match', pwSaved:'Password saved', pwChange:'Change password', pwReset:'Reset password', pwResetDone:'Password reset — they\'ll create a new one on next sign-in', pwResetConfirm:'Tap again to reset', enter:'Enter', wrongPin:'Incorrect PIN', back:'Back',
   morning:'Good morning', afternoon:'Good afternoon', evening:'Good evening',
   home:'Home', tasks:'Tasks', team:'Team', news:'Announcements', links:'Quick links',
   open:'Open', dueToday:'Due today', overdue:'Overdue', doneWk:'Done this week',
@@ -357,8 +359,8 @@ var T = {
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
   nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by',
   daily:'Daily update', dBoard:'Team board', dMine:'My update', dSent:'Update sent', dSentSub:'Supervisors can see it now', dProjPh:'Which project?', dArea:'task', dYesterday:'What did you do yesterday?', dDidPh:'Short and clear — what got done', dDone:'Finished', dPartial:'Partly', dNot:'Not finished', dWhy:'Why wasn\'t it finished?', dNotePh:'Details (optional)', dToday:'What\'s the plan for today?', dPlanPh:'What you\'ll work on today', dFromTasks:'From your tasks:', dHelp:'Need help with anything?', dHelpPh:'Materials, approvals, another team…', optional:'optional', dSend:'Send update', dNeedDid:'Write what you did yesterday', dNeedStatus:'Did you finish it?', dNeedPlan:'Add today\'s plan', dThanks:'Sent — thank you!', dDidShort:'Yesterday', dWhyShort:'Not finished', dPlanShort:'Today', dHelpShort:'Needs help', dSubmitted:'Updates in', dMissing:'Still missing', dNotFinished:'Not finished', dNeedHelp:'Need help', dWaiting:'Waiting for', dNudge:'Remind on WhatsApp', dUpdates:'Updates', dNone:'No updates for this day yet.', dCta:'Your daily update isn\'t in yet', dCtaSub:'Takes under a minute', dCtaGo:'Fill it', dToday2:'Today\'s updates', dCtaSupSub:'See who sent, who didn\'t, and who needs help', dept:'Department' },
- ar:{ hub:'بوابة الفريق', who:'مين بيدخل؟', whoSub:'اختار اسمك. المشرفين محتاجين الرقم السري.', sup:'المشرفين', eg:'مكتب مصر', sa:'مكتب السعودية',
-  egS:'القاهرة', saS:'الرياض', pin:'الرقم السري', enter:'دخول', wrongPin:'الرقم السري غلط', back:'رجوع',
+ ar:{ hub:'بوابة الفريق', who:'مين بيدخل؟', whoSub:'اختار اسمك واكتب الباسورد بتاعك.', sup:'المشرفين', eg:'مكتب مصر', sa:'مكتب السعودية',
+  egS:'القاهرة', saS:'الرياض', pin:'الباسورد', forgot:'نسيته؟ اطلب من إيهاب أو إيمان أو شادي يعملوله reset.', pwFirst:'اعمل باسورد', pwCreate:'اعمل الباسورد بتاعك', pwCreateSub:'أهلاً {n}! أول مرة تدخل — اختار باسورد (٤ حروف أو أرقام على الأقل). هتستخدمه كل مرة تدخل.', pwNew:'الباسورد الجديد', pwAgain:'اكتبه تاني', pwCurrent:'الباسورد الحالي', pwSaveIn:'احفظ وادخل', pwShort:'٤ حروف أو أرقام على الأقل', pwMismatch:'الباسوردين مش زي بعض', pwSaved:'الباسورد اتحفظ', pwChange:'تغيير الباسورد', pwReset:'Reset للباسورد', pwResetDone:'اتعمل reset — هيعمل باسورد جديد أول ما يدخل', pwResetConfirm:'اضغط تاني للتأكيد', enter:'دخول', wrongPin:'الرقم السري غلط', back:'رجوع',
   morning:'صباح الخير', afternoon:'مساء الخير', evening:'مساء الخير',
   home:'الرئيسية', tasks:'المهام', team:'الفريق', news:'الإعلانات', links:'روابط سريعة',
   open:'مفتوحة', dueToday:'النهارده', overdue:'متأخرة', doneWk:'خلصت الأسبوع ده',
@@ -417,15 +419,15 @@ function sha256(str){
 }
 
 /* ================= data layer ================= */
-var db = { tasks:{}, team:{}, news:{}, meta:{}, daily:{} };
+var db = { tasks:{}, team:{}, news:{}, meta:{}, daily:{}, auth:{} };
 var online = !!DB_URL, lastSync = 0;
 function base(){ return DB_URL.replace(/\/+$/,'') + '/' + ROOT; }
-function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; } }catch(e){} }
+function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; } }catch(e){} }
 function saveLocal(){ lsSet('jh_db', JSON.stringify(db)); }
 function pull(){
   if(!online){ loadLocal(); seed(); return Promise.resolve(); }
   return fetch(base() + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; lastSync = Date.now(); saveLocal(); seed();
+    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; lastSync = Date.now(); saveLocal(); seed();
   }).catch(function(){ loadLocal(); });
 }
 function write(path, val){
@@ -504,9 +506,9 @@ function gate(){
     if(!arr.length) return;
     box.appendChild(h('div', {class:'kicker grp'}, label));
     box.appendChild(h('div', {class:'who'}, arr.map(function(m){
-      return h('button', {onclick:function(){ m.sup ? pinPrompt(m) : signIn(m); }}, avatar(m, 'lg'),
+      return h('button', {onclick:function(){ pinPrompt(m); }}, avatar(m, 'lg'),
         h('div', null, h('div', {style:'font-weight:600'}, m.name), h('div', {class:'rl'}, m.role || '')),
-        m.sup ? h('span', {class:'lock'}, '🔒 ' + t('pin')) : null);
+        hasPass(m.id) ? h('span', {class:'lock'}, '🔒') : h('span', {class:'lock new'}, t('pwFirst')));
     })));
   }
   group(t('sup'), list.filter(function(m){ return m.sup; }));
@@ -514,19 +516,63 @@ function gate(){
   group(OFFICES.SA.flag + '  ' + t('sa'), list.filter(function(m){ return !m.sup && m.office === 'SA'; }));
   return box;
 }
+function supOf(id){ return SUPERVISORS.filter(function(x){ return x.id === id; })[0] || null; }
+function hasPass(id){ return !!((db.auth||{})[id] || supOf(id)); }
+function checkPass(id, pw){
+  var own = (db.auth||{})[id], sup = supOf(id);
+  return Promise.all([sha256('jacarall:' + id + ':' + pw), sha256('jacarall:' + pw)]).then(function(hs){
+    if(own) return own === hs[0];
+    return !!sup && sup.pin === hs[1];
+  });
+}
+function savePass(id, pw){ return sha256('jacarall:' + id + ':' + pw).then(function(hash){ return write('auth/' + id, hash); }); }
+function pwInput(ph){ return h('input', {class:'inp', type:'password', autocomplete:'off', placeholder:ph || '••••••'}); }
 function pinPrompt(m){
-  var inp = h('input', {class:'inp', type:'password', inputmode:'numeric', autocomplete:'off', placeholder:'••••••'});
+  if(!hasPass(m.id)) return createPass(m);
+  var inp = pwInput();
   var s = sheet(m.name, [
     h('label', {class:'lbl'}, t('pin')), inp,
+    h('div', {class:'hint'}, t('forgot')),
     h('div', {class:'btns'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); }}, t('cancel')), h('button', {class:'btn pri', onclick:go}, t('enter')))
   ]);
   inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') go(); });
   setTimeout(function(){ inp.focus(); }, 60);
   function go(){
-    var sup = SUPERVISORS.filter(function(x){ return x.id === m.id; })[0];
-    sha256('jacarall:' + inp.value.trim()).then(function(hash){
-      if(hash && hash === sup.pin){ s.close(); signIn(m); } else { toast(t('wrongPin'), true); inp.value = ''; inp.focus(); }
+    checkPass(m.id, inp.value.trim()).then(function(ok){
+      if(ok){ s.close(); signIn(m); } else { toast(t('wrongPin'), true); inp.value = ''; inp.focus(); }
     });
+  }
+}
+function createPass(m){
+  var a = pwInput(t('pwNew')), b = pwInput(t('pwAgain'));
+  var s = sheet(t('pwCreate'), [
+    h('p', {class:'hint', style:'margin-top:0'}, t('pwCreateSub').replace('{n}', m.name.split(' ')[0])),
+    h('label', {class:'lbl'}, t('pwNew')), a, h('label', {class:'lbl'}, t('pwAgain')), b,
+    h('div', {class:'btns'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); }}, t('cancel')), h('button', {class:'btn pri', onclick:go}, t('pwSaveIn')))
+  ]);
+  b.addEventListener('keydown', function(e){ if(e.key === 'Enter') go(); });
+  setTimeout(function(){ a.focus(); }, 60);
+  function go(){
+    var v = a.value.trim();
+    if(v.length < 4) return toast(t('pwShort'), true);
+    if(v !== b.value.trim()) return toast(t('pwMismatch'), true);
+    savePass(m.id, v).then(function(){ s.close(); toast(t('pwSaved')); signIn(m); });
+  }
+}
+function changePass(){
+  var c = pwInput(t('pwCurrent')), a = pwInput(t('pwNew')), b = pwInput(t('pwAgain'));
+  var s = sheet(t('pwChange'), [
+    h('label', {class:'lbl'}, t('pwCurrent')), c, h('label', {class:'lbl'}, t('pwNew')), a, h('label', {class:'lbl'}, t('pwAgain')), b,
+    h('div', {class:'btns'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); }}, t('cancel')), h('button', {class:'btn pri', onclick:go}, t('save')))
+  ]);
+  setTimeout(function(){ c.focus(); }, 60);
+  function go(){
+    var v = a.value.trim();
+    if(v.length < 4) return toast(t('pwShort'), true);
+    if(v !== b.value.trim()) return toast(t('pwMismatch'), true);
+    var p = hasPass(me.id) ? checkPass(me.id, c.value.trim()) : Promise.resolve(true);
+    p.then(function(ok){ if(!ok){ toast(t('wrongPin'), true); c.value = ''; c.focus(); return; }
+      savePass(me.id, v).then(function(){ s.close(); toast(t('pwSaved')); }); });
   }
 }
 function signIn(m){ dailyMode = null; draft = null; editingDaily = false; me = {id:m.id, name:m.name, sup:!!m.sup}; lsSet('jh_me', JSON.stringify(me)); view = 'home'; filt.scope = null; try{ history.pushState({view:'home'}, ''); }catch(e){} render(); }
@@ -542,7 +588,7 @@ function header(){
     h('div', {class:'top-actions'},
       h('span', {class:'sync' + (online ? '' : ' off'), title: lastSync ? fmtWhen(lastSync) : ''}, h('span', {class:'dot'}), online ? t('synced') : t('local')),
       langBtn(),
-      h('span', {class:'pill static'}, avatar(member(me.id) || me), h('span', {class:'lbl-t'}, me.name.split(' ')[0])),
+      h('button', {class:'pill', onclick:changePass, title:t('pwChange')}, avatar(member(me.id) || me), h('span', {class:'lbl-t'}, me.name.split(' ')[0]), '🔑'),
       h('button', {class:'pill back', onclick:goBack, title: view === 'home' ? t('signOut') : t('home')}, h('span', {class:'arrow'}, lang === 'ar' ? '→' : '←'), t('back'))
     ));
 }
@@ -728,6 +774,11 @@ function addComment(tk, text){
   text = (text||'').trim(); if(!text) return Promise.resolve();
   var cid = uid();
   return write('tasks/' + tk.id + '/comments/' + cid, {by:me.id, text:text, at:Date.now()});
+}
+function resetBtn(m){
+  var armed = false, b = h('button', {class:'btn ghost sm', onclick:function(){ if(!armed){ armed = true; b.textContent = '🔑 ' + t('pwResetConfirm'); setTimeout(function(){ armed = false; b.textContent = '🔑 ' + t('pwReset'); }, 2500); return; }
+    write('auth/' + m.id, null).then(function(){ toast(t('pwResetDone')); b.remove(); }); }}, '🔑 ' + t('pwReset'));
+  return b;
 }
 function delBtn(fn){
   var armed = false, b = h('button', {class:'btn danger', onclick:function(){ if(armed) return fn(); armed = true; b.textContent = t('confirmDel'); setTimeout(function(){ armed = false; b.textContent = t('del'); }, 2500); }}, t('del'));
@@ -1056,8 +1107,9 @@ function memberForm(m){
     h('label', {class:'lbl'}, t('role')), role,
     h('div', {class:'row2'}, h('div', null, h('label', {class:'lbl'}, t('office')), office), h('div', null, h('label', {class:'lbl'}, t('dept')), dept)),
     h('label', {class:'lbl'}, t('phone')), phone, h('div', {style:'font-size:11.5px;color:var(--soft);margin-top:5px'}, t('phoneH')),
+    (!isNew && m.id !== me.id && (db.auth||{})[m.id]) ? h('div', {style:'margin-top:16px'}, resetBtn(m)) : null,
     h('div', {class:'btns'},
-      (!isNew && !m.sup) ? delBtn(function(){ write('team/' + m.id, null); sh.close(); render(); }) : h('button', {class:'btn ghost', onclick:function(){ sh.close(); }}, t('cancel')),
+      (!isNew && !m.sup) ? delBtn(function(){ write('team/' + m.id, null); write('auth/' + m.id, null); sh.close(); render(); }) : h('button', {class:'btn ghost', onclick:function(){ sh.close(); }}, t('cancel')),
       h('button', {class:'btn pri', onclick:function(){
         if(!name.value.trim()) return toast(t('name'), true);
         var id = m.id || (name.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'm') + '-' + uid().slice(-4);
@@ -1082,6 +1134,7 @@ function sheet(title, content){
 
 /* ================= boot ================= */
 try{ me = JSON.parse(lsGet('jh_me') || 'null'); }catch(e){ me = null; }
+if(lsGet('jh_authv') !== '2'){ me = null; lsDel('jh_me'); lsSet('jh_authv', '2'); }
 loadLocal();
 if(me && !member(me.id) && !SUPERVISORS.some(function(s){ return s.id === me.id; })) me = null;
 try{ history.replaceState({root:1}, ''); if(me) history.pushState({view:view}, ''); }catch(e){}
