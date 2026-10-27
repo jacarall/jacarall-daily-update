@@ -1,0 +1,28 @@
+name: Snag store setup
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create and test shared store
+        run: |
+          set -x
+          H=$(mktemp)
+          curl -sS -D $H -o body.json -X POST https://jsonblob.com/api/jsonBlob \
+            -H 'Content-Type: application/json' -H 'Accept: application/json' \
+            -d '{"items":{},"custom":{},"updatedAt":0}'
+          cat $H; cat body.json; echo
+          LOC=$(grep -i '^location:' $H | tr -d '\r' | awk '{print $2}')
+          echo "BLOB_URL=$LOC"
+          curl -sS "$LOC"; echo
+          curl -sS -X PUT "$LOC" -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"items":{"t":{"done":true}},"custom":{},"updatedAt":1}'; echo
+          curl -sS "$LOC"; echo
+          curl -sS -X PUT "$LOC" -H 'Content-Type: application/json' -d '{"items":{},"custom":{},"updatedAt":0}' -o /dev/null -w "reset %{http_code}\n"
+          echo "--- CORS preflight ---"
+          curl -sS -i -X OPTIONS "$LOC" -H 'Origin: https://jacarall.github.io' -H 'Access-Control-Request-Method: PUT' -H 'Access-Control-Request-Headers: content-type' | head -20
+          echo "--- CORS GET ---"
+          curl -sS -i "$LOC" -H 'Origin: https://jacarall.github.io' | grep -i 'access-control' 
+          echo "FINAL_BLOB_URL=$LOC"
