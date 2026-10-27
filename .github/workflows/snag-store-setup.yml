@@ -7,20 +7,26 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Create and test shared store
+      - name: Probe stores
         run: |
-          O=out.txt; H=h.txt
+          O=out.txt; UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36'
           {
-          curl -sS -D $H -o body.json -X POST https://jsonblob.com/api/jsonBlob -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"items":{},"custom":{},"updatedAt":0}' -w "POST %{http_code}\n"
-          grep -iE '^(location|x-jsonblob)' $H
-          LOC=$(grep -i '^location:' $H | tr -d '\r' | awk '{print $2}')
-          echo "GET1 $(curl -sS "$LOC")"
-          echo "PUT $(curl -sS -o /dev/null -w '%{http_code}' -X PUT "$LOC" -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"items":{"t":{"done":true}},"custom":{},"updatedAt":1}')"
-          echo "GET2 $(curl -sS "$LOC")"
-          echo "RESET $(curl -sS -o /dev/null -w '%{http_code}' -X PUT "$LOC" -H 'Content-Type: application/json' -d '{"items":{},"custom":{},"updatedAt":0}')"
-          echo "PREFLIGHT:"; curl -sS -i -X OPTIONS "$LOC" -H 'Origin: https://jacarall.github.io' -H 'Access-Control-Request-Method: PUT' -H 'Access-Control-Request-Headers: content-type' | grep -iE '^HTTP|access-control'
-          echo "CORS GET:"; curl -sS -i "$LOC" -H 'Origin: https://jacarall.github.io' | grep -iE '^HTTP|access-control'
-          echo "BLOB=$LOC"
+          echo "== jsonblob UA"; curl -sS -A "$UA" -D - -o /dev/null -X POST https://jsonblob.com/api/jsonBlob -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{}' | grep -iE '^HTTP|^location|^server|cf-'
+          echo "== extendsclass"
+          R=$(curl -sS -X POST https://json.extendsclass.com/bin -H 'Content-Type: application/json' -H 'Security-key: TestKey123' -d '{"items":{},"v":0}'); echo "CREATE $R"
+          ID=$(echo "$R" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("id",""))' 2>/dev/null)
+          U=https://json.extendsclass.com/bin/$ID
+          echo "GET $(curl -sS $U)"
+          echo "PUT nokey $(curl -sS -w ' %{http_code}' -X PUT $U -H 'Content-Type: application/json' -d '{"v":1}')"
+          echo "PUT wrongkey $(curl -sS -w ' %{http_code}' -X PUT $U -H 'Content-Type: application/json' -H 'Security-key: nope' -d '{"v":2}')"
+          echo "PUT key $(curl -sS -w ' %{http_code}' -X PUT $U -H 'Content-Type: application/json' -H 'Security-key: TestKey123' -d '{"items":{"a":1},"v":3}')"
+          echo "GET2 $(curl -sS $U)"
+          echo "PREFLIGHT"; curl -sS -i -X OPTIONS $U -H 'Origin: https://jacarall.github.io' -H 'Access-Control-Request-Method: PUT' -H 'Access-Control-Request-Headers: content-type,security-key' | grep -iE '^HTTP|access-control'
+          echo "CORS GET"; curl -sS -i $U -H 'Origin: https://jacarall.github.io' | grep -iE '^HTTP|access-control'
+          echo "== restful-api.dev"
+          curl -sS -w ' %{http_code}\n' -X POST https://api.restful-api.dev/objects -H 'Content-Type: application/json' -d '{"name":"probe","data":{"v":1}}' | head -c 300; echo
+          echo "== kvdb"
+          curl -sS -w ' %{http_code}\n' -X POST https://kvdb.io -d 'email=' | head -c 200; echo
           } > $O 2>&1 || true
           cat $O
           echo "::notice title=probe::$(sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g' $O)"
