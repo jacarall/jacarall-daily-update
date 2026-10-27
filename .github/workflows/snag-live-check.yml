@@ -1,0 +1,36 @@
+name: Snag live check
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Live browser test
+        run: |
+          npm i -s playwright@1.47.2 >/dev/null 2>&1 && npx -y playwright@1.47.2 install --with-deps chromium >/dev/null 2>&1
+          cat > t.mjs <<'JS'
+          import { chromium } from 'playwright';
+          const out=[]; const b=await chromium.launch();
+          for (const vp of [{width:390,height:844},{width:1280,height:900}]) {
+            const pg=await b.newPage({viewport:vp}); const errs=[]; const api=[];
+            pg.on('pageerror',e=>errs.push(e.message)); pg.on('console',m=>{ if(m.type()==='error') errs.push(m.text().slice(0,160)); });
+            pg.on('response',r=>{ if(r.url().includes('api.github.com')) api.push(r.status()); });
+            await pg.goto('https://jacarall.github.io/jacarall-daily-update/tulip-tower-snag-list/?ci='+Date.now(),{waitUntil:'networkidle'});
+            await pg.waitForTimeout(2500);
+            out.push(`${vp.width}px status="${await pg.textContent('#syncTxt')}" mode="${await pg.textContent('#modeTxt')}" items=${await pg.locator('.item').count()} tabs="${(await pg.locator('.tab').allTextContents()).join(' | ')}" api=${api.join(',')} wa=${await pg.locator('#wa').count()} errors=${JSON.stringify(errs)}`);
+            await pg.click('#lockBtn'); await pg.fill('#pw','wrong-pass'); await pg.click('#pwGo'); await pg.waitForTimeout(3000);
+            out.push(`  wrong pw -> "${await pg.textContent('#pwErr')}"`);
+          }
+          const r=await fetch('https://api.github.com/repos/jacarall/jacarall-daily-update/contents/tulip-tower/data.json',{method:'OPTIONS',headers:{Origin:'https://jacarall.github.io','Access-Control-Request-Method':'PUT','Access-Control-Request-Headers':'authorization,content-type'}});
+          out.push(`PUT preflight ${r.status} allow-origin=${r.headers.get('access-control-allow-origin')} allow-headers=${r.headers.get('access-control-allow-headers')} allow-methods=${r.headers.get('access-control-allow-methods')}`);
+          const old=await (await fetch('https://jacarall.github.io/jacarall-daily-update/site-snags/')).text();
+          out.push('old link redirects: '+old.includes('tulip-tower-snag-list'));
+          console.log(out.join('\n')); await b.close();
+          import fs from 'fs'; fs.writeFileSync('out.txt',out.join('\n'));
+          JS
+          node t.mjs || true
+          echo "::notice title=live::$(sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g' out.txt 2>/dev/null || echo failed)"
