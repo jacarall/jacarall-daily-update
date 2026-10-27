@@ -189,6 +189,10 @@ html[dir=rtl] .gate h1{font-family:'IBM Plex Sans Arabic',sans-serif}
 .who .rl{font-size:12px;color:var(--soft)}
 .who .lock{margin-inline-start:auto;font-size:12px;color:var(--soft)}
 .who .lock.new{font-size:11px;color:var(--brand-ink);border:1px solid var(--brand);border-radius:20px;padding:3px 9px;white-space:nowrap}
+.asbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:var(--ochre);color:#1A1408;border-radius:10px;padding:8px 8px 8px 14px;margin-bottom:14px;font-size:13.5px;font-weight:600}
+html[dir=rtl] .asbar{padding:8px 14px 8px 8px}
+.asbar .btn{background:#1A1408;color:#F2EEEA;white-space:nowrap;margin-inline-start:auto}
+.asbar span{min-width:0;overflow-wrap:anywhere}
 .hint{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5}
 .grp{margin:18px 2px 8px}
 
@@ -298,6 +302,7 @@ a.wchip:hover{border-color:#1F8F4E}
   .clock .time{font-size:17px}
   .pill .lbl-t{display:none}
 }
+@media(max-width:440px){.sync .stxt{display:none}.top-actions{gap:6px}.pill{padding:7px 10px}.logo{height:40px}}
 @media(max-width:380px){.row2{grid-template-columns:1fr}.statusbar{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -323,6 +328,8 @@ var SUPERVISORS = [
   { id:'shady', name:'Shady Sayd', role:'Head of Tech Department', office:'EG', daily:true, pin:'844e6e87142fdc3659c883a9f5a0b14bbdde0298961283e73c8d549826f0c8bf' }
 ];
 // Bump SEED_VERSION whenever this list changes — the members below are then (re)written once.
+// Can open any account without its password (Team tab → 👁)
+var ADMINS = ['ehab', 'eman'];
 var SEED_VERSION = 4;
 var SEED_TEAM = [
   { id:'shady',   name:'Shady Sayd',     role:'Head of Tech Department', office:'EG' },
@@ -354,7 +361,7 @@ var T = {
   save:'Save', cancel:'Cancel', del:'Delete', edit:'Edit', sendWa:'Send on WhatsApp', comment:'Add a note…', post:'Post', notes:'Notes',
   status:'Status', createdBy:'Assigned by', all:'All', search:'Search tasks or projects', mine:'Mine', active:'Active', everyone:'Everyone',
   noTasks:'Nothing here. Enjoy the calm.', noNews:'No announcements yet.', addMember:'Add member', editMember:'Edit member', name:'Name', role:'Role', phone:'WhatsApp number', phoneH:'With country code, e.g. 201001234567 or 966501234567',
-  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', confirmDel:'Tap again to delete',
+  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
   nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by',
@@ -370,7 +377,7 @@ var T = {
   save:'حفظ', cancel:'إلغاء', del:'حذف', edit:'تعديل', sendWa:'ابعت واتساب', comment:'اكتب ملاحظة…', post:'نشر', notes:'ملاحظات',
   status:'الحالة', createdBy:'من', all:'الكل', search:'دوّر في المهام أو المشاريع', mine:'مهامي', active:'الحالية', everyone:'الكل',
   noTasks:'مفيش حاجة هنا.', noNews:'مفيش إعلانات لسه.', addMember:'إضافة موظف', editMember:'تعديل موظف', name:'الاسم', role:'الوظيفة', phone:'رقم الواتساب', phoneH:'بكود الدولة، مثلاً 201001234567 أو 966501234567',
-  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', confirmDel:'اضغط تاني للحذف',
+  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
   nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من',
@@ -477,6 +484,8 @@ function render(){
   app.innerHTML = '';
   if(!me){ app.appendChild(gate()); return; }
   var sy = app.appendChild(h('div', {class:'wrap'}));
+  if(me.asBy){ var adm = member(me.asBy); sy.appendChild(h('div', {class:'asbar'}, h('span', null, '👁 ' + t('asViewing').replace('{n}', me.name)),
+    h('button', {class:'btn sm', onclick:function(){ if(adm) signIn(adm); }}, (lang === 'ar' ? '→ ' : '← ') + t('asBack').replace('{n}', adm ? adm.name.split(' ')[0] : '')))); }
   sy.appendChild(header());
   sy.appendChild(clocks());
   sy.appendChild(nav());
@@ -575,8 +584,10 @@ function changePass(){
       savePass(me.id, v).then(function(){ s.close(); toast(t('pwSaved')); }); });
   }
 }
-function signIn(m){ dailyMode = null; draft = null; editingDaily = false; me = {id:m.id, name:m.name, sup:!!m.sup}; lsSet('jh_me', JSON.stringify(me)); view = 'home'; filt.scope = null; try{ history.pushState({view:'home'}, ''); }catch(e){} render(); }
-function signOut(){ me = null; lsDel('jh_me'); render(); window.scrollTo(0, 0); }
+function signIn(m, asBy){ dailyMode = null; draft = null; editingDaily = false; me = {id:m.id, name:m.name, sup:!!m.sup}; if(asBy) me.asBy = asBy; lsSet('jh_me', JSON.stringify(me)); view = 'home'; filt.scope = null; try{ history.pushState({view:'home'}, ''); }catch(e){} render(); }
+function signOut(){ if(me && me.asBy){ var a = member(me.asBy); if(a) return signIn(a); } me = null; lsDel('jh_me'); render(); window.scrollTo(0, 0); }
+function isAdmin(){ return me && !me.asBy && ADMINS.indexOf(me.id) > -1; }
+function openAs(m){ var by = me.id; signIn(m, by); window.scrollTo(0, 0); toast(t('asOpened').replace('{n}', m.name.split(' ')[0])); }
 function setView(v){ view = v; lsSet('jh_view', v); if(v === 'daily') boardDate = null; try{ history.pushState({view:v}, ''); }catch(e){} render(); window.scrollTo(0, 0); }
 function goBack(){ if(view !== 'home') setView('home'); else signOut(); }
 window.addEventListener('popstate', function(e){ if(document.querySelector('.scrim')){ var x = document.querySelectorAll('.scrim'); x[x.length-1].remove(); document.body.style.overflow = ''; }
@@ -586,7 +597,7 @@ function header(){
   return h('header', {class:'top'},
     h('a', {href:'./'}, h('img', {class:'logo', src:'../assets/logo.png', alt:'JACARALL'})),
     h('div', {class:'top-actions'},
-      h('span', {class:'sync' + (online ? '' : ' off'), title: lastSync ? fmtWhen(lastSync) : ''}, h('span', {class:'dot'}), online ? t('synced') : t('local')),
+      h('span', {class:'sync' + (online ? '' : ' off'), title: lastSync ? fmtWhen(lastSync) : ''}, h('span', {class:'dot'}), h('span', {class:'stxt'}, online ? t('synced') : t('local'))),
       langBtn(),
       h('button', {class:'pill', onclick:changePass, title:t('pwChange')}, avatar(member(me.id) || me), h('span', {class:'lbl-t'}, me.name.split(' ')[0]), '🔑'),
       h('button', {class:'pill back', onclick:goBack, title: view === 'home' ? t('signOut') : t('home')}, h('span', {class:'arrow'}, lang === 'ar' ? '→' : '←'), t('back'))
@@ -1091,6 +1102,7 @@ function teamView(body){
         h('div', null, h('div', {class:'nm'}, m.name), h('div', {class:'rl'}, (m.sup ? t('supervisor') + ' · ' : '') + (m.role || '')), h('div', {class:'ld'}, n + ' ' + t('tasksOpen'))),
         h('div', {class:'acts'},
           m.phone ? h('a', {class:'icon-btn', href:'https://wa.me/' + m.phone.replace(/\D/g, ''), target:'_blank', title:'WhatsApp'}, '✆') : null,
+          (isAdmin() && m.id !== me.id) ? h('button', {class:'icon-btn', title:t('asOpen'), onclick:function(){ openAs(m); }}, '👁') : null,
           me.sup ? h('button', {class:'icon-btn', onclick:function(){ memberForm(m); }}, '✎') : null));
     })));
   });
