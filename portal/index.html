@@ -244,11 +244,19 @@ var ROOT = 'hub';
 // PINs are stored as SHA-256 of 'jacarall:<PIN>'.
 var SUPERVISORS = [
   { id:'ehab', name:'Ehab Thabit', role:'Managing Director', office:'EG', pin:'941a99211b0caa3040cb551b6fbea084fc636be5f1abbdc03b7c1a6b8825f75e' },
-  { id:'eman', name:'Eman Sherif', role:'Supervisor', office:'EG', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' }
+  { id:'eman', name:'Eman Sherif', role:'CEO', office:'EG', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' }
 ];
+// Bump SEED_VERSION whenever this list changes — the members below are then (re)written once.
+var SEED_VERSION = 2;
 var SEED_TEAM = [
-  { id:'engy', name:'Engy Ahmad', role:'Art Director', office:'EG' },
-  { id:'shady', name:'Shady Sayed', role:'Site Engineer', office:'EG' }
+  { id:'shady',   name:'Shady Sayd',     role:'Head of Tech Department', office:'EG' },
+  { id:'engy',    name:'Engy Ahmed',     role:'Art Director',            office:'EG' },
+  { id:'dalia',   name:'Dalia Gamal',    role:'Marketing Manager',       office:'EG' },
+  { id:'radwa',   name:'Radwa',          role:'Tech Engineer',           office:'EG' },
+  { id:'msamier', name:'Mohamed Samier', role:'Senior Designer',         office:'EG' },
+  { id:'josef',   name:'Josef',          role:'Designer',                office:'EG' },
+  { id:'esaleh',  name:'Eman Saleh',     role:'CEO Executive Assistant', office:'EG' },
+  { id:'aali',    name:'Ahmad Ali',      role:'Finance Manager',         office:'EG' }
 ];
 var LINKS = [
   { href:'../', k:'Daily', en:['Daily Update','Yesterday, today & studio pipeline'], ar:['التحديث اليومي','امبارح، النهارده، ومراحل الاستوديو'] },
@@ -332,15 +340,15 @@ function sha256(str){
 }
 
 /* ================= data layer ================= */
-var db = { tasks:{}, team:{}, news:{} };
+var db = { tasks:{}, team:{}, news:{}, meta:{} };
 var online = !!DB_URL, lastSync = 0;
 function base(){ return DB_URL.replace(/\/+$/,'') + '/' + ROOT; }
-function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; } }catch(e){} }
+function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; } }catch(e){} }
 function saveLocal(){ lsSet('jh_db', JSON.stringify(db)); }
 function pull(){
   if(!online){ loadLocal(); seed(); return Promise.resolve(); }
   return fetch(base() + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; lastSync = Date.now(); saveLocal(); seed();
+    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; lastSync = Date.now(); saveLocal(); seed();
   }).catch(function(){ loadLocal(); });
 }
 function write(path, val){
@@ -352,8 +360,11 @@ function write(path, val){
     .then(function(r){ if(!r.ok) throw 0; lastSync = Date.now(); }).catch(function(){ toast('Sync failed — check connection', true); });
 }
 function seed(){
-  if(Object.keys(db.team).length) return;
-  SEED_TEAM.forEach(function(m){ write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, phone:''}); });
+  if((db.meta && db.meta.seedV || 0) >= SEED_VERSION) return;
+  SEED_TEAM.forEach(function(m){ var old = db.team[m.id] || {};
+    write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, phone:old.phone || ''}); });
+  var sv = db.team.eman || {}; if(sv.role && sv.role !== 'CEO') write('team/eman', Object.assign({}, sv, {role:'CEO'}));
+  write('meta', {seedV:SEED_VERSION});
 }
 
 /* ================= state ================= */
