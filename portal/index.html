@@ -313,7 +313,9 @@ var ROOT = 'hub';
 // PINs are stored as SHA-256 of 'jacarall:<PIN>'.
 var SUPERVISORS = [
   { id:'ehab', name:'Ehab Thabit', role:'Managing Director', office:'EG', pin:'941a99211b0caa3040cb551b6fbea084fc636be5f1abbdc03b7c1a6b8825f75e' },
-  { id:'eman', name:'Eman Sherif', role:'CEO', office:'BOTH', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' }
+  { id:'eman', name:'Eman Sherif', role:'CEO', office:'BOTH', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' },
+  // daily:true = also fills in the daily update like the rest of the team
+  { id:'shady', name:'Shady Sayd', role:'Head of Tech Department', office:'EG', daily:true, pin:'844e6e87142fdc3659c883a9f5a0b14bbdde0298961283e73c8d549826f0c8bf' }
 ];
 // Bump SEED_VERSION whenever this list changes — the members below are then (re)written once.
 var SEED_VERSION = 4;
@@ -445,7 +447,7 @@ var view = lsGet('jh_view') || 'home';
 var filt = { scope:null, office:'all', status:'active', q:'' };
 
 function members(){
-  var list = SUPERVISORS.map(function(s){ var extra = db.team[s.id] || {}; return {id:s.id, name:s.name, role:extra.role || s.role, office:extra.office || s.office, dept:extra.dept || '', phone:extra.phone || '', sup:true}; });
+  var list = SUPERVISORS.map(function(s){ var extra = db.team[s.id] || {}; return {id:s.id, name:s.name, role:extra.role || s.role, office:extra.office || s.office, dept:extra.dept || '', phone:extra.phone || '', sup:true, daily:!!s.daily}; });
   Object.keys(db.team).forEach(function(k){ var m = db.team[k]; if(!SUPERVISORS.some(function(s){ return s.id === k; })) list.push(Object.assign({sup:false}, m)); });
   return list;
 }
@@ -803,8 +805,9 @@ function deptName(k){ var d = DEPTS[k] || DEPTS.admin; return lang === 'ar' ? d.
 function dateShift(s, n){ var d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
 function fmtDay(s){ try{ return new Date(s + 'T12:00:00').toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-GB', {weekday:'long', day:'numeric', month:'long'}); }catch(e){ return s; } }
 function entry(date, id){ return (db.daily[date] || {})[id] || null; }
-function staff(){ return members().filter(function(m){ return !m.sup; }); }
-function myDailyMissing(){ return me && !me.sup && !entry(todayStr(), me.id); }
+function staff(){ return members().filter(function(m){ return !m.sup || m.daily; }); }
+function needsDaily(id){ var m = member(id); return !!m && (!m.sup || m.daily); }
+function myDailyMissing(){ return me && needsDaily(me.id) && !entry(todayStr(), me.id); }
 
 var draft = null, dailyMode = null, boardDate = null, boardOffice = 'all', boardDept = 'all', editingDaily = false;
 function freshDraft(){
@@ -821,7 +824,7 @@ function getDraft(){
 function keepDraft(){ lsSet('jh_draft_' + me.id + '_' + todayStr(), JSON.stringify(draft)); }
 
 function dailyView(body){
-  if(!dailyMode) dailyMode = me.sup ? 'board' : 'mine';
+  if(!dailyMode) dailyMode = me.sup && !myDailyMissing() ? 'board' : 'mine';
   if(me.sup){
     body.appendChild(h('div', {class:'filters', style:'margin-top:18px'}, h('div', {class:'seg'},
       h('button', {class: dailyMode === 'board' ? 'on' : '', onclick:function(){ dailyMode = 'board'; render(); }}, t('dBoard')),
