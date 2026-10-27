@@ -101,6 +101,7 @@ html[dir=rtl] .tag{font-family:'IBM Plex Sans Arabic',sans-serif;font-size:11.5p
 .tag.doing{background:var(--info-bg);color:var(--info)}
 .tag.blocked{background:var(--bad-bg);color:var(--bad)}
 .tag.done{background:var(--good-bg);color:var(--good)}
+.tag.partial{background:var(--warn-bg);color:var(--warn)}
 .tag.office{background:transparent;border-color:var(--line2);color:var(--soft)}
 .dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
 
@@ -217,6 +218,74 @@ html[dir=rtl] .sheet-h h3{font-family:'IBM Plex Sans Arabic',sans-serif}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 90px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:40px;font-size:13.5px;font-weight:500;z-index:80;animation:up .2s;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .toast.err{background:var(--bad);color:#fff}
 
+
+/* daily */
+.dhead,.dnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
+.dday{font-family:Fraunces,serif;font-size:24px;font-weight:600;margin-top:4px}
+html[dir=rtl] .dday{font-family:'IBM Plex Sans Arabic',sans-serif}
+.streak{display:flex;gap:6px}
+.sk{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:var(--mute);font-family:'IBM Plex Mono',monospace}
+.sk i{width:22px;height:22px;border-radius:50%;border:1.5px dashed var(--line2);display:block}
+.sk.s-done i{background:var(--good);border:none}.sk.s-partial i{background:var(--warn);border:none}.sk.s-not i{background:var(--bad);border:none}
+.sk.now i{border:1.5px solid var(--brand-ink);box-shadow:0 0 0 3px rgba(140,31,59,.25)}
+.sk.off i{border-style:solid;border-color:var(--line);opacity:.4}
+.dform{display:flex;flex-direction:column;gap:10px}
+.dstep{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.dnum{flex:0 0 28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:Fraunces,serif;font-weight:600;font-size:14px}
+.dbody{flex:1;min-width:0}
+.dlabel{font-weight:600;font-size:15px;margin:3px 0 10px;display:flex;gap:8px;align-items:baseline}
+.dlabel span{font-weight:400;font-size:12px;color:var(--mute)}
+.dlabel.sm{font-size:13px;margin:14px 0 8px;color:var(--warn)}
+.txt.slim{min-height:0;font-size:15px;line-height:1.5}
+.chipsel.solo{padding:7px 13px}
+html[dir=rtl] .chipsel.solo{padding:7px 13px}
+.chipsel.solo.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chipsel.warn.on{background:var(--warn-bg);color:var(--warn);border-color:var(--warn)}
+.dstatus{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dstatus button{border:1.5px solid var(--line2);background:var(--card);border-radius:8px;padding:12px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--soft);font-size:12.5px}
+.dstatus b{font-size:18px;line-height:1}
+.dstatus .done.on{border-color:var(--good);background:var(--good-bg);color:var(--good)}
+.dstatus .partial.on{border-color:var(--warn);background:var(--warn-bg);color:var(--warn)}
+.dstatus .not.on{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+.dwhy{border-top:1px dashed var(--line2);margin-top:14px}
+.dpull{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;font-size:12px;color:var(--soft)}
+.mini{border:1px dashed var(--line2);background:transparent;border-radius:30px;padding:5px 10px;font-size:12px;cursor:pointer;color:var(--soft);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini:hover{color:var(--ink);border-color:var(--soft)}
+.btn.big{padding:15px 18px;font-size:15.5px}
+.dsent{background:linear-gradient(160deg,rgba(95,168,125,.12),transparent 60%),var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+.dsent-top{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.dsent .rl{font-size:12.5px;color:var(--soft);margin-top:2px}
+.big-check{width:42px;height:42px;border-radius:50%;background:var(--good);color:#0A0A0A;display:grid;place-items:center;font-size:20px;font-weight:700}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.dcard{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--line2);border-radius:8px;padding:14px}
+.dsent .dcard{background:var(--card)}
+.dcard.st-done{border-top-color:var(--good)}.dcard.st-partial{border-top-color:var(--warn)}.dcard.st-not{border-top-color:var(--bad)}
+.dcard-h{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.dcard-h .nm{font-weight:600;font-size:14.5px}
+.dcard-h .rl{font-size:11.5px;color:var(--soft);display:flex;align-items:center;gap:5px;margin-top:2px}
+.ddot{width:7px;height:7px;border-radius:2px;display:inline-block}
+.dproj{font-size:12.5px;color:var(--brand-ink);margin-bottom:8px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.blk{margin-top:8px}
+.blk .bl{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--mute);margin-bottom:3px}
+html[dir=rtl] .blk .bl{font-family:'IBM Plex Sans Arabic',sans-serif;font-size:11px;letter-spacing:0}
+.blk p{margin:0;white-space:pre-wrap;line-height:1.5;font-size:14px;color:#DCD6CF}
+.blk.why{background:var(--bad-bg);border-radius:6px;padding:8px 10px}.blk.why .bl{color:var(--bad)}
+.blk.help{background:var(--warn-bg);border-radius:6px;padding:8px 10px}.blk.help .bl{color:var(--warn)}
+.icon-btn.big{font-size:26px;padding:4px 14px;border:1px solid var(--line2);border-radius:8px}
+.icon-btn[disabled]{opacity:.25;cursor:default}
+.dnav{justify-content:space-between;flex-wrap:nowrap}
+.stat b small{font-size:15px;color:var(--soft);font-weight:400}
+.prog{height:4px;background:var(--card);border-radius:4px;margin-top:10px;overflow:hidden}.prog i{display:block;height:100%;background:var(--good)}
+.waiting{display:flex;flex-wrap:wrap;gap:8px}
+.wchip{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px dashed var(--line2);border-radius:40px;padding:5px 12px 5px 5px;font-size:13px;color:var(--ink);text-decoration:none}
+html[dir=rtl] .wchip{padding:5px 5px 5px 12px}
+a.wchip:hover{border-color:#1F8F4E}
+.wchip .nudge{color:#3FBF73}
+.cta{display:flex;align-items:center;gap:14px;background:linear-gradient(120deg,rgba(140,31,59,.45),rgba(140,31,59,.12));border:1px solid var(--brand);border-radius:12px;padding:16px;margin-top:16px;cursor:pointer}
+.cta b{display:block;font-size:15.5px}.cta span{font-size:12.5px;color:#E2CFD4}
+.cta .go{margin-inline-start:auto;background:var(--ink);color:var(--bg);border-radius:40px;padding:9px 16px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.tab .n.dotn{background:var(--ochre);color:#0A0A0A;padding:1px 6px}
+@media(max-width:720px){.dstep{padding:14px 12px;gap:10px}.dgrid{grid-template-columns:1fr}.dhead{align-items:flex-start}}
 @media(max-width:720px){
   .stats{grid-template-columns:repeat(2,1fr)}
   .grid2{grid-template-columns:1fr}
@@ -247,7 +316,7 @@ var SUPERVISORS = [
   { id:'eman', name:'Eman Sherif', role:'CEO', office:'BOTH', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' }
 ];
 // Bump SEED_VERSION whenever this list changes — the members below are then (re)written once.
-var SEED_VERSION = 3;
+var SEED_VERSION = 4;
 var SEED_TEAM = [
   { id:'shady',   name:'Shady Sayd',     role:'Head of Tech Department', office:'EG' },
   { id:'engy',    name:'Engy Ahmed',     role:'Art Director',            office:'EG' },
@@ -281,7 +350,8 @@ var T = {
   newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
-  nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by' },
+  nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by',
+  daily:'Daily update', dBoard:'Team board', dMine:'My update', dSent:'Update sent', dSentSub:'Supervisors can see it now', dProjPh:'Which project?', dArea:'task', dYesterday:'What did you do yesterday?', dDidPh:'Short and clear — what got done', dDone:'Finished', dPartial:'Partly', dNot:'Not finished', dWhy:'Why wasn\'t it finished?', dNotePh:'Details (optional)', dToday:'What\'s the plan for today?', dPlanPh:'What you\'ll work on today', dFromTasks:'From your tasks:', dHelp:'Need help with anything?', dHelpPh:'Materials, approvals, another team…', optional:'optional', dSend:'Send update', dNeedDid:'Write what you did yesterday', dNeedStatus:'Did you finish it?', dNeedPlan:'Add today\'s plan', dThanks:'Sent — thank you!', dDidShort:'Yesterday', dWhyShort:'Not finished', dPlanShort:'Today', dHelpShort:'Needs help', dSubmitted:'Updates in', dMissing:'Still missing', dNotFinished:'Not finished', dNeedHelp:'Need help', dWaiting:'Waiting for', dNudge:'Remind on WhatsApp', dUpdates:'Updates', dNone:'No updates for this day yet.', dCta:'Your daily update isn\'t in yet', dCtaSub:'Takes under a minute', dCtaGo:'Fill it', dToday2:'Today\'s updates', dCtaSupSub:'See who sent, who didn\'t, and who needs help', dept:'Department' },
  ar:{ hub:'بوابة الفريق', who:'مين بيدخل؟', whoSub:'اختار اسمك. المشرفين محتاجين الرقم السري.', sup:'المشرفين', eg:'مكتب مصر', sa:'مكتب السعودية',
   egS:'القاهرة', saS:'الرياض', pin:'الرقم السري', enter:'دخول', wrongPin:'الرقم السري غلط', back:'رجوع',
   morning:'صباح الخير', afternoon:'مساء الخير', evening:'مساء الخير',
@@ -296,7 +366,8 @@ var T = {
   newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
-  nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من' }
+  nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من',
+  daily:'التحديث اليومي', dBoard:'لوحة الفريق', dMine:'تحديثي', dSent:'التحديث اتبعت', dSentSub:'المشرفين يقدروا يشوفوه دلوقتي', dProjPh:'أنهي مشروع؟', dArea:'نوع الشغل', dYesterday:'عملت إيه امبارح؟', dDidPh:'باختصار — إيه اللي اتعمل', dDone:'خلص', dPartial:'جزء منه', dNot:'ما خلصش', dWhy:'ليه ما خلصش؟', dNotePh:'تفاصيل (اختياري)', dToday:'هتعمل إيه النهارده؟', dPlanPh:'الشغل اللي هتشتغل عليه النهارده', dFromTasks:'من مهامك:', dHelp:'محتاج مساعدة في حاجة؟', dHelpPh:'خامات، موافقات، قسم تاني…', optional:'اختياري', dSend:'ابعت التحديث', dNeedDid:'اكتب عملت إيه امبارح', dNeedStatus:'خلصت ولا لأ؟', dNeedPlan:'اكتب خطة النهارده', dThanks:'اتبعت — شكراً!', dDidShort:'امبارح', dWhyShort:'ما خلصش', dPlanShort:'النهارده', dHelpShort:'محتاج مساعدة', dSubmitted:'بعتوا', dMissing:'لسه ما بعتوش', dNotFinished:'ما خلصش', dNeedHelp:'محتاجين مساعدة', dWaiting:'مستنيين', dNudge:'فكّره على الواتساب', dUpdates:'التحديثات', dNone:'مفيش تحديثات لليوم ده لسه.', dCta:'لسه ما بعتش التحديث اليومي', dCtaSub:'أقل من دقيقة', dCtaGo:'املاه', dToday2:'تحديثات النهارده', dCtaSupSub:'شوف مين بعت ومين لأ ومين محتاج مساعدة', dept:'القسم' }
 };
 var mem = {};
 var lang = lsGet('jh_lang') || 'en';
@@ -341,15 +412,15 @@ function sha256(str){
 }
 
 /* ================= data layer ================= */
-var db = { tasks:{}, team:{}, news:{}, meta:{} };
+var db = { tasks:{}, team:{}, news:{}, meta:{}, daily:{} };
 var online = !!DB_URL, lastSync = 0;
 function base(){ return DB_URL.replace(/\/+$/,'') + '/' + ROOT; }
-function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; } }catch(e){} }
+function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; } }catch(e){} }
 function saveLocal(){ lsSet('jh_db', JSON.stringify(db)); }
 function pull(){
   if(!online){ loadLocal(); seed(); return Promise.resolve(); }
   return fetch(base() + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; lastSync = Date.now(); saveLocal(); seed();
+    d = d || {}; db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; lastSync = Date.now(); saveLocal(); seed();
   }).catch(function(){ loadLocal(); });
 }
 function write(path, val){
@@ -363,7 +434,7 @@ function write(path, val){
 function seed(){
   if((db.meta && db.meta.seedV || 0) >= SEED_VERSION) return;
   SEED_TEAM.forEach(function(m){ var old = db.team[m.id] || {};
-    write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, phone:old.phone || ''}); });
+    write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, dept:deptOf(m), phone:old.phone || ''}); });
   var sv = db.team.eman || {}; if(sv.id) write('team/eman', Object.assign({}, sv, {role:'CEO', office:'BOTH'}));
   write('meta', {seedV:SEED_VERSION});
 }
@@ -374,7 +445,7 @@ var view = lsGet('jh_view') || 'home';
 var filt = { scope:null, office:'all', status:'active', q:'' };
 
 function members(){
-  var list = SUPERVISORS.map(function(s){ var extra = db.team[s.id] || {}; return {id:s.id, name:s.name, role:extra.role || s.role, office:extra.office || s.office, phone:extra.phone || '', sup:true}; });
+  var list = SUPERVISORS.map(function(s){ var extra = db.team[s.id] || {}; return {id:s.id, name:s.name, role:extra.role || s.role, office:extra.office || s.office, dept:extra.dept || '', phone:extra.phone || '', sup:true}; });
   Object.keys(db.team).forEach(function(k){ var m = db.team[k]; if(!SUPERVISORS.some(function(s){ return s.id === k; })) list.push(Object.assign({sup:false}, m)); });
   return list;
 }
@@ -407,6 +478,7 @@ function render(){
   else if(view === 'tasks') tasksView(body);
   else if(view === 'team') teamView(body);
   else if(view === 'news') newsView(body);
+  else if(view === 'daily') dailyView(body);
   if(!online && me.sup) body.appendChild(h('div', {class:'banner'}, '⚠︎ ' + t('demo')));
   if(me.sup && (view === 'home' || view === 'tasks')) app.appendChild(h('button', {class:'fab', onclick:function(){ taskForm(); }}, '+ ' + t('newTask')));
   if(me.sup && view === 'news') app.appendChild(h('button', {class:'fab', onclick:function(){ newsForm(); }}, '+ ' + t('newPost')));
@@ -452,7 +524,7 @@ function pinPrompt(m){
     });
   }
 }
-function signIn(m){ me = {id:m.id, name:m.name, sup:!!m.sup}; lsSet('jh_me', JSON.stringify(me)); view = 'home'; filt.scope = null; render(); }
+function signIn(m){ dailyMode = null; draft = null; editingDaily = false; me = {id:m.id, name:m.name, sup:!!m.sup}; lsSet('jh_me', JSON.stringify(me)); view = 'home'; filt.scope = null; render(); }
 
 function header(){
   return h('header', {class:'top'},
@@ -481,10 +553,10 @@ function tickClocks(){
 
 function nav(){
   var myOpen = allTasks().filter(function(x){ return isMine(x) && isOpen(x); }).length;
-  var tabs = [['home', t('home')], ['tasks', t('tasks'), myOpen], ['news', t('news')], ['team', t('team')]];
+  var tabs = [['home', t('home')], ['daily', t('daily'), myDailyMissing() ? '•' : 0], ['tasks', t('tasks'), myOpen], ['news', t('news')], ['team', t('team')]];
   return h('nav', {class:'nav'}, h('div', {class:'nav-in'}, tabs.map(function(tb){
-    return h('button', {class:'tab' + (view === tb[0] ? ' on' : ''), onclick:function(){ view = tb[0]; lsSet('jh_view', view); render(); window.scrollTo(0, 0); }},
-      tb[1], tb[2] ? h('span', {class:'n'}, tb[2]) : null);
+    return h('button', {class:'tab' + (view === tb[0] ? ' on' : ''), onclick:function(){ view = tb[0]; lsSet('jh_view', view); if(tb[0] === 'daily'){ boardDate = null; } render(); window.scrollTo(0, 0); }},
+      tb[1], tb[2] ? h('span', {class:'n' + (tb[2] === '•' ? ' dotn' : '')}, tb[2]) : null);
   })));
 }
 
@@ -493,6 +565,9 @@ function homeView(body){
   var hr = parseInt(new Date().toLocaleTimeString('en-GB', {timeZone: (OFFICES[(member(me.id)||{}).office] || OFFICES.EG).tz, hour:'2-digit', hour12:false}), 10);
   var greet = hr < 12 ? t('morning') : hr < 17 ? t('afternoon') : t('evening');
   body.insertBefore(h('div', {class:'hello'}, greet + (lang === 'ar' ? '، ' : ', '), h('em', null, me.name.split(' ')[0])), body.firstChild);
+  if(myDailyMissing()) body.appendChild(h('div', {class:'cta', onclick:function(){ view = 'daily'; render(); window.scrollTo(0,0); }}, h('div', null, h('b', null, t('dCta')), h('span', null, t('dCtaSub'))), h('span', {class:'go'}, t('dCtaGo') + ' →')));
+  if(me.sup){ var dd = db.daily[todayStr()] || {}, ss = staff(), sc = ss.filter(function(m){ return dd[m.id]; }).length;
+    body.appendChild(h('div', {class:'cta', onclick:function(){ view = 'daily'; dailyMode = 'board'; boardDate = null; render(); window.scrollTo(0,0); }}, h('div', null, h('b', null, t('dToday2') + ': ' + sc + ' / ' + ss.length), h('span', null, t('dCtaSupSub'))), h('span', {class:'go'}, t('dBoard') + ' →'))); }
 
   var scope = allTasks().filter(function(x){ return me.sup ? true : isMine(x); });
   var open = scope.filter(isOpen);
@@ -703,6 +778,204 @@ function taskForm(tk){
   }
 }
 
+/* ---------- daily update ---------- */
+var DEPTS = {
+  tech:      { en:'Tech',      ar:'التكنيكال', color:'#9A7F8C', areas:['Arch drawing','BOQ','Shop drawing','Site support','Client follow up','Other'] },
+  design:    { en:'Design',    ar:'التصميم',   color:'#C0566F', areas:['Modeling','3D Design','3D Rendering','Material Selection','Design Vision Setup','Moodboard Creation','Other'] },
+  marketing: { en:'Marketing', ar:'الماركتنج', color:'#6F9BC0', areas:['Content','Social media','Shoot','Campaign','Website','Leads follow up','Other'] },
+  site:      { en:'Site',      ar:'الموقع',    color:'#8E9A72', areas:['Supervision','Snag list','Measurements','Deliveries','Subcontractors','Handover','Other'] },
+  admin:     { en:'Admin & Finance', ar:'الإدارة والمالية', color:'#C99A4A', areas:['Finance','Payments','Admin','Client follow up','Scheduling','Other'] }
+};
+var REASONS = [
+  ['approval','Waiting for approval','مستني موافقة'], ['info','Missing info or drawings','ناقص معلومات أو رسومات'],
+  ['client','Client change','تعديل من العميل'], ['materials','Materials / delivery delay','تأخير خامات أو توريد'],
+  ['team','Waiting on another team','مستني قسم تاني'], ['tech','Software / technical issue','مشكلة برنامج أو تقنية'],
+  ['priority','Priority changed','الأولوية اتغيرت'], ['other','Other','سبب تاني']
+];
+function reasonLabel(k){ var r = REASONS.filter(function(x){ return x[0] === k; })[0]; return r ? (lang === 'ar' ? r[2] : r[1]) : k; }
+function deptOf(m){
+  if(!m) return 'admin'; if(m.dept && DEPTS[m.dept]) return m.dept;
+  var r = (m.role || '').toLowerCase();
+  if(/tech/.test(r)) return 'tech'; if(/design|art/.test(r)) return 'design'; if(/market/.test(r)) return 'marketing'; if(/site/.test(r)) return 'site';
+  return 'admin';
+}
+function deptName(k){ var d = DEPTS[k] || DEPTS.admin; return lang === 'ar' ? d.ar : d.en; }
+function dateShift(s, n){ var d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function fmtDay(s){ try{ return new Date(s + 'T12:00:00').toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-GB', {weekday:'long', day:'numeric', month:'long'}); }catch(e){ return s; } }
+function entry(date, id){ return (db.daily[date] || {})[id] || null; }
+function staff(){ return members().filter(function(m){ return !m.sup; }); }
+function myDailyMissing(){ return me && !me.sup && !entry(todayStr(), me.id); }
+
+var draft = null, dailyMode = null, boardDate = null, boardOffice = 'all', boardDept = 'all', editingDaily = false;
+function freshDraft(){
+  var prev = entry(todayStr(), me.id);
+  if(prev) return JSON.parse(JSON.stringify(prev));
+  var last = null; for(var i=1;i<8 && !last;i++) last = entry(dateShift(todayStr(), -i), me.id);
+  return { project: last ? last.project : '', area: last ? last.area : '', did: last && last.plan ? last.plan : '', status:'', reason:'', note:'', plan:'', help:'' };
+}
+function getDraft(){
+  if(draft && draft._for === me.id + todayStr()) return draft;
+  var saved = null; try{ saved = JSON.parse(lsGet('jh_draft_' + me.id + '_' + todayStr()) || 'null'); }catch(e){}
+  draft = saved || freshDraft(); draft._for = me.id + todayStr(); return draft;
+}
+function keepDraft(){ lsSet('jh_draft_' + me.id + '_' + todayStr(), JSON.stringify(draft)); }
+
+function dailyView(body){
+  if(!dailyMode) dailyMode = me.sup ? 'board' : 'mine';
+  if(me.sup){
+    body.appendChild(h('div', {class:'filters', style:'margin-top:18px'}, h('div', {class:'seg'},
+      h('button', {class: dailyMode === 'board' ? 'on' : '', onclick:function(){ dailyMode = 'board'; render(); }}, t('dBoard')),
+      h('button', {class: dailyMode === 'mine' ? 'on' : '', onclick:function(){ dailyMode = 'mine'; render(); }}, t('dMine')))));
+  }
+  if(dailyMode === 'board') return dailyBoard(body);
+  dailyForm(body);
+}
+
+function streak(){
+  var row = h('div', {class:'streak'});
+  for(var i=6;i>=0;i--){
+    var d = dateShift(todayStr(), -i), e = entry(d, me.id), wd = new Date(d + 'T12:00:00').getDay();
+    var cls = e ? 's-' + e.status : (wd === 5 ? 'off' : (i === 0 ? 'now' : 'miss'));
+    row.appendChild(h('div', {class:'sk ' + cls, title:fmtDay(d)},
+      h('i'), h('span', null, new Date(d + 'T12:00:00').toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-GB', {weekday:'narrow'}))));
+  }
+  return row;
+}
+
+function dailyForm(body){
+  var today = todayStr(), done = entry(today, me.id), m = member(me.id), dk = deptOf(m), dept = DEPTS[dk];
+  body.appendChild(h('div', {class:'dhead'},
+    h('div', null, h('div', {class:'kicker'}, deptName(dk) + ' · ' + t('daily')), h('div', {class:'dday'}, fmtDay(today))),
+    streak()));
+
+  if(done && !editingDaily){
+    body.appendChild(h('div', {class:'dsent'},
+      h('div', {class:'dsent-top'}, h('span', {class:'big-check'}, '✓'), h('div', null, h('b', null, t('dSent')), h('div', {class:'rl'}, t('dSentSub') + ' · ' + fmtWhen(done.at)))),
+      entryCard(done, true),
+      h('div', {class:'btns'}, h('button', {class:'btn ghost', onclick:function(){ editingDaily = true; draft = null; lsDel('jh_draft_' + me.id + '_' + today); render(); }}, '✎ ' + t('edit')))));
+    return;
+  }
+
+  var d = getDraft();
+  var form = h('div', {class:'dform'});
+  body.appendChild(form);
+
+  function step(n, label, content, hint){
+    return h('section', {class:'dstep'}, h('div', {class:'dnum'}, n), h('div', {class:'dbody'}, h('div', {class:'dlabel'}, label, hint ? h('span', null, hint) : null), content));
+  }
+  function chips(list, key, labelFn, cls){
+    var box = h('div', {class:'chips'});
+    list.forEach(function(v){ var val = Array.isArray(v) ? v[0] : v;
+      box.appendChild(h('button', {type:'button', class:'chipsel solo ' + (cls||'') + (d[key] === val ? ' on' : ''), onclick:function(){
+        d[key] = d[key] === val ? '' : val; keepDraft(); redraw(); }}, labelFn ? labelFn(v) : v)); });
+    return box;
+  }
+  function area(key, ph, rows){
+    var el = h('textarea', {class:'txt slim', rows:rows || 2, placeholder:ph}); el.value = d[key] || '';
+    el.addEventListener('input', function(){ d[key] = el.value; keepDraft(); });
+    return el;
+  }
+
+  var projects = {}; allTasks().forEach(function(x){ if(x.project) projects[x.project] = 1; });
+  Object.keys(db.daily).forEach(function(dt){ var day = db.daily[dt] || {}; Object.keys(day).forEach(function(k){ if(day[k] && day[k].project) projects[day[k].project] = 1; }); });
+  ['Tulip Tower','Solamanya'].forEach(function(p){ projects[p] = 1; });
+
+  function redraw(){
+    form.innerHTML = '';
+    var proj = h('input', {class:'inp', list:'dproj', value:d.project || '', placeholder:t('dProjPh')});
+    proj.addEventListener('input', function(){ d.project = proj.value; keepDraft(); });
+    form.appendChild(step('1', t('project') + ' & ' + t('dArea'), [h('div', null, proj, h('datalist', {id:'dproj'}, Object.keys(projects).map(function(p){ return h('option', {value:p}); }))),
+      h('div', {style:'margin-top:10px'}, chips(dept.areas, 'area'))]));
+
+    var st = h('div', {class:'dstatus'}, [['done','✓',t('dDone')],['partial','½',t('dPartial')],['not','✕',t('dNot')]].map(function(s){
+      return h('button', {type:'button', class:s[0] + (d.status === s[0] ? ' on' : ''), onclick:function(){ d.status = s[0]; if(s[0] === 'done'){ d.reason = ''; } keepDraft(); redraw(); }},
+        h('b', null, s[1]), h('span', null, s[2]));
+    }));
+    form.appendChild(step('2', t('dYesterday'), [area('did', t('dDidPh')), h('div', {style:'margin-top:10px'}, st),
+      (d.status === 'partial' || d.status === 'not') ? h('div', {class:'dwhy'}, h('div', {class:'dlabel sm'}, t('dWhy')), chips(REASONS, 'reason', function(r){ return lang === 'ar' ? r[2] : r[1]; }, 'warn'),
+        h('div', {style:'margin-top:8px'}, area('note', t('dNotePh'), 1))) : null]));
+
+    var mine = allTasks().filter(function(x){ return isMine(x) && isOpen(x); });
+    form.appendChild(step('3', t('dToday'), [area('plan', t('dPlanPh'), 3),
+      mine.length ? h('div', {class:'dpull'}, h('span', null, t('dFromTasks')), mine.slice(0, 6).map(function(tk){
+        return h('button', {type:'button', class:'mini', onclick:function(){ d.plan = (d.plan ? d.plan.replace(/\s+$/,'') + '\n' : '') + '• ' + tk.title; keepDraft(); redraw(); }}, '+ ' + tk.title); })) : null]));
+
+    form.appendChild(step('4', t('dHelp'), [area('help', t('dHelpPh'), 1)], t('optional')));
+
+    form.appendChild(h('div', {class:'btns'},
+      editingDaily ? h('button', {class:'btn ghost', onclick:function(){ editingDaily = false; draft = null; render(); }}, t('cancel')) : null,
+      h('button', {class:'btn pri big', onclick:submit}, editingDaily ? t('save') : t('dSend') + ' →')));
+  }
+  function submit(){
+    if(!(d.did || '').trim()) return toast(t('dNeedDid'), true);
+    if(!d.status) return toast(t('dNeedStatus'), true);
+    if(d.status !== 'done' && !d.reason) return toast(t('dWhy'), true);
+    if(!(d.plan || '').trim()) return toast(t('dNeedPlan'), true);
+    var rec = { by:me.id, date:today, dept:dk, office:(m && m.office) || 'EG', project:(d.project||'').trim(), area:d.area || '', did:d.did.trim(), status:d.status,
+      reason:d.status === 'done' ? '' : d.reason, note:d.status === 'done' ? '' : (d.note||'').trim(), plan:d.plan.trim(), help:(d.help||'').trim(),
+      at:(done && done.at) || Date.now() };
+    if(done) rec.editedAt = Date.now();
+    write('daily/' + today + '/' + me.id, rec).then(function(){ lsDel('jh_draft_' + me.id + '_' + today); draft = null; editingDaily = false; toast(t('dThanks')); render(); window.scrollTo(0, 0); });
+  }
+  redraw();
+}
+
+function entryCard(e, compact){
+  var m = member(e.by), dk = e.dept || deptOf(m);
+  return h('article', {class:'dcard st-' + e.status},
+    compact ? null : h('div', {class:'dcard-h'}, avatar(m || {id:e.by, name:'?'}),
+      h('div', {style:'flex:1;min-width:0'}, h('div', {class:'nm'}, m ? m.name : e.by),
+        h('div', {class:'rl'}, h('span', {class:'ddot', style:'background:' + (DEPTS[dk]||DEPTS.admin).color}), deptName(dk), ' · ', fmtWhen(e.editedAt || e.at).split(',').pop().trim())),
+      dStatusTag(e.status)),
+    (e.project || e.area) ? h('div', {class:'dproj'}, e.project ? '▣ ' + e.project : '', e.project && e.area ? '  ·  ' : '', e.area || '', compact ? h('span', {style:'margin-inline-start:auto'}, dStatusTag(e.status)) : null) : (compact ? h('div', {class:'dproj'}, dStatusTag(e.status)) : null),
+    h('div', {class:'blk'}, h('span', {class:'bl'}, t('dDidShort')), h('p', null, e.did)),
+    e.status !== 'done' && e.reason ? h('div', {class:'blk why'}, h('span', {class:'bl'}, t('dWhyShort') + ' — ' + reasonLabel(e.reason)), e.note ? h('p', null, e.note) : null) : null,
+    h('div', {class:'blk'}, h('span', {class:'bl'}, t('dPlanShort')), h('p', null, e.plan)),
+    e.help ? h('div', {class:'blk help'}, h('span', {class:'bl'}, '⚑ ' + t('dHelpShort')), h('p', null, e.help)) : null);
+}
+function dStatusTag(s){ var map = {done:['done', t('dDone')], partial:['partial', t('dPartial')], not:['blocked', t('dNot')]}; var x = map[s] || ['todo', s]; return h('span', {class:'tag ' + x[0]}, h('span', {class:'dot'}), x[1]); }
+
+function dailyBoard(body){
+  var date = boardDate || todayStr();
+  var people = staff().filter(function(m){
+    if(boardOffice !== 'all' && !(m.office === boardOffice || m.office === 'BOTH')) return false;
+    if(boardDept !== 'all' && deptOf(m) !== boardDept) return false; return true; });
+  var day = db.daily[date] || {};
+  var sent = people.filter(function(m){ return day[m.id]; }), missing = people.filter(function(m){ return !day[m.id]; });
+  var entries = sent.map(function(m){ return day[m.id]; });
+  var notDone = entries.filter(function(e){ return e.status !== 'done'; }).length, help = entries.filter(function(e){ return e.help; }).length;
+
+  body.appendChild(h('div', {class:'dnav'},
+    h('button', {class:'icon-btn big', onclick:function(){ boardDate = dateShift(date, -1); render(); }}, lang === 'ar' ? '›' : '‹'),
+    h('div', {style:'text-align:center'}, h('div', {class:'kicker'}, date === todayStr() ? t('today') : date), h('div', {class:'dday'}, fmtDay(date))),
+    h('button', {class:'icon-btn big', disabled: date >= todayStr(), onclick:function(){ if(date < todayStr()){ boardDate = dateShift(date, 1); render(); } }}, lang === 'ar' ? '‹' : '›')));
+
+  var bar = body.appendChild(h('div', {class:'filters'}));
+  bar.appendChild(h('div', {class:'seg'}, [['all', t('all')], ['EG','🇪🇬'], ['SA','🇸🇦']].map(function(o){ return h('button', {class: boardOffice === o[0] ? 'on' : '', onclick:function(){ boardOffice = o[0]; render(); }}, o[1]); })));
+  bar.appendChild(h('div', {class:'seg'}, [['all', t('all')]].concat(Object.keys(DEPTS).map(function(k){ return [k, deptName(k)]; })).map(function(o){ return h('button', {class: boardDept === o[0] ? 'on' : '', onclick:function(){ boardDept = o[0]; render(); }}, o[1]); })));
+
+  var pct = people.length ? Math.round(sent.length / people.length * 100) : 0;
+  body.appendChild(h('div', {class:'stats'},
+    h('div', {class:'stat'}, h('b', null, sent.length, h('small', null, ' / ' + people.length)), h('span', null, t('dSubmitted')), h('div', {class:'prog'}, h('i', {style:'width:' + pct + '%'}))),
+    h('div', {class:'stat ' + (missing.length ? 'hot' : 'ok')}, h('b', null, missing.length), h('span', null, t('dMissing'))),
+    h('div', {class:'stat ' + (notDone ? 'alert' : 'ok')}, h('b', null, notDone), h('span', null, t('dNotFinished'))),
+    h('div', {class:'stat ' + (help ? 'hot' : 'ok')}, h('b', null, help), h('span', null, t('dNeedHelp')))));
+
+  if(missing.length){
+    body.appendChild(h('h2', null, t('dWaiting'), h('small', null, missing.length)));
+    body.appendChild(h('div', {class:'waiting'}, missing.map(function(m){
+      var msg = (lang === 'ar' ? 'صباح الخير ' : 'Hi ') + m.name.split(' ')[0] + (lang === 'ar' ? '، ياريت تملا التحديث اليومي: ' : ', please fill in your daily update: ') + hubUrl();
+      return h(m.phone ? 'a' : 'div', {class:'wchip', href: m.phone ? 'https://wa.me/' + m.phone.replace(/\D/g,'') + '?text=' + encodeURIComponent(msg) : null, target:'_blank', title: m.phone ? t('dNudge') : ''},
+        avatar(m), m.name.split(' ')[0], m.phone ? h('span', {class:'nudge'}, '✆') : null);
+    })));
+  }
+  body.appendChild(h('h2', null, t('dUpdates'), h('small', null, entries.length)));
+  if(!entries.length) return body.appendChild(h('div', {class:'empty'}, t('dNone')));
+  var rank = {not:0, partial:1, done:2};
+  entries.sort(function(a,b){ return (b.help?1:0) - (a.help?1:0) || rank[a.status] - rank[b.status] || a.at - b.at; });
+  body.appendChild(h('div', {class:'dgrid'}, entries.map(function(e){ return entryCard(e); })));
+}
+
 /* ---------- news ---------- */
 function sortedNews(){ return Object.keys(db.news).map(function(k){ return db.news[k]; }).filter(Boolean).sort(function(a,b){ return (b.pinned?1:0) - (a.pinned?1:0) || b.at - a.at; }); }
 function newsItem(n){
@@ -765,17 +1038,18 @@ function memberForm(m){
   var role = h('input', {class:'inp', value:m.role || '', placeholder:'Site Engineer, Designer…'});
   var office = h('select', {class:'sel'}, h('option', {value:'EG'}, '🇪🇬 ' + t('eg')), h('option', {value:'SA'}, '🇸🇦 ' + t('sa')), h('option', {value:'BOTH'}, '🇪🇬 🇸🇦 ' + t('all'))); office.value = m.office || 'EG';
   var phone = h('input', {class:'inp', value:m.phone || '', inputmode:'tel', placeholder:'201001234567'});
+  var dept = h('select', {class:'sel'}, Object.keys(DEPTS).map(function(k){ return h('option', {value:k}, deptName(k)); })); dept.value = deptOf(m);
   var sh = sheet(isNew ? t('addMember') : t('editMember'), [
     h('label', {class:'lbl'}, t('name')), name,
     h('label', {class:'lbl'}, t('role')), role,
-    h('label', {class:'lbl'}, t('office')), office,
+    h('div', {class:'row2'}, h('div', null, h('label', {class:'lbl'}, t('office')), office), h('div', null, h('label', {class:'lbl'}, t('dept')), dept)),
     h('label', {class:'lbl'}, t('phone')), phone, h('div', {style:'font-size:11.5px;color:var(--soft);margin-top:5px'}, t('phoneH')),
     h('div', {class:'btns'},
       (!isNew && !m.sup) ? delBtn(function(){ write('team/' + m.id, null); sh.close(); render(); }) : h('button', {class:'btn ghost', onclick:function(){ sh.close(); }}, t('cancel')),
       h('button', {class:'btn pri', onclick:function(){
         if(!name.value.trim()) return toast(t('name'), true);
         var id = m.id || (name.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'm') + '-' + uid().slice(-4);
-        write('team/' + id, {id:id, name:name.value.trim(), role:role.value.trim(), office:office.value, phone:phone.value.trim()})
+        write('team/' + id, {id:id, name:name.value.trim(), role:role.value.trim(), office:office.value, dept:dept.value, phone:phone.value.trim()})
           .then(function(){ sh.close(); toast(t('saved')); render(); });
       }}, t('save')))
   ]);
