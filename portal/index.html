@@ -244,10 +244,10 @@ var ROOT = 'hub';
 // PINs are stored as SHA-256 of 'jacarall:<PIN>'.
 var SUPERVISORS = [
   { id:'ehab', name:'Ehab Thabit', role:'Managing Director', office:'EG', pin:'941a99211b0caa3040cb551b6fbea084fc636be5f1abbdc03b7c1a6b8825f75e' },
-  { id:'eman', name:'Eman Sherif', role:'CEO', office:'EG', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' }
+  { id:'eman', name:'Eman Sherif', role:'CEO', office:'BOTH', pin:'92f2295425e622fc4e72513a16e1836109d5b6353f777e7f58d94d74b0af57d8' }
 ];
 // Bump SEED_VERSION whenever this list changes — the members below are then (re)written once.
-var SEED_VERSION = 2;
+var SEED_VERSION = 3;
 var SEED_TEAM = [
   { id:'shady',   name:'Shady Sayd',     role:'Head of Tech Department', office:'EG' },
   { id:'engy',    name:'Engy Ahmed',     role:'Art Director',            office:'EG' },
@@ -256,7 +256,8 @@ var SEED_TEAM = [
   { id:'msamier', name:'Mohamed Samier', role:'Senior Designer',         office:'EG' },
   { id:'josef',   name:'Josef',          role:'Designer',                office:'EG' },
   { id:'esaleh',  name:'Eman Saleh',     role:'CEO Executive Assistant', office:'EG' },
-  { id:'aali',    name:'Ahmad Ali',      role:'Finance Manager',         office:'EG' }
+  { id:'aali',    name:'Ahmad Ali',      role:'Finance Manager',         office:'EG' },
+  { id:'ahaddad', name:'Ahmed El Haddad', role:'Site Engineer',          office:'SA' }
 ];
 var LINKS = [
   { href:'../', k:'Daily', en:['Daily Update','Yesterday, today & studio pipeline'], ar:['التحديث اليومي','امبارح، النهارده، ومراحل الاستوديو'] },
@@ -363,7 +364,7 @@ function seed(){
   if((db.meta && db.meta.seedV || 0) >= SEED_VERSION) return;
   SEED_TEAM.forEach(function(m){ var old = db.team[m.id] || {};
     write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, phone:old.phone || ''}); });
-  var sv = db.team.eman || {}; if(sv.role && sv.role !== 'CEO') write('team/eman', Object.assign({}, sv, {role:'CEO'}));
+  var sv = db.team.eman || {}; if(sv.id) write('team/eman', Object.assign({}, sv, {role:'CEO', office:'BOTH'}));
   write('meta', {seedV:SEED_VERSION});
 }
 
@@ -470,7 +471,7 @@ function clocks(){
   return h('div', {class:'clocks'}, ['EG','SA'].map(function(code){
     var tEl = h('div', {class:'time'});
     clockEls.push({el:tEl, tz:OFFICES[code].tz});
-    return h('div', {class:'clock' + (code === mine ? ' mine' : '')},
+    return h('div', {class:'clock' + (code === mine || mine === 'BOTH' ? ' mine' : '')},
       h('div', null, h('div', {class:'city'}, OFFICES[code].flag + '  ' + t(code === 'EG' ? 'egS' : 'saS')), tEl));
   }));
 }
@@ -489,7 +490,7 @@ function nav(){
 
 /* ---------- home ---------- */
 function homeView(body){
-  var hr = parseInt(new Date().toLocaleTimeString('en-GB', {timeZone: OFFICES[(member(me.id)||{}).office || 'EG'].tz, hour:'2-digit', hour12:false}), 10);
+  var hr = parseInt(new Date().toLocaleTimeString('en-GB', {timeZone: (OFFICES[(member(me.id)||{}).office] || OFFICES.EG).tz, hour:'2-digit', hour12:false}), 10);
   var greet = hr < 12 ? t('morning') : hr < 17 ? t('afternoon') : t('evening');
   body.insertBefore(h('div', {class:'hello'}, greet + (lang === 'ar' ? '، ' : ', '), h('em', null, me.name.split(' ')[0])), body.firstChild);
 
@@ -660,7 +661,7 @@ function waTask(tk){
 }
 
 function taskForm(tk){
-  var isNew = !tk; tk = tk || {office:(member(me.id)||{}).office || 'EG', priority:'normal', assignees:[]};
+  var isNew = !tk; tk = tk || {office:((member(me.id)||{}).office === 'SA' ? 'SA' : 'EG'), priority:'normal', assignees:[]};
   var sel = (tk.assignees||[]).slice();
   var title = h('input', {class:'inp', value:tk.title || '', placeholder:'e.g. Send revised moodboard to client'});
   var details = h('textarea', {class:'txt'}); details.value = tk.details || '';
@@ -673,10 +674,10 @@ function taskForm(tk){
   var chipBox = h('div', {class:'chips'});
   function drawChips(){
     chipBox.innerHTML = '';
-    var off = office.value, list = members().sort(function(a,b){ return (a.office === off ? 0 : 1) - (b.office === off ? 0 : 1); });
+    var off = office.value, list = members().sort(function(a,b){ return (a.office === off || a.office === 'BOTH' ? 0 : 1) - (b.office === off || b.office === 'BOTH' ? 0 : 1); });
     list.forEach(function(m){
       chipBox.appendChild(h('button', {type:'button', class:'chipsel' + (sel.indexOf(m.id) > -1 ? ' on' : ''), onclick:function(){
-        var i = sel.indexOf(m.id); if(i > -1) sel.splice(i, 1); else sel.push(m.id); drawChips(); }}, avatar(m), m.name.split(' ')[0], m.office === 'SA' ? ' 🇸🇦' : ''));
+        var i = sel.indexOf(m.id); if(i > -1) sel.splice(i, 1); else sel.push(m.id); drawChips(); }}, avatar(m), m.name.split(' ')[0], m.office === 'SA' ? ' 🇸🇦' : m.office === 'BOTH' ? ' 🇪🇬🇸🇦' : ''));
     });
   }
   office.addEventListener('change', drawChips); drawChips();
@@ -714,7 +715,7 @@ function newsItem(n){
 }
 function newsView(body){
   var mine = (member(me.id)||{}).office || 'EG';
-  var posts = sortedNews().filter(function(n){ return me.sup || n.office === 'all' || n.office === mine; });
+  var posts = sortedNews().filter(function(n){ return me.sup || mine === 'BOTH' || n.office === 'all' || n.office === mine; });
   body.appendChild(h('h2', null, t('news')));
   if(!posts.length) return body.appendChild(h('div', {class:'empty'}, t('noNews')));
   posts.forEach(function(n){ body.appendChild(newsItem(n)); });
@@ -745,7 +746,7 @@ function newsForm(n){
 function teamView(body){
   var list = members();
   [['EG', t('eg')], ['SA', t('sa')]].forEach(function(o){
-    var arr = list.filter(function(m){ return (m.office || 'EG') === o[0]; });
+    var arr = list.filter(function(m){ return (m.office || 'EG') === o[0] || m.office === 'BOTH'; });
     body.appendChild(h('h2', null, h('span', null, OFFICES[o[0]].flag + '  ' + o[1]), h('small', null, arr.length)));
     if(!arr.length) return body.appendChild(h('div', {class:'empty'}, '—'));
     body.appendChild(h('div', {class:'team'}, arr.map(function(m){
@@ -762,7 +763,7 @@ function memberForm(m){
   var isNew = !m; m = m || {office:'EG'};
   var name = h('input', {class:'inp', value:m.name || ''}); if(m.sup) name.disabled = true;
   var role = h('input', {class:'inp', value:m.role || '', placeholder:'Site Engineer, Designer…'});
-  var office = h('select', {class:'sel'}, h('option', {value:'EG'}, '🇪🇬 ' + t('eg')), h('option', {value:'SA'}, '🇸🇦 ' + t('sa'))); office.value = m.office || 'EG';
+  var office = h('select', {class:'sel'}, h('option', {value:'EG'}, '🇪🇬 ' + t('eg')), h('option', {value:'SA'}, '🇸🇦 ' + t('sa')), h('option', {value:'BOTH'}, '🇪🇬 🇸🇦 ' + t('all'))); office.value = m.office || 'EG';
   var phone = h('input', {class:'inp', value:m.phone || '', inputmode:'tel', placeholder:'201001234567'});
   var sh = sheet(isNew ? t('addMember') : t('editMember'), [
     h('label', {class:'lbl'}, t('name')), name,
