@@ -742,11 +742,7 @@ function homeView(body){
     })) : h('div', {class:'empty'}, t('noTasks')));
   }
 
-  body.appendChild(h('h2', null, t('links')));
-  body.appendChild(h('div', {class:'links'}, LINKS.map(function(l){
-    var tx = l[lang] || l.en;
-    return h('a', {class:'lnk', href:l.href}, h('span', {class:'kicker k'}, 'JACARALL · ' + l.k), h('span', {class:'arr'}, '↗'), h('b', null, tx[0]), h('p', null, tx[1]));
-  })));
+
 }
 
 /* ---------- tasks ---------- */
