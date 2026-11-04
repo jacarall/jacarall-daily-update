@@ -200,6 +200,10 @@ html[dir=rtl] .gate h1{font-family:'IBM Plex Sans Arabic',sans-serif}
 html[dir=rtl] .asbar{padding:8px 14px 8px 8px}
 .asbar .btn{background:#1A1408;color:#F2EEEA;white-space:nowrap;margin-inline-start:auto}
 .asbar span{min-width:0;overflow-wrap:anywhere}
+.phb{background:linear-gradient(120deg,rgba(31,143,78,.28),rgba(31,143,78,.06));border:1px solid #1F8F4E;border-radius:12px;padding:14px;margin-top:12px}
+.phb b{display:block;font-size:15px}.phb span{font-size:12.5px;color:#BFD9C8}
+.phrow{display:flex;gap:8px;margin-top:10px}.phrow .inp{flex:1;min-width:0}
+.walist{display:flex;flex-direction:column;gap:8px;margin-top:12px}.walist .btn{justify-content:flex-start}.walist .btn.sent{opacity:.6}
 .hint{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5}
 .grp{margin:18px 2px 8px}
 
@@ -416,7 +420,7 @@ var T = {
   save:'Save', cancel:'Cancel', del:'Delete', edit:'Edit', sendWa:'Send on WhatsApp', comment:'Add a note…', post:'Post', notes:'Notes',
   status:'Status', createdBy:'Assigned by', all:'All', search:'Search tasks or projects', mine:'Mine', active:'Active', everyone:'Everyone',
   noTasks:'Nothing here. Enjoy the calm.', noNews:'No announcements yet.', addMember:'Add member', editMember:'Edit member', name:'Name', role:'Role', phone:'WhatsApp number', phoneH:'With country code, e.g. 201001234567 or 966501234567',
-  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
+  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', saveOnly:'Save only', saveWa:'Save & send WhatsApp', waEach:'Tap each person to send them the task on WhatsApp.', waNoNum:'no number', phoneSelf:'Your WhatsApp number — supervisors use it to send you tasks and reminders.', myAcc:'My account', phAsk:'Add your WhatsApp number', phAskSub:'So tasks and reminders reach you on WhatsApp', phBad:'Check the number', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
   nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by', files:'Files', fDrop:'Upload files', fDropSub:'PDF, Excel, Word, images — up to 25 MB each', fUpload:'Upload', fUploadTitle:'Upload to shared files', fUploading:'Uploading…', fNote:'Note', fNotePh:'e.g. Final BOQ, revision 2', fDone:'Uploaded — everyone can see it', fFailed:'Some files failed — check your connection', fTooBig:'{n} is bigger than 25 MB', fSearch:'Search files, projects or names', fEmpty:'No files yet. Upload the first one.', fOpen:'Open / Download', fShare:'Share', fPreparing:'Preparing file…', fReady:'Ready', fMissing:'Could not load this file', fBy:'Uploaded by', fSize:'Size',
@@ -432,7 +436,7 @@ var T = {
   save:'حفظ', cancel:'إلغاء', del:'حذف', edit:'تعديل', sendWa:'ابعت واتساب', comment:'اكتب ملاحظة…', post:'نشر', notes:'ملاحظات',
   status:'الحالة', createdBy:'من', all:'الكل', search:'دوّر في المهام أو المشاريع', mine:'مهامي', active:'الحالية', everyone:'الكل',
   noTasks:'مفيش حاجة هنا.', noNews:'مفيش إعلانات لسه.', addMember:'إضافة موظف', editMember:'تعديل موظف', name:'الاسم', role:'الوظيفة', phone:'رقم الواتساب', phoneH:'بكود الدولة، مثلاً 201001234567 أو 966501234567',
-  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
+  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', saveOnly:'حفظ بس', saveWa:'احفظ وابعت واتساب', waEach:'دوس على كل واحد عشان تبعتله المهمة على الواتساب.', waNoNum:'مفيش رقم', phoneSelf:'رقم الواتساب بتاعك — المشرفين بيبعتولك عليه المهام والتذكيرات.', myAcc:'حسابي', phAsk:'ضيف رقم الواتساب بتاعك', phAskSub:'عشان المهام والتذكيرات توصلك على الواتساب', phBad:'اتأكد من الرقم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
   nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من', files:'الملفات', fDrop:'ارفع ملفات', fDropSub:'PDF، Excel، Word، صور — لحد ٢٥ ميجا للملف', fUpload:'ارفع', fUploadTitle:'رفع للملفات المشتركة', fUploading:'بيترفع…', fNote:'ملاحظة', fNotePh:'مثلاً: BOQ نهائي، تعديل ٢', fDone:'اترفع — الكل يقدر يشوفه', fFailed:'فيه ملفات ما اترفعتش — اتأكد من النت', fTooBig:'{n} أكبر من ٢٥ ميجا', fSearch:'دوّر في الملفات أو المشاريع أو الأسامي', fEmpty:'مفيش ملفات لسه. ارفع أول ملف.', fOpen:'افتح / نزّل', fShare:'مشاركة', fPreparing:'بيجهز الملف…', fReady:'جاهز', fMissing:'مش قادر يفتح الملف ده', fBy:'رفعه', fSize:'الحجم',
@@ -473,7 +477,7 @@ function dueLabel(task){
   else txt = fmtDate(task.due);
   return h('span', {class:cls}, '◷ ' + txt);
 }
-function toast(msg, err){ var el = h('div', {class:'toast' + (err ? ' err' : '')}, msg); document.body.appendChild(el); setTimeout(function(){ el.remove(); }, 2200); }
+function toast(msg, err){ Array.prototype.forEach.call(document.querySelectorAll('.toast'), function(x){ x.remove(); }); var el = h('div', {class:'toast' + (err ? ' err' : '')}, msg); document.body.appendChild(el); setTimeout(function(){ el.remove(); }, 2200); }
 function sha256(str){
   if(!(window.crypto && crypto.subtle)) return Promise.resolve('');
   return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function(buf){
@@ -527,6 +531,9 @@ function members(){
   Object.keys(db.team).forEach(function(k){ var m = db.team[k]; if(!SUPERVISORS.some(function(s){ return s.id === k; })) list.push(Object.assign({sup:false}, m)); });
   return list;
 }
+function shortName(m){ var parts = (m.name || '').split(/\s+/), first = parts[0] || '';
+  var dup = members().some(function(x){ return x.id !== m.id && (x.name || '').split(/\s+/)[0].toLowerCase() === first.toLowerCase(); });
+  return dup && parts[1] ? first + ' ' + parts[1] : first; }
 function member(id){ return members().filter(function(m){ return m.id === id; })[0] || null; }
 function allTasks(){ return Object.keys(db.tasks).map(function(k){ return db.tasks[k]; }).filter(Boolean); }
 function isMine(tk){ return (tk.assignees||[]).indexOf(me.id) > -1; }
@@ -666,7 +673,7 @@ function header(){
       h('span', {class:'sync' + (online ? '' : ' off'), title: lastSync ? fmtWhen(lastSync) : ''}, h('span', {class:'dot'}), h('span', {class:'stxt'}, online ? t('synced') : t('local'))),
       bellBtn(),
       langBtn(),
-      h('button', {class:'pill', onclick:changePass, title:t('pwChange')}, avatar(member(me.id) || me), h('span', {class:'lbl-t'}, me.name.split(' ')[0]), '🔑')
+      h('button', {class:'pill', onclick:profile, title:t('myAcc')}, avatar(member(me.id) || me), h('span', {class:'lbl-t'}, me.name.split(' ')[0]), '⚙︎')
     ));
 }
 
@@ -700,6 +707,7 @@ function homeView(body){
   var hr = parseInt(new Date().toLocaleTimeString('en-GB', {timeZone: (OFFICES[(member(me.id)||{}).office] || OFFICES.EG).tz, hour:'2-digit', hour12:false}), 10);
   var greet = hr < 12 ? t('morning') : hr < 17 ? t('afternoon') : t('evening');
   body.insertBefore(h('div', {class:'hello'}, greet + (lang === 'ar' ? '، ' : ', '), h('em', null, me.name.split(' ')[0])), body.firstChild);
+  phoneBanner(body);
   reminderBanners(body);
   if(myDailyMissing()) body.appendChild(h('div', {class:'cta', onclick:function(){ view = 'daily'; render(); window.scrollTo(0,0); }}, h('div', null, h('b', null, t('dCta')), h('span', null, t('dCtaSub'))), h('span', {class:'go'}, t('dCtaGo') + ' →')));
   if(me.sup){ var dd = db.daily[todayStr()] || {}, ss = staff(), sc = ss.filter(function(m){ return dd[m.id]; }).length;
@@ -867,16 +875,51 @@ function delBtn(fn){
   return b;
 }
 function hubUrl(){ return location.href.split('?')[0].split('#')[0]; }
-function waTask(tk){
-  var who = (tk.assignees||[]).map(member).filter(Boolean);
-  var lines = ['*JACARALL · ' + t('taskFor') + ' ' + who.map(function(m){ return m.name.split(' ')[0]; }).join(', ') + '*', '', '📌 ' + tk.title];
+function waText(tk, m){
+  var lines = ['*JACARALL · ' + t('taskFor') + ' ' + (m ? m.name.split(' ')[0] : ((tk.assignees||[]).map(member).filter(Boolean).map(function(x){ return x.name.split(' ')[0]; }).join(', '))) + '*', '', '📌 ' + tk.title];
   if(tk.details) lines.push(tk.details);
   if(tk.project) lines.push('▣ ' + t('project') + ': ' + tk.project);
   if(tk.due) lines.push('◷ ' + t('due') + ': ' + fmtDate(tk.due));
   if(tk.priority === 'urgent' || tk.priority === 'high') lines.push('▲ ' + t(tk.priority));
   lines.push('', t('link') + ': ' + hubUrl());
-  var phone = who.length === 1 && who[0].phone ? who[0].phone.replace(/\D/g, '') : '';
-  window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+  return lines.join('\n');
+}
+function waOpen(phone, text){ window.open('https://wa.me/' + (phone || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(text), '_blank'); }
+function waTask(tk){
+  var who = (tk.assignees||[]).map(member).filter(Boolean);
+  if(who.length === 1) return waOpen(who[0].phone, waText(tk, who[0]));
+  // several people: one button each (phones can only open one chat per tap)
+  var s = sheet('✆ ' + t('sendWa'), [
+    h('div', {class:'hint', style:'margin-top:0'}, t('waEach')),
+    h('div', {class:'walist'}, who.map(function(m){
+      var b = h('button', {class:'btn ' + (m.phone ? 'wa' : 'ghost'), onclick:function(){ waOpen(m.phone, waText(tk, m)); b.classList.add('sent'); b.lastChild.textContent = ' ✓'; }},
+        avatar(m), ' ' + shortName(m) + (m.phone ? '' : ' · ' + t('waNoNum')), h('span'));
+      return b; })),
+    h('div', {class:'btns'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); }}, t('rOk')))
+  ]);
+}
+function cleanPhone(v){ v = (v || '').replace(/\D/g, ''); if(/^0(1\d{9})$/.test(v)) v = '20' + v.slice(1); else if(/^05\d{8}$/.test(v)) v = '966' + v.slice(1); return v; }
+function savePhone(v){
+  var cur = db.team[me.id] || {id:me.id, name:me.name}; var m = member(me.id) || {};
+  return write('team/' + me.id, Object.assign({id:me.id, name:m.name || me.name, role:m.role || '', office:m.office || 'EG', dept:m.dept || ''}, cur, {phone:cleanPhone(v)}));
+}
+function profile(){
+  var m = member(me.id) || {};
+  var ph = h('input', {class:'inp', inputmode:'tel', value:m.phone || '', placeholder:'01001234567'});
+  var s = sheet(me.name, [
+    h('label', {class:'lbl'}, '✆ ' + t('phone')), ph, h('div', {class:'hint'}, t('phoneSelf')),
+    h('div', {class:'btns'}, h('button', {class:'btn pri', onclick:function(){ savePhone(ph.value).then(function(){ toast(t('saved')); s.close(); render(); }); }}, t('save'))),
+    h('div', {class:'btns', style:'margin-top:22px;border-top:1px solid var(--line);padding-top:16px'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); changePass(); }}, '🔑 ' + t('pwChange')))
+  ]);
+}
+function phoneBanner(body){
+  if(me.asBy) return; var m = member(me.id); if(!m || m.phone) return;
+  var ph = h('input', {class:'inp', inputmode:'tel', placeholder:'01001234567'});
+  body.appendChild(h('div', {class:'phb'},
+    h('div', null, h('b', null, '✆ ' + t('phAsk')), h('span', null, t('phAskSub'))),
+    h('div', {class:'phrow'}, ph, h('button', {class:'btn wa', onclick:function(){
+      if(cleanPhone(ph.value).length < 10) return toast(t('phBad'), true);
+      savePhone(ph.value).then(function(){ toast(t('saved')); render(); }); }}, t('save')))));
 }
 
 function taskForm(tk){
@@ -896,7 +939,7 @@ function taskForm(tk){
     var off = office.value, list = members().sort(function(a,b){ return (a.office === off || a.office === 'BOTH' ? 0 : 1) - (b.office === off || b.office === 'BOTH' ? 0 : 1); });
     list.forEach(function(m){
       chipBox.appendChild(h('button', {type:'button', class:'chipsel' + (sel.indexOf(m.id) > -1 ? ' on' : ''), onclick:function(){
-        var i = sel.indexOf(m.id); if(i > -1) sel.splice(i, 1); else sel.push(m.id); drawChips(); }}, avatar(m), m.name.split(' ')[0], m.office === 'SA' ? ' 🇸🇦' : m.office === 'BOTH' ? ' 🇪🇬🇸🇦' : ''));
+        var i = sel.indexOf(m.id); if(i > -1) sel.splice(i, 1); else sel.push(m.id); drawChips(); }}, avatar(m), shortName(m), m.office === 'SA' ? ' 🇸🇦' : m.office === 'BOTH' ? ' 🇪🇬🇸🇦' : ''));
     });
   }
   office.addEventListener('change', drawChips); drawChips();
@@ -908,8 +951,8 @@ function taskForm(tk){
     h('div', {class:'row2'}, h('div', null, h('label', {class:'lbl'}, t('priority')), pri), h('div', null, h('label', {class:'lbl'}, t('due')), due)),
     h('div', {class:'btns'},
       h('button', {class:'btn ghost', onclick:function(){ sh.close(); }}, t('cancel')),
-      h('button', {class:'btn pri', onclick:function(){ save(false); }}, t('save')),
-      h('button', {class:'btn wa', onclick:function(){ save(true); }}, t('save') + ' + WhatsApp'))
+      h('button', {class:'btn ghost', onclick:function(){ save(false); }}, t('saveOnly')),
+      h('button', {class:'btn wa', onclick:function(){ save(true); }}, '✆ ' + t('saveWa')))
   ]);
   setTimeout(function(){ if(isNew) title.focus(); }, 60);
   function save(wa){
@@ -1462,7 +1505,7 @@ function memberForm(m){
       h('button', {class:'btn pri', onclick:function(){
         if(!name.value.trim()) return toast(t('name'), true);
         var id = m.id || (name.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'm') + '-' + uid().slice(-4);
-        write('team/' + id, {id:id, name:name.value.trim(), role:role.value.trim(), office:office.value, dept:dept.value, phone:phone.value.trim()})
+        write('team/' + id, {id:id, name:name.value.trim(), role:role.value.trim(), office:office.value, dept:dept.value, phone:cleanPhone(phone.value)})
           .then(function(){ sh.close(); toast(t('saved')); render(); });
       }}, t('save')))
   ]);
