@@ -6,7 +6,12 @@
 <meta name="theme-color" content="#0A0A0A">
 <meta name="robots" content="noindex, nofollow">
 <title>JACARALL Team Hub</title>
-<link rel="icon" href="../assets/logo.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="JACARALL">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
 <style>
@@ -322,6 +327,29 @@ button.frow:hover{border-color:var(--line2)}
 .fprev img{max-width:100%;max-height:50vh;border-radius:6px;display:block}
 .fprev .fbadge{width:64px;height:76px;font-size:13px}
 .btn[disabled]{opacity:.5;cursor:default}
+
+.rem{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,rgba(201,154,74,.28),rgba(201,154,74,.08));border:1px solid var(--ochre);border-radius:12px;padding:14px;margin-top:12px;cursor:pointer}
+.rem .bell{font-size:22px;animation:ring 1.6s ease-in-out 2}
+.rem b{display:block;font-size:15px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rem-k{font-size:11.5px;color:#E6C990}
+.rem-due{font-size:12px;margin-top:3px;color:var(--soft)}
+.rem .go{background:var(--ochre);color:#1A1408;border-radius:40px;padding:8px 14px;font-weight:600;font-size:13px;white-space:nowrap}
+.btn.remind{background:var(--ochre);color:#1A1408}
+.t-meta .rc{color:var(--ochre)}
+@keyframes ring{0%,100%{transform:rotate(0)}15%{transform:rotate(14deg)}30%{transform:rotate(-12deg)}45%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}}
+
+.bellp{position:relative;padding:7px 11px;font-size:14px}
+.bellp.has{border-color:var(--ochre)}
+.nbadge{position:absolute;top:-6px;inset-inline-end:-6px;background:var(--bad);color:#fff;font-size:10px;font-weight:700;border-radius:20px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px;font-family:Inter,sans-serif}
+.npush{margin:2px 0 12px}
+.nlist{display:flex;flex-direction:column;gap:6px}
+.nrow{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;cursor:pointer;color:var(--ink)}
+.nrow.new{border-color:var(--ochre);background:linear-gradient(120deg,rgba(201,154,74,.16),transparent 70%),var(--card)}
+.nrow .nic{font-size:18px;line-height:1.2}
+.nrow .nk{font-size:12px;color:var(--soft)}.nrow.new .nk{color:#E6C990}
+.nrow b{display:block;font-size:14px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nrow .nx{font-size:12.5px;color:#CFC8C0;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nrow .nw{font-size:11px;color:var(--mute);margin-top:4px}
 @media(max-width:720px){
   .stats{grid-template-columns:repeat(2,1fr)}
   .grid2{grid-template-columns:1fr}
@@ -388,7 +416,7 @@ var T = {
   save:'Save', cancel:'Cancel', del:'Delete', edit:'Edit', sendWa:'Send on WhatsApp', comment:'Add a note…', post:'Post', notes:'Notes',
   status:'Status', createdBy:'Assigned by', all:'All', search:'Search tasks or projects', mine:'Mine', active:'Active', everyone:'Everyone',
   noTasks:'Nothing here. Enjoy the calm.', noNews:'No announcements yet.', addMember:'Add member', editMember:'Edit member', name:'Name', role:'Role', phone:'WhatsApp number', phoneH:'With country code, e.g. 201001234567 or 966501234567',
-  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
+  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
   nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by', files:'Files', fDrop:'Upload files', fDropSub:'PDF, Excel, Word, images — up to 25 MB each', fUpload:'Upload', fUploadTitle:'Upload to shared files', fUploading:'Uploading…', fNote:'Note', fNotePh:'e.g. Final BOQ, revision 2', fDone:'Uploaded — everyone can see it', fFailed:'Some files failed — check your connection', fTooBig:'{n} is bigger than 25 MB', fSearch:'Search files, projects or names', fEmpty:'No files yet. Upload the first one.', fOpen:'Open / Download', fShare:'Share', fPreparing:'Preparing file…', fReady:'Ready', fMissing:'Could not load this file', fBy:'Uploaded by', fSize:'Size',
@@ -404,7 +432,7 @@ var T = {
   save:'حفظ', cancel:'إلغاء', del:'حذف', edit:'تعديل', sendWa:'ابعت واتساب', comment:'اكتب ملاحظة…', post:'نشر', notes:'ملاحظات',
   status:'الحالة', createdBy:'من', all:'الكل', search:'دوّر في المهام أو المشاريع', mine:'مهامي', active:'الحالية', everyone:'الكل',
   noTasks:'مفيش حاجة هنا.', noNews:'مفيش إعلانات لسه.', addMember:'إضافة موظف', editMember:'تعديل موظف', name:'الاسم', role:'الوظيفة', phone:'رقم الواتساب', phoneH:'بكود الدولة، مثلاً 201001234567 أو 966501234567',
-  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
+  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
   nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من', files:'الملفات', fDrop:'ارفع ملفات', fDropSub:'PDF، Excel، Word، صور — لحد ٢٥ ميجا للملف', fUpload:'ارفع', fUploadTitle:'رفع للملفات المشتركة', fUploading:'بيترفع…', fNote:'ملاحظة', fNotePh:'مثلاً: BOQ نهائي، تعديل ٢', fDone:'اترفع — الكل يقدر يشوفه', fFailed:'فيه ملفات ما اترفعتش — اتأكد من النت', fTooBig:'{n} أكبر من ٢٥ ميجا', fSearch:'دوّر في الملفات أو المشاريع أو الأسامي', fEmpty:'مفيش ملفات لسه. ارفع أول ملف.', fOpen:'افتح / نزّل', fShare:'مشاركة', fPreparing:'بيجهز الملف…', fReady:'جاهز', fMissing:'مش قادر يفتح الملف ده', fBy:'رفعه', fSize:'الحجم',
@@ -456,9 +484,9 @@ function sha256(str){
 var db = { tasks:{}, team:{}, news:{}, meta:{}, daily:{}, auth:{}, files:{} };
 var online = !!DB_URL, lastSync = 0;
 function base(){ return DB_URL.replace(/\/+$/,'') + '/' + ROOT; }
-function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; db.files = d.files||{}; } }catch(e){} }
+function loadLocal(){ try{ var raw = lsGet('jh_db'); if(raw){ var d = JSON.parse(raw); db.tasks = d.tasks||{}; db.team = d.team||{}; db.news = d.news||{}; db.meta = d.meta||{}; db.daily = d.daily||{}; db.auth = d.auth||{}; db.files = d.files||{}; db.notifs = d.notifs||{}; db.nread = d.nread||{}; } }catch(e){} }
 function saveLocal(){ lsSet('jh_db', JSON.stringify(db)); }
-var KEYS = ['tasks','team','news','meta','daily','auth','files'];
+var KEYS = ['tasks','team','news','meta','daily','auth','files','notifs','nread'];
 function pull(){
   if(!online){ loadLocal(); seed(); return Promise.resolve(); }
   return Promise.all(KEYS.map(function(k){ return fetch(base() + '/' + k + '.json', {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); })).then(function(vals){
@@ -628,6 +656,7 @@ function header(){
       h('a', {href:'./'}, h('img', {class:'logo', src:'../assets/logo.png', alt:'JACARALL'}))),
     h('div', {class:'top-actions'},
       h('span', {class:'sync' + (online ? '' : ' off'), title: lastSync ? fmtWhen(lastSync) : ''}, h('span', {class:'dot'}), h('span', {class:'stxt'}, online ? t('synced') : t('local'))),
+      bellBtn(),
       langBtn(),
       h('button', {class:'pill', onclick:changePass, title:t('pwChange')}, avatar(member(me.id) || me), h('span', {class:'lbl-t'}, me.name.split(' ')[0]), '🔑')
     ));
@@ -650,7 +679,8 @@ function tickClocks(){
 
 function nav(){
   var myOpen = allTasks().filter(function(x){ return isMine(x) && isOpen(x); }).length;
-  var tabs = [['home', t('home')], ['daily', t('daily'), myDailyMissing() ? '•' : 0], ['tasks', t('tasks'), myOpen], ['files', t('files')], ['news', t('news')], ['team', t('team')]];
+  var myRem = myReminders().length;
+  var tabs = [['home', t('home')], ['daily', t('daily'), myDailyMissing() ? '•' : 0], ['tasks', t('tasks'), myRem ? '🔔 ' + myOpen : myOpen], ['files', t('files')], ['news', t('news')], ['team', t('team')]];
   return h('nav', {class:'nav'}, h('div', {class:'nav-in'}, tabs.map(function(tb){
     return h('button', {class:'tab' + (view === tb[0] ? ' on' : ''), onclick:function(){ if(view !== tb[0]) setView(tb[0]); }},
       tb[1], tb[2] ? h('span', {class:'n' + (tb[2] === '•' ? ' dotn' : '')}, tb[2]) : null);
@@ -662,6 +692,7 @@ function homeView(body){
   var hr = parseInt(new Date().toLocaleTimeString('en-GB', {timeZone: (OFFICES[(member(me.id)||{}).office] || OFFICES.EG).tz, hour:'2-digit', hour12:false}), 10);
   var greet = hr < 12 ? t('morning') : hr < 17 ? t('afternoon') : t('evening');
   body.insertBefore(h('div', {class:'hello'}, greet + (lang === 'ar' ? '، ' : ', '), h('em', null, me.name.split(' ')[0])), body.firstChild);
+  reminderBanners(body);
   if(myDailyMissing()) body.appendChild(h('div', {class:'cta', onclick:function(){ view = 'daily'; render(); window.scrollTo(0,0); }}, h('div', null, h('b', null, t('dCta')), h('span', null, t('dCtaSub'))), h('span', {class:'go'}, t('dCtaGo') + ' →')));
   if(me.sup){ var dd = db.daily[todayStr()] || {}, ss = staff(), sc = ss.filter(function(m){ return dd[m.id]; }).length;
     body.appendChild(h('div', {class:'cta', onclick:function(){ view = 'daily'; dailyMode = 'board'; boardDate = null; render(); window.scrollTo(0,0); }}, h('div', null, h('b', null, t('dToday2') + ': ' + sc + ' / ' + ss.length), h('span', null, t('dCtaSupSub'))), h('span', {class:'go'}, t('dBoard') + ' →'))); }
@@ -730,7 +761,8 @@ function taskCard(tk){
       h('span', {class:'tag office'}, OFFICES[tk.office] ? OFFICES[tk.office].flag + ' ' + (tk.office === 'SA' ? 'KSA' : 'EG') : ''),
       (tk.priority === 'urgent' || tk.priority === 'high') ? h('span', {style:'color:' + (tk.priority === 'urgent' ? 'var(--bad)' : 'var(--ochre)')}, '▲ ' + t(tk.priority)) : null,
       dueLabel(tk),
-      tk.comments ? h('span', null, '💬 ' + Object.keys(tk.comments).length) : null
+      tk.comments ? h('span', null, '💬 ' + Object.keys(tk.comments).length) : null,
+      remList(tk).length ? h('span', {class:'rc'}, '🔔 ' + remList(tk).length) : null
     ));
 }
 function statusTag(s){ return h('span', {class:'tag ' + s}, h('span', {class:'dot'}), t(s)); }
@@ -773,6 +805,8 @@ function tasksView(body){
 
 function taskDetail(id){
   var tk = db.tasks[id]; if(!tk) return;
+  markSeen(tk);
+  var rems = remList(tk), lr = lastRem(tk), lrBy = lr ? member(lr.by) : null;
   var canEdit = me.sup, canStatus = me.sup || isMine(tk);
   var who = (tk.assignees||[]).map(member).filter(Boolean);
   var by = member(tk.createdBy);
@@ -786,8 +820,10 @@ function taskDetail(id){
       tk.project ? [h('dt', null, t('project')), h('dd', null, tk.project)] : null,
       h('dt', null, t('office')), h('dd', null, OFFICES[tk.office].flag + ' ' + t(tk.office === 'SA' ? 'sa' : 'eg')),
       h('dt', null, t('due')), h('dd', null, tk.due ? fmtDate(tk.due) : t('noDue')),
-      h('dt', null, t('createdBy')), h('dd', null, (by ? by.name : '—') + ' · ' + fmtWhen(tk.createdAt))
+      h('dt', null, t('createdBy')), h('dd', null, (by ? by.name : '—') + ' · ' + fmtWhen(tk.createdAt)),
+      rems.length ? [h('dt', null, '🔔 ' + t('rReminded')), h('dd', {style:'color:var(--ochre)'}, rems.length + '× · ' + t('rLast') + ' ' + fmtWhen(lr.at) + (lrBy ? ' · ' + lrBy.name.split(' ')[0] : ''))] : null
     ),
+    (me.sup && isOpen(tk) && (tk.assignees||[]).length) ? h('div', {class:'btns', style:'margin-top:14px'}, h('button', {class:'btn remind', onclick:function(){ sh.close(); remind(tk); }}, '🔔 ' + t('rBtn'))) : null,
     canStatus ? [h('label', {class:'lbl'}, t('status')), h('div', {class:'statusbar'}, ['todo','doing','blocked','done'].map(function(s){
       return h('button', {class:s + (tk.status === s ? ' on' : ''), onclick:function(){ setStatus(tk, s, cIn, sh); }}, t(s));
     }))] : null,
@@ -806,6 +842,7 @@ function setStatus(tk, s, cIn, sh){
   var upd = Object.assign({}, tk, {status:s, updatedAt:Date.now()});
   if(s === 'done') upd.doneAt = Date.now(); else delete upd.doneAt;
   write('tasks/' + tk.id, upd).then(function(){
+    if(s !== tk.status) notify([tk.createdBy].concat(tk.assignees || []), {type:'status', status:s, task:tk.id, title:tk.title, text:cIn.value.trim()});
     var p = cIn.value.trim() ? addComment(db.tasks[tk.id], cIn.value) : Promise.resolve();
     return p;
   }).then(function(){ sh.close(); render(); toast(t(s)); });
@@ -813,6 +850,7 @@ function setStatus(tk, s, cIn, sh){
 function addComment(tk, text){
   text = (text||'').trim(); if(!text) return Promise.resolve();
   var cid = uid();
+  notify([tk.createdBy].concat(tk.assignees || []), {type:'comment', task:tk.id, title:tk.title, text:text});
   return write('tasks/' + tk.id + '/comments/' + cid, {by:me.id, text:text, at:Date.now()});
 }
 function resetBtn(m){
@@ -876,7 +914,10 @@ function taskForm(tk){
     var id = tk.id || uid();
     var rec = Object.assign({}, tk, {id:id, title:title.value.trim(), details:details.value.trim(), project:project.value.trim(), office:office.value,
       priority:pri.value, due:due.value || '', assignees:sel, status:tk.status || 'todo', createdBy:tk.createdBy || me.id, createdAt:tk.createdAt || Date.now(), updatedAt:Date.now()});
-    write('tasks/' + id, rec).then(function(){ sh.close(); toast(t('saved')); render(); if(wa) waTask(rec); });
+    var before = isNew ? [] : (tk.assignees || []);
+    write('tasks/' + id, rec).then(function(){
+      notify(sel.filter(function(x){ return before.indexOf(x) < 0; }), {type:'task', task:id, title:rec.title, text:rec.due ? '◷ ' + fmtDate(rec.due) : ''});
+      sh.close(); toast(t('saved')); render(); if(wa) waTask(rec); });
   }
 }
 
@@ -1157,7 +1198,7 @@ function pickFiles(list){
     if(busy) return; busy = true; go.disabled = true; cancel.disabled = true; go.textContent = t('fUploading');
     var meta = {project:proj.value.trim(), note:note.value.trim()}, k = 0, failed = 0;
     (function nextFile(){
-      if(k >= rows.length){ sh.close(); toast(failed ? t('fFailed') : t('fDone'), !!failed); render(); return; }
+      if(k >= rows.length){ if(rows.length - failed > 0) notify(members().map(function(x){ return x.id; }), {type:'file', title: rows.length - failed > 1 ? (rows.length - failed) + ' files' : rows[0].f.name, text:meta.project || ''}); sh.close(); toast(failed ? t('fFailed') : t('fDone'), !!failed); render(); return; }
       var r = rows[k++];
       prepFile(r.f).then(function(p){ return uploadOne(p, meta, function(x){ r.bar.style.width = Math.round(x * 100) + '%'; }); })
         .then(function(){ r.el.classList.add('ok'); }, function(){ failed++; r.el.classList.add('bad'); }).then(nextFile);
@@ -1233,6 +1274,114 @@ function fileDetail(f){
   }
 }
 
+
+/* ---------- reminders ---------- */
+function remList(tk){ return tk && tk.reminders ? Object.keys(tk.reminders).map(function(k){ return tk.reminders[k]; }).sort(function(a,b){ return a.at - b.at; }) : []; }
+function lastRem(tk){ var l = remList(tk); return l.length ? l[l.length - 1] : null; }
+function unseenRem(tk){ var l = lastRem(tk); return !!l && isMine(tk) && isOpen(tk) && l.at > ((tk.seen || {})[me.id] || 0); }
+function myReminders(){ return me ? allTasks().filter(unseenRem).sort(function(a,b){ return lastRem(b).at - lastRem(a).at; }) : []; }
+function markSeen(tk){ if(unseenRem(tk)){ write('tasks/' + tk.id + '/seen/' + me.id, Date.now()); setTimeout(render, 0); } }
+function remind(tk){
+  var rid = uid(), who = (tk.assignees || []).map(member).filter(Boolean);
+  notify(tk.assignees || [], {type:'remind', task:tk.id, title:tk.title, text:tk.due ? '◷ ' + fmtDate(tk.due) : ''});
+  write('tasks/' + tk.id + '/reminders/' + rid, {by:me.id, at:Date.now()}).then(function(){
+    var withPhone = who.filter(function(m){ return m.phone; });
+    var s = sheet('🔔 ' + t('rSent'), [
+      h('p', {class:'hint', style:'margin-top:0;font-size:14px;color:var(--ink)'}, t('rSentSub').replace('{n}', who.map(function(m){ return m.name.split(' ')[0]; }).join(', ') || '—')),
+      h('div', {class:'hint'}, '“' + tk.title + '”'),
+      withPhone.length ? h('div', {class:'btns'}, withPhone.map(function(m){
+        return h('button', {class:'btn wa', onclick:function(){ waRemind(tk, m); }}, '✆ ' + t('rWa') + ' ' + m.name.split(' ')[0]); })) : h('div', {class:'hint'}, t('rNoPhone')),
+      h('div', {class:'btns'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); render(); }}, t('rOk')))
+    ]);
+  });
+}
+function waRemind(tk, m){
+  var lines = ['🔔 *JACARALL · ' + t('rReminder') + '*', '', (lang === 'ar' ? 'يا ' : 'Hi ') + m.name.split(' ')[0] + (lang === 'ar' ? '، ده تذكير بالمهمة دي:' : ', a reminder about this task:'), '📌 ' + tk.title];
+  if(tk.due) lines.push('◷ ' + t('due') + ': ' + fmtDate(tk.due));
+  lines.push('', t('link') + ': ' + hubUrl());
+  window.open('https://wa.me/' + m.phone.replace(/\D/g, '') + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+}
+function reminderBanners(body){
+  myReminders().forEach(function(tk){
+    var r = lastRem(tk), by = member(r.by), n = remList(tk).length;
+    body.appendChild(h('div', {class:'rem', onclick:function(){ taskDetail(tk.id); }},
+      h('span', {class:'bell'}, '🔔'),
+      h('div', {style:'flex:1;min-width:0'}, h('div', {class:'rem-k'}, t('rFrom').replace('{n}', by ? by.name.split(' ')[0] : '') + (n > 1 ? ' · ' + n + '×' : '') + ' · ' + fmtWhen(r.at)),
+        h('b', null, tk.title), dueLabel(tk) ? h('div', {class:'rem-due'}, dueLabel(tk)) : null),
+      h('span', {class:'go'}, t('rOpen'))));
+  });
+}
+
+
+/* ---------- notifications ---------- */
+function notify(ids, n){
+  var at = Date.now();
+  (ids || []).filter(function(id, i, a){ return id && id !== me.id && a.indexOf(id) === i; }).forEach(function(id){
+    var nid = uid(); write('notifs/' + id + '/' + nid, Object.assign({id:nid, by:me.id, at:at}, n));
+  });
+}
+function myNotifs(){ var box = (db.notifs || {})[me.id] || {}; return Object.keys(box).map(function(k){ return box[k]; }).filter(Boolean).sort(function(a,b){ return b.at - a.at; }); }
+function readAt(){ return (db.nread || {})[me.id] || 0; }
+function unreadCount(){ var r = readAt(); return myNotifs().filter(function(n){ return n.at > r; }).length; }
+var N_ICON = { task:'📌', reassign:'📌', remind:'🔔', comment:'💬', status:'✓', news:'📣', file:'📎' };
+function nText(n){
+  var by = member(n.by), who = by ? by.name.split(' ')[0] : '';
+  var map = { task:'nTask', reassign:'nTask', remind:'nRemind', comment:'nComment', status:'nStatus', news:'nNews', file:'nFile' };
+  return t(map[n.type] || 'nTask').replace('{n}', who).replace('{s}', n.status ? t(n.status) : '');
+}
+function openNotif(n){
+  if(n.task && db.tasks[n.task]){ taskDetail(n.task); return; }
+  if(n.type === 'news'){ setView('news'); return; }
+  if(n.type === 'file'){ setView('files'); return; }
+  toast(t('nGone'));
+}
+function notifPanel(){
+  var list = myNotifs().slice(0, 60), r = readAt();
+  if(!me.asBy) write('nread/' + me.id, Date.now());
+  var perm = ('Notification' in window) ? Notification.permission : 'unsupported';
+  var phoneBtn = perm === 'default' ? h('button', {class:'btn ghost sm', onclick:function(){ enablePush().then(function(){ s.close(); notifPanel(); }); }}, '📲 ' + t('nEnable'))
+    : perm === 'granted' ? h('div', {class:'hint'}, '✓ ' + t('nOn')) : h('div', {class:'hint'}, isIOS() && !isStandalone() ? t('nIOS') : t('nBlocked'));
+  var s = sheet('🔔 ' + t('nTitle'), [
+    h('div', {class:'npush'}, phoneBtn),
+    list.length ? h('div', {class:'nlist'}, list.map(function(n){ var by = member(n.by);
+      return h('button', {class:'nrow' + (n.at > r ? ' new' : ''), onclick:function(){ s.close(); openNotif(n); }},
+        h('span', {class:'nic'}, N_ICON[n.type] || '•'),
+        h('div', {style:'flex:1;min-width:0'}, h('div', {class:'nk'}, nText(n)), h('b', null, n.title || ''), n.text ? h('div', {class:'nx'}, n.text) : null,
+          h('div', {class:'nw'}, fmtWhen(n.at))),
+        by ? avatar(by) : null);
+    })) : h('div', {class:'empty'}, t('nEmpty'))
+  ]);
+  setTimeout(render, 0);
+}
+function bellBtn(){ var n = unreadCount(); return h('button', {class:'pill bellp' + (n ? ' has' : ''), onclick:notifPanel, title:t('nTitle')}, '🔔', n ? h('span', {class:'nbadge'}, n > 9 ? '9+' : n) : null); }
+
+/* system notifications (phone / computer) */
+var swReg = null;
+function isIOS(){ return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+function isStandalone(){ return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
+if('serviceWorker' in navigator){ try{ navigator.serviceWorker.register('sw.js').then(function(r){ swReg = r; }).catch(function(){});
+  navigator.serviceWorker.addEventListener('message', function(e){ if(e.data && e.data.open && me){ openNotif(e.data.open); } }); }catch(e){} }
+function enablePush(){
+  if(!('Notification' in window)) return Promise.resolve();
+  return Promise.resolve(Notification.requestPermission()).then(function(p){ if(p === 'granted'){ toast(t('nOn')); showSys({title:t('nTitle'), body:t('nTest')}); } });
+}
+function showSys(o){
+  try{
+    if(!('Notification' in window) || Notification.permission !== 'granted') return;
+    var opts = {body:o.body || '', icon:'icon-192.png', badge:'icon-192.png', tag:o.tag || uid(), data:o.data || {}};
+    if(swReg && swReg.showNotification) swReg.showNotification(o.title, opts);
+    else new Notification(o.title, opts);
+  }catch(e){}
+}
+function checkSys(){
+  if(!me || me.asBy) return;
+  var key = 'jh_nshown_' + me.id, last = parseInt(lsGet(key) || '0', 10), list = myNotifs();
+  if(!last){ lsSet(key, String(Date.now())); return; }
+  var fresh = list.filter(function(n){ return n.at > last && n.at > readAt(); });
+  if(list.length) lsSet(key, String(Math.max(last, list[0].at)));
+  fresh.slice(0, 3).forEach(function(n){ showSys({title:'JACARALL · ' + nText(n), body:n.title || n.text || '', tag:n.id, data:{task:n.task || '', type:n.type}}); });
+}
+
 /* ---------- news ---------- */
 function sortedNews(){ return Object.keys(db.news).map(function(k){ return db.news[k]; }).filter(Boolean).sort(function(a,b){ return (b.pinned?1:0) - (a.pinned?1:0) || b.at - a.at; }); }
 function newsItem(n){
@@ -1266,6 +1415,7 @@ function newsForm(n){
       h('button', {class:'btn pri', onclick:function(){
         if(!title.value.trim()) return toast(t('needTitle'), true);
         var id = n.id || uid();
+        if(isNew) notify(members().filter(function(x){ return office.value === 'all' || x.office === office.value || x.office === 'BOTH'; }).map(function(x){ return x.id; }), {type:'news', title:title.value.trim(), text:bodyT.value.trim().slice(0, 120)});
         write('news/' + id, {id:id, title:title.value.trim(), body:bodyT.value.trim(), office:office.value, pinned:pin.checked, by:n.by || me.id, at:n.at || Date.now()})
           .then(function(){ sh.close(); toast(t('saved')); render(); });
       }}, t('post')))
@@ -1334,11 +1484,11 @@ loadLocal();
 if(me && !member(me.id) && !SUPERVISORS.some(function(s){ return s.id === me.id; })) me = null;
 try{ history.replaceState({root:1}, ''); if(me) history.pushState({view:view}, ''); }catch(e){}
 render(); tickClocks();
-pull().then(function(){ if(me && !member(me.id)){ me = null; lsDel('jh_me'); } if(!document.querySelector('.scrim') && !isTyping()) { render(); tickClocks(); } });
+pull().then(function(){ checkSys(); if(me && !member(me.id)){ me = null; lsDel('jh_me'); } if(!document.querySelector('.scrim') && !isTyping()) { render(); tickClocks(); } });
 setInterval(tickClocks, 15000);
 function isTyping(){ var a = document.activeElement; return a && /INPUT|TEXTAREA|SELECT/.test(a.tagName); }
 if(online){
-  setInterval(function(){ if(document.hidden) return; pull().then(function(){ if(!document.querySelector('.scrim') && !isTyping()){ var y = window.scrollY; render(); tickClocks(); window.scrollTo(0, y); } }); }, 20000);
+  setInterval(function(){ pull().then(function(){ checkSys(); if(document.hidden) return; if(!document.querySelector('.scrim') && !isTyping()){ var y = window.scrollY; render(); tickClocks(); window.scrollTo(0, y); } }); }, 20000);
   document.addEventListener('visibilitychange', function(){ if(!document.hidden) pull().then(function(){ if(!document.querySelector('.scrim') && !isTyping()){ render(); tickClocks(); } }); });
 }
 var _render = render; render = function(){ _render(); tickClocks(); };
