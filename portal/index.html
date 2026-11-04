@@ -385,7 +385,7 @@ var SUPERVISORS = [
 // Bump SEED_VERSION whenever this list changes — the members below are then (re)written once.
 // Can open any account without its password (Team tab → 👁)
 var ADMINS = ['ehab', 'eman'];
-var SEED_VERSION = 4;
+var SEED_VERSION = 5;
 var SEED_TEAM = [
   { id:'shady',   name:'Shady Sayd',     role:'Head of Tech Department', office:'EG' },
   { id:'engy',    name:'Engy Ahmed',     role:'Art Director',            office:'EG' },
@@ -502,10 +502,18 @@ function write(path, val){
     .then(function(r){ if(!r.ok) throw 0; lastSync = Date.now(); }).catch(function(){ toast('Sync failed — check connection', true); });
 }
 function seed(){
-  if((db.meta && db.meta.seedV || 0) >= SEED_VERSION) return;
-  SEED_TEAM.forEach(function(m){ var old = db.team[m.id] || {};
-    write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, dept:deptOf(m), phone:old.phone || ''}); });
-  var sv = db.team.eman || {}; if(sv.id) write('team/eman', Object.assign({}, sv, {role:'CEO', office:'BOTH'}));
+  var v = (db.meta && db.meta.seedV) || 0;
+  if(v >= SEED_VERSION) return;
+  if(v < 4){
+    SEED_TEAM.forEach(function(m){ var old = db.team[m.id] || {};
+      write('team/' + m.id, {id:m.id, name:m.name, role:m.role, office:m.office, dept:deptOf(m), phone:old.phone || ''}); });
+    var sv = db.team.eman || {}; if(sv.id) write('team/eman', Object.assign({}, sv, {role:'CEO', office:'BOTH'}));
+  }
+  if(v < 5){ // Mohamed Atef → Freelance Designer (update if he was added from the Team tab, otherwise add him)
+    var ma = Object.keys(db.team).map(function(k){ return db.team[k]; }).filter(function(m){ return m && /mo?hamm?ed\s+atef/i.test(m.name || ''); })[0];
+    if(ma) write('team/' + ma.id, Object.assign({}, ma, {role:'Freelance Designer', dept:'design'}));
+    else write('team/matef', {id:'matef', name:'Mohamed Atef', role:'Freelance Designer', office:'EG', dept:'design', phone:''});
+  }
   write('meta', {seedV:SEED_VERSION});
 }
 
