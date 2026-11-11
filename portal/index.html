@@ -362,7 +362,8 @@ button.frow:hover{border-color:var(--line2)}
   .clock .time{font-size:17px}
   .pill .lbl-t{display:none}
 }
-@media(max-width:440px){.sync .stxt{display:none}.top-actions{gap:6px}.pill{padding:7px 10px}.logo{height:40px}}
+@media(max-width:600px){.top{flex-wrap:wrap;row-gap:12px}.top-left{display:contents}.top-left>a{order:-1;flex:0 0 100%;display:flex;justify-content:center}.top-left .logo{height:auto;width:min(270px,72vw)}.pill.back{order:0}.top-actions{order:1;margin-inline-start:auto}}
+@media(max-width:440px){.sync .stxt{display:none}.top-actions{gap:6px}.pill{padding:7px 10px}}
 @media(max-width:380px){.row2{grid-template-columns:1fr}.statusbar{grid-template-columns:1fr 1fr}}
 
 /* ===================== FUNKY THEME — paint chips on plain stone ===================== */
@@ -377,7 +378,7 @@ button.frow:hover{border-color:var(--line2)}
 body{background-color:var(--bg);background-image:none;font-family:Mulish,'IBM Plex Sans Arabic',system-ui,sans-serif;font-weight:600}
 h2,.hello,.dday,.gate h1,.sheet-h h3,.stat b,.dnum{font-family:'Playfair Display','IBM Plex Sans Arabic',serif}
 .kicker,.lbl,.blk .bl{text-transform:none;letter-spacing:0;font-weight:800;font-size:12px;color:var(--soft)}
-.logo{height:46px;margin-inline-start:0}
+.logo{height:34px;width:auto;margin-inline-start:0}
 .top-left .logo{margin-inline-start:0}
 
 /* chunky surfaces */
@@ -511,7 +512,7 @@ html[dir=rtl] .news.pin{border-radius:var(--r)}
 .member .avatar.lg,.who .avatar.lg{box-shadow:var(--sh-s)}
 .member:nth-child(odd) .avatar.lg{transform:rotate(-5deg)}.member:nth-child(even) .avatar.lg{transform:rotate(4deg)}
 /* gate */
-.gate .logo{height:64px}
+.gate .logo{height:auto;width:min(340px,86%);margin:22px auto 14px!important}
 .gate h1{font-weight:900;font-style:italic;font-size:38px;color:var(--brand)}
 html[dir=rtl] .gate h1{font-style:normal}
 .who{gap:10px}
@@ -776,7 +777,7 @@ function langBtn(){ return h('button', {class:'pill', onclick:function(){ lang =
 function gate(){
   var box = h('div', {class:'gate'});
   box.appendChild(h('div', {style:'display:flex;justify-content:flex-end'}, langBtn()));
-  box.appendChild(h('img', {class:'logo', src:'logo-burgundy.png', alt:'JACARALL', style:'margin:10px auto 0;display:block'}));
+  box.appendChild(h('img', {class:'logo', src:'logo-hub.png', alt:'JACARALL HUB', style:'margin:10px auto 0;display:block'}));
   box.appendChild(h('div', {class:'kicker', style:'text-align:center'}, 'Egypt · Saudi Arabia'));
   box.appendChild(h('h1', null, t('who')));
   box.appendChild(h('p', {class:'sub'}, t('whoSub')));
@@ -872,7 +873,7 @@ window.addEventListener('popstate', function(e){ if(document.querySelector('.scr
 function header(){
   return h('header', {class:'top'},
     h('div', {class:'top-left'}, h('button', {class:'pill back', onclick:goBack, title: view === 'home' ? t('signOut') : t('home')}, h('span', {class:'arrow'}, lang === 'ar' ? '→' : '←'), t('back')),
-      h('a', {href:'./'}, h('img', {class:'logo', src:'logo-burgundy.png', alt:'JACARALL'}))),
+      h('a', {href:'./'}, h('img', {class:'logo', src:'logo-hub.png', alt:'JACARALL HUB'}))),
     h('div', {class:'top-actions'},
       h('span', {class:'sync' + (online ? '' : ' off'), title: lastSync ? fmtWhen(lastSync) : ''}, h('span', {class:'dot'}), h('span', {class:'stxt'}, online ? t('synced') : t('local'))),
       bellBtn(),
