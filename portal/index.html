@@ -727,7 +727,7 @@ function dueLabel(task){
   else txt = fmtDate(task.due);
   return h('span', {class:cls}, '◷ ' + txt);
 }
-function toast(msg, err){ Array.prototype.forEach.call(document.querySelectorAll('.toast'), function(x){ x.remove(); }); var el = h('div', {class:'toast' + (err ? ' err' : '')}, msg); document.body.appendChild(el); setTimeout(function(){ el.remove(); }, 2200); }
+function toast(msg, err, ms){ Array.prototype.forEach.call(document.querySelectorAll('.toast'), function(x){ x.remove(); }); var el = h('div', {class:'toast' + (err ? ' err' : '')}, msg); document.body.appendChild(el); setTimeout(function(){ el.remove(); }, ms || 2200); }
 function sha256(str){
   if(!(window.crypto && crypto.subtle)) return Promise.resolve('');
   return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function(buf){
@@ -1874,8 +1874,8 @@ function mail(toId, p, loud){
   var params = Object.assign({to_email:m.email, to_name:m.name.split(' ')[0], hub_link:hubUrl(), heading:'', task_title:'', message:'', deadline:'—', subject:'JACARALL HUB'}, p);
   return fetch('https://api.emailjs.com/api/v1.0/email/send', {method:'POST', headers:{'Content-Type':'application/json'},
     body:JSON.stringify({service_id:EMAILJS.service, template_id:EMAILJS.template, user_id:EMAILJS.key, template_params:params})})
-    .then(function(r){ if(!r.ok) throw 0; if(loud) toast(t('mSent') + ' → ' + m.email); return true; })
-    .catch(function(){ if(loud) toast(t('mFail'), true); return false; });
+    .then(function(r){ return r.text().then(function(tx){ if(!r.ok) throw new Error(r.status + ': ' + tx); if(loud) toast(t('mSent') + ' → ' + m.email); return true; }); })
+    .catch(function(e){ if(loud) toast(t('mFail') + ' — ' + ((e && e.message) || 'network'), true, 12000); return false; });
 }
 function mailBody(tk, toId){
   var lines = [];
