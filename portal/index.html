@@ -216,6 +216,25 @@ html[dir=rtl] .asbar{padding:8px 14px 8px 8px}
 .dlwa{border:2px solid var(--ink);background:#25D366;border-radius:10px;padding:5px 9px;font-weight:800;cursor:pointer;font-size:13px;white-space:nowrap}
 .emcard{background:#fff;border:2px solid var(--ink);border-radius:18px;box-shadow:var(--sh);padding:6px 18px 18px;margin-top:8px}
 .dledit{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.dledit .inp{width:auto;min-width:160px;padding:7px 10px;font-size:14px}
+.steps-ed{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.step-ed{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.step-top{display:flex;gap:8px;align-items:center}.step-top .inp{flex:1;font-weight:700}
+.step-n{width:24px;height:24px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800;flex:0 0 auto}
+.step-mid{display:flex;gap:10px;align-items:center}.step-mid .inp{width:auto;min-width:160px;padding:7px 10px;font-size:14px}
+.chipsel.mini-c{padding:3px 10px 3px 3px;font-size:12.5px}.chipsel.mini-c .avatar{width:20px;height:20px;font-size:9px}
+html[dir=rtl] .chipsel.mini-c{padding:3px 3px 3px 10px}
+.brief{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:12px}
+.brief p{margin:0;white-space:pre-wrap;line-height:1.6;font-size:14px}
+.stl{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.str{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.str.done{opacity:.6}.str.done .stt{text-decoration:line-through}
+.stck{width:26px;height:26px;border-radius:50%;border:2px solid var(--line2);background:var(--panel);cursor:pointer;flex:0 0 auto;display:grid;place-items:center;font-weight:900;color:#fff;font-size:13px}
+.stck.on{background:var(--good);border-color:var(--good)}.stck[disabled]{cursor:default}
+.stt{font-weight:700;font-size:14.5px}.sts{font-size:12px;color:var(--soft);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.str .od{color:var(--bad)}.str .today{color:var(--warn)}
+.str .acts{margin-inline-start:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.str .acts .inp{width:auto;padding:4px 8px;font-size:12.5px}
+.t-meta .stc{color:var(--brand-ink);font-weight:700}
 .hint{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5}
 .grp{margin:18px 2px 8px}
 
@@ -637,7 +656,7 @@ var T = {
   save:'Save', cancel:'Cancel', del:'Delete', edit:'Edit', sendWa:'Send on WhatsApp', comment:'Add a note…', post:'Post', notes:'Notes',
   status:'Status', createdBy:'Assigned by', all:'All', search:'Search tasks or projects', mine:'Mine', active:'Active', everyone:'Everyone',
   noTasks:'Nothing here. Enjoy the calm.', noNews:'No announcements yet.', addMember:'Add member', editMember:'Edit member', name:'Name', role:'Role', phone:'WhatsApp number', phoneH:'With country code, e.g. 201001234567 or 966501234567',
-  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', dlSet:'Save deadline', dlChanged:'Deadline set to', email:'Email', emBad:'Enter a valid email address', emTitle:'One more step, {n}', emSub:'Add your email to open the hub. Your tasks, reminders and deadlines will be sent to it.', emSave:'Save and open the hub', deadline:'Deadline', needDue:'Pick a deadline', nDueSoon:'Deadline tomorrow', nDueToday:'Deadline is today', nOverdue:'Deadline passed', nLateSup:'Deadline passed — {n}', dlTitle:'Deadlines', dlLate:'Late', dlToday:'Today', dlTomorrow:'Tomorrow', dlWaSend:'Remind on WhatsApp', dlMine:'Your deadlines', admDev:'{n} can open any account on this device without a password.', admForget:'Lock this device', saveOnly:'Save only', saveWa:'Save & send WhatsApp', waEach:'Tap each person to send them the task on WhatsApp.', waNoNum:'no number', phoneSelf:'Your WhatsApp number — supervisors use it to send you tasks and reminders.', myAcc:'My account', phAsk:'Add your WhatsApp number', phAskSub:'So tasks and reminders reach you on WhatsApp', phBad:'Check the number', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
+  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', brief:'Brief', briefPh:'Client brief, requirements, references, links…', steps:'Steps', stepsHint:'Split the task into steps, each with its own deadline and people — e.g. Moodboard, Quotation.', stepPh:'e.g. Moodboard', stepAdd:'Add step', stepPickFirst:'Pick the people above first', stepNeedTitle:'Name each step', stepNeedDue:'Add a deadline for each step', stepDone:'Step done', stepOpen:'Step reopened', dlSet:'Save deadline', dlChanged:'Deadline set to', email:'Email', emBad:'Enter a valid email address', emTitle:'One more step, {n}', emSub:'Add your email to open the hub. Your tasks, reminders and deadlines will be sent to it.', emSave:'Save and open the hub', deadline:'Deadline', needDue:'Pick a deadline', nDueSoon:'Deadline tomorrow', nDueToday:'Deadline is today', nOverdue:'Deadline passed', nLateSup:'Deadline passed — {n}', dlTitle:'Deadlines', dlLate:'Late', dlToday:'Today', dlTomorrow:'Tomorrow', dlWaSend:'Remind on WhatsApp', dlMine:'Your deadlines', admDev:'{n} can open any account on this device without a password.', admForget:'Lock this device', saveOnly:'Save only', saveWa:'Save & send WhatsApp', waEach:'Tap each person to send them the task on WhatsApp.', waNoNum:'no number', phoneSelf:'Your WhatsApp number — supervisors use it to send you tasks and reminders.', myAcc:'My account', phAsk:'Add your WhatsApp number', phAskSub:'So tasks and reminders reach you on WhatsApp', phBad:'Check the number', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
   nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by', files:'Files', fDrop:'Upload files', fDropSub:'PDF, Excel, Word, images — up to 25 MB each', fUpload:'Upload', fUploadTitle:'Upload to shared files', fUploading:'Uploading…', fNote:'Note', fNotePh:'e.g. Final BOQ, revision 2', fDone:'Uploaded — everyone can see it', fFailed:'Some files failed — check your connection', fTooBig:'{n} is bigger than 25 MB', fSearch:'Search files, projects or names', fEmpty:'No files yet. Upload the first one.', fOpen:'Open / Download', fShare:'Share', fPreparing:'Preparing file…', fReady:'Ready', fMissing:'Could not load this file', fBy:'Uploaded by', fSize:'Size',
@@ -653,7 +672,7 @@ var T = {
   save:'حفظ', cancel:'إلغاء', del:'حذف', edit:'تعديل', sendWa:'ابعت واتساب', comment:'اكتب ملاحظة…', post:'نشر', notes:'ملاحظات',
   status:'الحالة', createdBy:'من', all:'الكل', search:'دوّر في المهام أو المشاريع', mine:'مهامي', active:'الحالية', everyone:'الكل',
   noTasks:'مفيش حاجة هنا.', noNews:'مفيش إعلانات لسه.', addMember:'إضافة موظف', editMember:'تعديل موظف', name:'الاسم', role:'الوظيفة', phone:'رقم الواتساب', phoneH:'بكود الدولة، مثلاً 201001234567 أو 966501234567',
-  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', dlSet:'احفظ الديدلاين', dlChanged:'الديدلاين بقى', email:'الإيميل', emBad:'اكتب إيميل صحيح', emTitle:'خطوة واحدة كمان يا {n}', emSub:'ضيف الإيميل بتاعك عشان تفتح البوابة. المهام والتذكيرات والديدلاينز هتتبعتلك عليه.', emSave:'احفظ وافتح البوابة', deadline:'الديدلاين', needDue:'اختار الديدلاين', nDueSoon:'الديدلاين بكرة', nDueToday:'الديدلاين النهارده', nOverdue:'الديدلاين عدّى', nLateSup:'الديدلاين عدّى — {n}', dlTitle:'الديدلاينز', dlLate:'متأخرة', dlToday:'النهارده', dlTomorrow:'بكرة', dlWaSend:'فكّره على الواتساب', dlMine:'الديدلاينز بتاعتك', admDev:'{n} يقدر يفتح أي حساب على الجهاز ده من غير باسورد.', admForget:'اقفل الجهاز ده', saveOnly:'حفظ بس', saveWa:'احفظ وابعت واتساب', waEach:'دوس على كل واحد عشان تبعتله المهمة على الواتساب.', waNoNum:'مفيش رقم', phoneSelf:'رقم الواتساب بتاعك — المشرفين بيبعتولك عليه المهام والتذكيرات.', myAcc:'حسابي', phAsk:'ضيف رقم الواتساب بتاعك', phAskSub:'عشان المهام والتذكيرات توصلك على الواتساب', phBad:'اتأكد من الرقم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
+  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', brief:'البريف', briefPh:'بريف العميل، المطلوب، الريفرنسز، لينكات…', steps:'الخطوات', stepsHint:'قسّم المهمة لخطوات، كل خطوة ليها ديدلاين وناس — مثلاً Moodboard وQuotation.', stepPh:'مثلاً Moodboard', stepAdd:'ضيف خطوة', stepPickFirst:'اختار الناس اللي فوق الأول', stepNeedTitle:'اكتب اسم كل خطوة', stepNeedDue:'حط ديدلاين لكل خطوة', stepDone:'الخطوة خلصت', stepOpen:'الخطوة اتفتحت تاني', dlSet:'احفظ الديدلاين', dlChanged:'الديدلاين بقى', email:'الإيميل', emBad:'اكتب إيميل صحيح', emTitle:'خطوة واحدة كمان يا {n}', emSub:'ضيف الإيميل بتاعك عشان تفتح البوابة. المهام والتذكيرات والديدلاينز هتتبعتلك عليه.', emSave:'احفظ وافتح البوابة', deadline:'الديدلاين', needDue:'اختار الديدلاين', nDueSoon:'الديدلاين بكرة', nDueToday:'الديدلاين النهارده', nOverdue:'الديدلاين عدّى', nLateSup:'الديدلاين عدّى — {n}', dlTitle:'الديدلاينز', dlLate:'متأخرة', dlToday:'النهارده', dlTomorrow:'بكرة', dlWaSend:'فكّره على الواتساب', dlMine:'الديدلاينز بتاعتك', admDev:'{n} يقدر يفتح أي حساب على الجهاز ده من غير باسورد.', admForget:'اقفل الجهاز ده', saveOnly:'حفظ بس', saveWa:'احفظ وابعت واتساب', waEach:'دوس على كل واحد عشان تبعتله المهمة على الواتساب.', waNoNum:'مفيش رقم', phoneSelf:'رقم الواتساب بتاعك — المشرفين بيبعتولك عليه المهام والتذكيرات.', myAcc:'حسابي', phAsk:'ضيف رقم الواتساب بتاعك', phAskSub:'عشان المهام والتذكيرات توصلك على الواتساب', phBad:'اتأكد من الرقم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
   nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من', files:'الملفات', fDrop:'ارفع ملفات', fDropSub:'PDF، Excel، Word، صور — لحد ٢٥ ميجا للملف', fUpload:'ارفع', fUploadTitle:'رفع للملفات المشتركة', fUploading:'بيترفع…', fNote:'ملاحظة', fNotePh:'مثلاً: BOQ نهائي، تعديل ٢', fDone:'اترفع — الكل يقدر يشوفه', fFailed:'فيه ملفات ما اترفعتش — اتأكد من النت', fTooBig:'{n} أكبر من ٢٥ ميجا', fSearch:'دوّر في الملفات أو المشاريع أو الأسامي', fEmpty:'مفيش ملفات لسه. ارفع أول ملف.', fOpen:'افتح / نزّل', fShare:'مشاركة', fPreparing:'بيجهز الملف…', fReady:'جاهز', fMissing:'مش قادر يفتح الملف ده', fBy:'رفعه', fSize:'الحجم',
@@ -1012,6 +1031,7 @@ function taskCard(tk){
       h('span', {class:'tag office'}, OFFICES[tk.office] ? OFFICES[tk.office].flag + ' ' + (tk.office === 'SA' ? 'KSA' : 'EG') : ''),
       (tk.priority === 'urgent' || tk.priority === 'high') ? h('span', {style:'color:' + (tk.priority === 'urgent' ? 'var(--bad)' : 'var(--warn)')}, '▲ ' + t(tk.priority)) : null,
       dueLabel(tk),
+      stepList(tk).length ? h('span', {class:'stc'}, '☑ ' + stepList(tk).filter(function(x){ return x.done; }).length + '/' + stepList(tk).length + (nextStep(tk) ? ' · ' + nextStep(tk).title + ' ' + fmtDate(nextStep(tk).due) : '')) : null,
       tk.comments ? h('span', null, '💬 ' + Object.keys(tk.comments).length) : null,
       remList(tk).length ? h('span', {class:'rc'}, '🔔 ' + remList(tk).length) : null
     ));
@@ -1066,6 +1086,8 @@ function taskDetail(id){
   var content = [
     h('div', {class:'t-meta', style:'margin-top:0'}, statusTag(tk.status), tk.priority !== 'normal' ? h('span', null, '▲ ' + t(tk.priority)) : null, dueLabel(tk)),
     tk.details ? h('p', {class:'desc'}, tk.details) : null,
+    tk.brief ? h('div', {class:'brief'}, h('div', {class:'lbl', style:'margin:0 0 6px'}, '📝 ' + t('brief')), h('p', null, tk.brief)) : null,
+    stepList(tk).length ? stepsView(tk, function(){ sh.close(); taskDetail(id); }) : null,
     h('dl', {class:'kv'},
       h('dt', null, t('assign')), h('dd', null, who.map(function(m){ return m.name; }).join(', ') || t('nobody')),
       tk.project ? [h('dt', null, t('project')), h('dd', null, tk.project)] : null,
@@ -1118,7 +1140,10 @@ function waText(tk, m){
   var lines = ['*JACARALL · ' + t('taskFor') + ' ' + (m ? m.name.split(' ')[0] : ((tk.assignees||[]).map(member).filter(Boolean).map(function(x){ return x.name.split(' ')[0]; }).join(', '))) + '*', '', '📌 ' + tk.title];
   if(tk.details) lines.push(tk.details);
   if(tk.project) lines.push('▣ ' + t('project') + ': ' + tk.project);
+  var stp = stepList(tk).filter(function(x){ return !m || (x.assignees || []).indexOf(m.id) > -1; });
+  if(stp.length){ lines.push('', '*' + t('steps') + ':*'); stp.forEach(function(x){ lines.push('▸ ' + x.title + ' — ' + t('deadline') + ' ' + fmtDate(x.due) + (m ? '' : ' (' + (x.assignees || []).map(member).filter(Boolean).map(function(p){ return p.name.split(' ')[0]; }).join(', ') + ')')); }); lines.push(''); }
   if(tk.due) lines.push('◷ ' + t('due') + ': ' + fmtDate(tk.due));
+  if(tk.brief) lines.push('', '📝 *' + t('brief') + ':*', tk.brief.length > 700 ? tk.brief.slice(0, 700) + '…' : tk.brief);
   if(tk.priority === 'urgent' || tk.priority === 'high') lines.push('▲ ' + t(tk.priority));
   lines.push('', t('link') + ': ' + hubUrl());
   return lines.join('\n');
@@ -1196,6 +1221,9 @@ function taskForm(tk){
   var sel = (tk.assignees||[]).slice();
   var title = h('input', {class:'inp', value:tk.title || '', placeholder:'e.g. Send revised moodboard to client'});
   var details = h('textarea', {class:'txt'}); details.value = tk.details || '';
+  var brief = h('textarea', {class:'txt', style:'min-height:110px', placeholder:t('briefPh')}); brief.value = tk.brief || '';
+  var steps = stepList(tk).map(function(x){ return Object.assign({}, x, {assignees:(x.assignees||[]).slice()}); });
+  var stepsBox = h('div', {class:'steps-ed'});
   var projects = {}; allTasks().forEach(function(x){ if(x.project) projects[x.project] = 1; });
   var project = h('input', {class:'inp', value:tk.project || '', list:'projlist', placeholder:'Tulip Tower, Solamanya…'});
   var dl = h('datalist', {id:'projlist'}, Object.keys(projects).concat(['Tulip Tower','Solamanya']).filter(function(v,i,a){ return a.indexOf(v) === i; }).map(function(p){ return h('option', {value:p}); }));
@@ -1209,14 +1237,36 @@ function taskForm(tk){
     var off = office.value, list = members().sort(function(a,b){ return (a.office === off || a.office === 'BOTH' ? 0 : 1) - (b.office === off || b.office === 'BOTH' ? 0 : 1); });
     list.forEach(function(m){
       chipBox.appendChild(h('button', {type:'button', class:'chipsel' + (sel.indexOf(m.id) > -1 ? ' on' : ''), onclick:function(){
-        var i = sel.indexOf(m.id); if(i > -1) sel.splice(i, 1); else sel.push(m.id); drawChips(); }}, avatar(m), shortName(m), m.office === 'SA' ? ' 🇸🇦' : m.office === 'BOTH' ? ' 🇪🇬🇸🇦' : ''));
+        var i = sel.indexOf(m.id); if(i > -1) sel.splice(i, 1); else sel.push(m.id); drawChips(); drawSteps(); }}, avatar(m), shortName(m), m.office === 'SA' ? ' 🇸🇦' : m.office === 'BOTH' ? ' 🇪🇬🇸🇦' : ''));
     });
   }
   office.addEventListener('change', drawChips); drawChips();
+  function drawSteps(){
+    stepsBox.innerHTML = '';
+    steps.forEach(function(st, i){
+      var ti = h('input', {class:'inp', value:st.title || '', placeholder:t('stepPh')});
+      ti.addEventListener('input', function(){ st.title = ti.value; ti.classList.remove('bad'); });
+      var du = h('input', {class:'inp', type:'date', value:st.due || ''});
+      du.addEventListener('change', function(){ st.due = du.value; du.classList.remove('bad'); });
+      st._ti = ti; st._du = du;
+      var ppl = h('div', {class:'chips'}, sel.length ? sel.map(function(id){ var m = member(id); if(!m) return null;
+        return h('button', {type:'button', class:'chipsel mini-c' + (st.assignees.indexOf(id) > -1 ? ' on' : ''), onclick:function(){
+          var k = st.assignees.indexOf(id); if(k > -1) st.assignees.splice(k, 1); else st.assignees.push(id); drawSteps(); }}, avatar(m), shortName(m)); })
+        : h('span', {class:'hint', style:'margin:0'}, t('stepPickFirst')));
+      stepsBox.appendChild(h('div', {class:'step-ed'},
+        h('div', {class:'step-top'}, h('span', {class:'step-n'}, i + 1), ti, h('button', {type:'button', class:'icon-btn', title:t('del'), onclick:function(){ steps.splice(i, 1); drawSteps(); }}, '✕')),
+        h('div', {class:'step-mid'}, h('label', {class:'lbl', style:'margin:0'}, t('deadline'), h('span', {class:'req'}, ' *')), du),
+        h('div', {class:'step-ppl'}, ppl)));
+    });
+    stepsBox.appendChild(h('button', {type:'button', class:'btn ghost sm', onclick:function(){ steps.push({id:uid(), title:'', due:'', assignees:[], done:false}); drawSteps(); setTimeout(function(){ var l = steps[steps.length-1]; l._ti && l._ti.focus(); }, 30); }}, '+ ' + t('stepAdd')));
+  }
+  drawSteps();
   var sh = sheet(isNew ? t('newTask') : t('editTask'), [
     h('label', {class:'lbl'}, t('title')), title,
     h('label', {class:'lbl'}, t('assign')), chipBox,
     h('div', {class:'row2'}, h('div', null, h('label', {class:'lbl'}, t('deadline'), h('span', {class:'req'}, ' *')), due), h('div', null, h('label', {class:'lbl'}, t('priority')), pri)),
+    h('label', {class:'lbl'}, t('brief')), brief,
+    h('label', {class:'lbl'}, t('steps') + ' · ' + t('optional')), h('div', {class:'hint', style:'margin:-2px 0 8px'}, t('stepsHint')), stepsBox,
     h('label', {class:'lbl'}, t('details')), details,
     h('div', {class:'row2'}, h('div', null, h('label', {class:'lbl'}, t('project')), project, dl), h('div', null, h('label', {class:'lbl'}, t('office')), office)),
     h('div', {class:'btns'},
@@ -1228,10 +1278,19 @@ function taskForm(tk){
   function save(wa){
     if(!title.value.trim()) return toast(t('needTitle'), true);
     if(!sel.length) return toast(t('needWho'), true);
+    var live = steps.filter(function(st){ return (st.title || '').trim() || st.due; });
+    for(var i = 0; i < live.length; i++){
+      if(!(live[i].title || '').trim()){ live[i]._ti.classList.add('bad'); live[i]._ti.focus(); return toast(t('stepNeedTitle'), true); }
+      if(!live[i].due){ live[i]._du.classList.add('bad'); live[i]._du.focus(); return toast(t('stepNeedDue'), true); }
+    }
+    if(!due.value && live.length) due.value = live.map(function(st){ return st.due; }).sort().pop();
     if(!due.value){ due.classList.add('bad'); due.focus(); return toast(t('needDue'), true); }
+    var stepsObj = null;
+    if(live.length){ stepsObj = {}; live.forEach(function(st, k){ var who = st.assignees.filter(function(x){ return sel.indexOf(x) > -1; });
+      stepsObj[st.id] = {id:st.id, order:k, title:st.title.trim(), due:st.due, assignees:who.length ? who : sel.slice(), done:!!st.done, doneAt:st.doneAt || null}; }); }
     var id = tk.id || uid();
     var rec = Object.assign({}, tk, {id:id, title:title.value.trim(), details:details.value.trim(), project:project.value.trim(), office:office.value,
-      priority:pri.value, due:due.value || '', assignees:sel, status:tk.status || 'todo', createdBy:tk.createdBy || me.id, createdAt:tk.createdAt || Date.now(), updatedAt:Date.now()});
+      priority:pri.value, due:due.value || '', brief:brief.value.trim(), steps:stepsObj, assignees:sel, status:tk.status || 'todo', createdBy:tk.createdBy || me.id, createdAt:tk.createdAt || Date.now(), updatedAt:Date.now()});
     var before = isNew ? [] : (tk.assignees || []);
     write('tasks/' + id, rec).then(function(){
       notify(sel.filter(function(x){ return before.indexOf(x) < 0; }), {type:'task', task:id, title:rec.title, text:rec.due ? '◷ ' + fmtDate(rec.due) : ''});
@@ -1704,45 +1763,54 @@ function checkSys(){
 
 
 /* ---------- deadlines: automatic alerts ---------- */
-function dlKind(tk){ var d = dayDiff(tk.due); if(d == null || !isOpen(tk)) return ''; return d < 0 ? 'overdue' : d === 0 ? 'dueToday' : d === 1 ? 'dueSoon' : ''; }
+function dlKindOf(due, open){ var d = dayDiff(due); if(d == null || !open) return ''; return d < 0 ? 'overdue' : d === 0 ? 'dueToday' : d === 1 ? 'dueSoon' : ''; }
+function dlKind(tk){ return dlKindOf(tk.due, isOpen(tk)); }
+/* every open deadline: a whole task, or one step of it */
+function dlItems(){
+  var out = [];
+  allTasks().forEach(function(tk){
+    if(!isOpen(tk)) return;
+    var st = stepList(tk);
+    if(st.length){ st.forEach(function(x){ var k = dlKindOf(x.due, !x.done); if(k) out.push({tk:tk, st:x, k:k, due:x.due, people:x.assignees || []}); }); }
+    else { var k = dlKind(tk); if(k) out.push({tk:tk, st:null, k:k, due:tk.due, people:tk.assignees || []}); }
+  });
+  return out.sort(function(a,b){ return a.due < b.due ? -1 : a.due > b.due ? 1 : 0; });
+}
 function deadlineAlerts(){
   if(!me || me.asBy) return;
   var box = (db.notifs || {})[me.id] || {};
-  allTasks().forEach(function(tk){
-    var k = dlKind(tk); if(!k) return;
-    if(isMine(tk)){
-      var nid = 'dl-' + tk.id + '-' + k + '-' + tk.due;
-      if(!box[nid]) write('notifs/' + me.id + '/' + nid, {id:nid, type:k, task:tk.id, title:tk.title, text:'◷ ' + fmtDate(tk.due), by:tk.createdBy || me.id, at:Date.now()});
+  dlItems().forEach(function(it){
+    var tk = it.tk, label = it.st ? tk.title + ' › ' + it.st.title : tk.title, key = 'dl-' + tk.id + (it.st ? '-' + it.st.id : '');
+    if(it.people.indexOf(me.id) > -1){
+      var nid = key + '-' + it.k + '-' + it.due;
+      if(!box[nid]) write('notifs/' + me.id + '/' + nid, {id:nid, type:it.k, task:tk.id, title:label, text:'◷ ' + fmtDate(it.due), by:tk.createdBy || me.id, at:Date.now()});
     }
-    if(k === 'overdue' && tk.createdBy === me.id && !isMine(tk)){
-      var sid = 'dl-' + tk.id + '-late-' + tk.due;
-      var who = (tk.assignees || []).map(member).filter(Boolean).map(function(m){ return m.name.split(' ')[0]; }).join(', ');
-      if(!box[sid]) write('notifs/' + me.id + '/' + sid, {id:sid, type:'lateSup', who:who, task:tk.id, title:tk.title, text:'◷ ' + fmtDate(tk.due), by:(tk.assignees || [])[0] || me.id, at:Date.now()});
+    if(it.k === 'overdue' && tk.createdBy === me.id && it.people.indexOf(me.id) < 0){
+      var sid = key + '-late-' + it.due;
+      var who = it.people.map(member).filter(Boolean).map(function(m){ return m.name.split(' ')[0]; }).join(', ');
+      if(!box[sid]) write('notifs/' + me.id + '/' + sid, {id:sid, type:'lateSup', who:who, task:tk.id, title:label, text:'◷ ' + fmtDate(it.due), by:it.people[0] || me.id, at:Date.now()});
     }
   });
 }
-function dlWaText(tk, m){
-  var k = dlKind(tk), head = k === 'overdue' ? t('nOverdue') : k === 'dueToday' ? t('nDueToday') : t('nDueSoon');
-  return ['⏰ *JACARALL · ' + head + '*', '', (lang === 'ar' ? 'يا ' : 'Hi ') + m.name.split(' ')[0] + (lang === 'ar' ? '،' : ','), '📌 ' + tk.title, '◷ ' + t('deadline') + ': ' + fmtDate(tk.due), '', t('link') + ': ' + hubUrl()].join('\n');
+function dlWaText(tk, m, it){
+  var k = it ? it.k : dlKind(tk), due = it ? it.due : tk.due, head = k === 'overdue' ? t('nOverdue') : k === 'dueToday' ? t('nDueToday') : t('nDueSoon');
+  return ['⏰ *JACARALL · ' + head + '*', '', (lang === 'ar' ? 'يا ' : 'Hi ') + m.name.split(' ')[0] + (lang === 'ar' ? '،' : ','), '📌 ' + tk.title + (it && it.st ? ' › ' + it.st.title : ''), '◷ ' + t('deadline') + ': ' + fmtDate(due), '', t('link') + ': ' + hubUrl()].join('\n');
 }
 function deadlineHome(body){
-  var list = allTasks().filter(function(tk){ return dlKind(tk) && (me.sup ? true : isMine(tk)); })
-    .sort(function(a,b){ return (a.due < b.due ? -1 : a.due > b.due ? 1 : 0); });
+  var list = dlItems().filter(function(it){ return me.sup ? true : it.people.indexOf(me.id) > -1; });
   if(!list.length) return;
   body.appendChild(h('h2', null, '⏰ ' + (me.sup ? t('dlTitle') : t('dlMine')), h('small', null, list.length)));
-  body.appendChild(h('div', {class:'dl'}, list.slice(0, 12).map(function(tk){
-    var k = dlKind(tk), who = (tk.assignees || []).map(member).filter(Boolean);
-    var badge = k === 'overdue' ? h('span', {class:'dlbadge late'}, t('dlLate') + ' · ' + t('daysLate').replace('{n}', -dayDiff(tk.due)))
-      : k === 'dueToday' ? h('span', {class:'dlbadge today'}, t('dlToday')) : h('span', {class:'dlbadge tom'}, t('dlTomorrow'));
+  body.appendChild(h('div', {class:'dl'}, list.slice(0, 15).map(function(it){
+    var tk = it.tk, who = it.people.map(member).filter(Boolean);
+    var badge = it.k === 'overdue' ? h('span', {class:'dlbadge late'}, t('dlLate') + ' · ' + t('daysLate').replace('{n}', -dayDiff(it.due)))
+      : it.k === 'dueToday' ? h('span', {class:'dlbadge today'}, t('dlToday')) : h('span', {class:'dlbadge tom'}, t('dlTomorrow'));
     return h('div', {class:'dlrow'},
-      h('div', {class:'dlt', onclick:function(){ taskDetail(tk.id); }}, h('b', null, tk.title), h('div', {class:'dls'}, who.map(function(m){ return shortName(m); }).join(', ') + (tk.project ? ' · ' + tk.project : ''))),
+      h('div', {class:'dlt', onclick:function(){ taskDetail(tk.id); }}, h('b', null, tk.title + (it.st ? ' › ' + it.st.title : '')), h('div', {class:'dls'}, who.map(function(m){ return shortName(m); }).join(', ') + (tk.project ? ' · ' + tk.project : ''))),
       badge,
       me.sup ? who.filter(function(m){ return m.phone; }).slice(0, 3).map(function(m){
-        return h('button', {class:'dlwa', title:t('dlWaSend') + ' — ' + m.name, onclick:function(){ waOpen(m.phone, dlWaText(tk, m)); }}, '✆' + (who.length > 1 ? ' ' + shortName(m) : '')); }) : null);
+        return h('button', {class:'dlwa', title:t('dlWaSend') + ' — ' + m.name, onclick:function(){ waOpen(m.phone, dlWaText(tk, m, it)); }}, '✆' + (who.length > 1 ? ' ' + shortName(m) : '')); }) : null);
   })));
 }
-
-
 /* change a task's deadline right from its details */
 function dlEditor(tk, after){
   var inp = h('input', {class:'inp dlin', type:'date', value:tk.due || ''});
@@ -1757,6 +1825,43 @@ function dlEditor(tk, after){
     });
   });
   return h('div', {class:'dledit'}, inp, btn);
+}
+
+/* ---------- steps inside a task (each with its own deadline and people) ---------- */
+function stepList(tk){ return tk && tk.steps ? Object.keys(tk.steps).map(function(k){ return tk.steps[k]; }).filter(Boolean).sort(function(a,b){ return (a.order||0) - (b.order||0); }) : []; }
+function nextStep(tk){ return stepList(tk).filter(function(x){ return !x.done && x.due; }).sort(function(a,b){ return a.due < b.due ? -1 : 1; })[0] || null; }
+function stepDue(st){
+  if(!st.due) return null; if(st.done) return h('span', null, '◷ ' + fmtDate(st.due));
+  var d = dayDiff(st.due);
+  if(d < 0) return h('span', {class:'od'}, '◷ ' + t('daysLate').replace('{n}', -d));
+  if(d === 0) return h('span', {class:'today'}, '◷ ' + t('today'));
+  if(d === 1) return h('span', {class:'today'}, '◷ ' + t('tomorrow'));
+  return h('span', null, '◷ ' + fmtDate(st.due));
+}
+function stepWaText(tk, st, m){
+  return ['📌 *JACARALL · ' + tk.title + '*', '', (lang === 'ar' ? 'يا ' : 'Hi ') + m.name.split(' ')[0] + (lang === 'ar' ? '،' : ','), '▸ ' + st.title, '◷ ' + t('deadline') + ': ' + fmtDate(st.due), '', t('link') + ': ' + hubUrl()].join('\n');
+}
+function stepsView(tk, reopen){
+  return h('div', {class:'stl'}, h('div', {class:'lbl', style:'margin:0'}, '☑ ' + t('steps') + ' · ' + stepList(tk).filter(function(x){ return x.done; }).length + '/' + stepList(tk).length),
+    stepList(tk).map(function(st){
+      var who = (st.assignees || []).map(member).filter(Boolean), can = me.sup || (st.assignees || []).indexOf(me.id) > -1;
+      var du = null;
+      if(me.sup && !st.done){ du = h('input', {class:'inp', type:'date', value:st.due || ''});
+        du.addEventListener('change', function(){ if(!du.value) return; var old = st.due;
+          write('tasks/' + tk.id + '/steps/' + st.id + '/due', du.value).then(function(){
+            notify(st.assignees || [], {type:'task', task:tk.id, title:tk.title + ' › ' + st.title, text:'◷ ' + t('deadline') + ': ' + fmtDate(du.value) + (old ? '  (' + fmtDate(old) + ' →)' : '')});
+            toast(t('dlChanged') + ' ' + fmtDate(du.value)); render(); reopen(); }); }); }
+      return h('div', {class:'str' + (st.done ? ' done' : '')},
+        h('button', {class:'stck' + (st.done ? ' on' : ''), disabled:!can, title:can ? t('done') : '', onclick:function(){
+          var now = !st.done;
+          write('tasks/' + tk.id + '/steps/' + st.id, Object.assign({}, st, {done:now, doneAt:now ? Date.now() : null})).then(function(){
+            notify([tk.createdBy].concat(st.assignees || []), {type:'status', status:now ? 'done' : 'todo', task:tk.id, title:tk.title + ' › ' + st.title, text:''});
+            toast(now ? t('stepDone') : t('stepOpen')); render(); reopen(); }); }}, st.done ? '✓' : ''),
+        h('div', {style:'flex:1;min-width:0'}, h('div', {class:'stt'}, st.title),
+          h('div', {class:'sts'}, h('span', {class:'people'}, who.map(function(m){ return avatar(m); })), who.map(function(m){ return shortName(m); }).join(', '), du ? null : stepDue(st))),
+        h('div', {class:'acts'}, du, me.sup && !st.done ? who.filter(function(m){ return m.phone; }).map(function(m){
+          return h('button', {class:'dlwa', title:t('dlWaSend') + ' — ' + m.name, onclick:function(){ waOpen(m.phone, stepWaText(tk, st, m)); }}, '✆' + (who.length > 1 ? ' ' + shortName(m) : '')); }) : null));
+    }));
 }
 /* ---------- news ---------- */
 function sortedNews(){ return Object.keys(db.news).map(function(k){ return db.news[k]; }).filter(Boolean).sort(function(a,b){ return (b.pinned?1:0) - (a.pinned?1:0) || b.at - a.at; }); }
