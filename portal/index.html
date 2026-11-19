@@ -214,6 +214,7 @@ html[dir=rtl] .asbar{padding:8px 14px 8px 8px}
 .dlbadge{font-size:11.5px;font-weight:800;border:1.5px solid var(--ink);border-radius:20px;padding:2px 9px;white-space:nowrap}
 .dlbadge.late{background:var(--bad-bg);color:var(--bad)}.dlbadge.today{background:var(--warn-bg);color:var(--warn)}.dlbadge.tom{background:var(--info-bg);color:var(--info)}
 .dlwa{border:2px solid var(--ink);background:#25D366;border-radius:10px;padding:5px 9px;font-weight:800;cursor:pointer;font-size:13px;white-space:nowrap}
+.emcard{background:#fff;border:2px solid var(--ink);border-radius:18px;box-shadow:var(--sh);padding:6px 18px 18px;margin-top:8px}
 .hint{font-size:12.5px;color:var(--soft);margin-top:8px;line-height:1.5}
 .grp{margin:18px 2px 8px}
 
@@ -628,7 +629,7 @@ var T = {
   save:'Save', cancel:'Cancel', del:'Delete', edit:'Edit', sendWa:'Send on WhatsApp', comment:'Add a note…', post:'Post', notes:'Notes',
   status:'Status', createdBy:'Assigned by', all:'All', search:'Search tasks or projects', mine:'Mine', active:'Active', everyone:'Everyone',
   noTasks:'Nothing here. Enjoy the calm.', noNews:'No announcements yet.', addMember:'Add member', editMember:'Edit member', name:'Name', role:'Role', phone:'WhatsApp number', phoneH:'With country code, e.g. 201001234567 or 966501234567',
-  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', deadline:'Deadline', needDue:'Pick a deadline', nDueSoon:'Deadline tomorrow', nDueToday:'Deadline is today', nOverdue:'Deadline passed', nLateSup:'Deadline passed — {n}', dlTitle:'Deadlines', dlLate:'Late', dlToday:'Today', dlTomorrow:'Tomorrow', dlWaSend:'Remind on WhatsApp', dlMine:'Your deadlines', admDev:'{n} can open any account on this device without a password.', admForget:'Lock this device', saveOnly:'Save only', saveWa:'Save & send WhatsApp', waEach:'Tap each person to send them the task on WhatsApp.', waNoNum:'no number', phoneSelf:'Your WhatsApp number — supervisors use it to send you tasks and reminders.', myAcc:'My account', phAsk:'Add your WhatsApp number', phAskSub:'So tasks and reminders reach you on WhatsApp', phBad:'Check the number', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
+  newPost:'New announcement', headline:'Headline', message:'Message', pinTop:'Pin to top', signOut:'Switch user', email:'Email', emBad:'Enter a valid email address', emTitle:'One more step, {n}', emSub:'Add your email to open the hub. Your tasks, reminders and deadlines will be sent to it.', emSave:'Save and open the hub', deadline:'Deadline', needDue:'Pick a deadline', nDueSoon:'Deadline tomorrow', nDueToday:'Deadline is today', nOverdue:'Deadline passed', nLateSup:'Deadline passed — {n}', dlTitle:'Deadlines', dlLate:'Late', dlToday:'Today', dlTomorrow:'Tomorrow', dlWaSend:'Remind on WhatsApp', dlMine:'Your deadlines', admDev:'{n} can open any account on this device without a password.', admForget:'Lock this device', saveOnly:'Save only', saveWa:'Save & send WhatsApp', waEach:'Tap each person to send them the task on WhatsApp.', waNoNum:'no number', phoneSelf:'Your WhatsApp number — supervisors use it to send you tasks and reminders.', myAcc:'My account', phAsk:'Add your WhatsApp number', phAskSub:'So tasks and reminders reach you on WhatsApp', phBad:'Check the number', nTitle:'Notifications', nTask:'New task from {n}', nRemind:'Reminder from {n}', nComment:'{n} added a note', nStatus:'{n} marked it: {s}', nNews:'Announcement from {n}', nFile:'{n} uploaded a file', nEmpty:'No notifications yet.', nGone:'This item was deleted', nEnable:'Turn on notifications on this phone', nOn:'Notifications are on for this device', nBlocked:'Notifications are blocked in this browser — allow them in the browser settings.', nIOS:'On iPhone: tap Share → Add to Home Screen, open JACARALL from the home screen, then turn on notifications here.', nTest:'You\'ll get alerts here for new tasks and reminders.', rBtn:'Send reminder', rSent:'Reminder sent', rSentSub:'{n} will see it at the top of the hub as soon as they open it.', rWa:'Also on WhatsApp to', rNoPhone:'Add their WhatsApp number in the Team tab to also remind them on WhatsApp.', rOk:'Done', rReminder:'Reminder', rFrom:'Reminder from {n}', rOpen:'Open', rReminded:'Reminders', rLast:'last', asOpen:'Open this account', asOpened:'Now in {n}\'s account', asViewing:'You\'re in {n}\'s account', asBack:'Back to {n}', confirmDel:'Tap again to delete',
   demo:'Demo mode: data is saved on this device only. Connect the shared database so everyone sees the same tasks.', synced:'Live', local:'This device',
   blockedWhy:'What\'s blocking it?', taskFor:'Task for', saved:'Saved', deleted:'Deleted', needTitle:'Add a title', needWho:'Pick at least one person',
   nobody:'Unassigned', tasksOpen:'open', supervisor:'Supervisor', today:'Today', tomorrow:'Tomorrow', daysLeft:'in {n} days', daysLate:'{n}d late', noDue:'No date', link:'Open the hub', by:'by', files:'Files', fDrop:'Upload files', fDropSub:'PDF, Excel, Word, images — up to 25 MB each', fUpload:'Upload', fUploadTitle:'Upload to shared files', fUploading:'Uploading…', fNote:'Note', fNotePh:'e.g. Final BOQ, revision 2', fDone:'Uploaded — everyone can see it', fFailed:'Some files failed — check your connection', fTooBig:'{n} is bigger than 25 MB', fSearch:'Search files, projects or names', fEmpty:'No files yet. Upload the first one.', fOpen:'Open / Download', fShare:'Share', fPreparing:'Preparing file…', fReady:'Ready', fMissing:'Could not load this file', fBy:'Uploaded by', fSize:'Size',
@@ -644,7 +645,7 @@ var T = {
   save:'حفظ', cancel:'إلغاء', del:'حذف', edit:'تعديل', sendWa:'ابعت واتساب', comment:'اكتب ملاحظة…', post:'نشر', notes:'ملاحظات',
   status:'الحالة', createdBy:'من', all:'الكل', search:'دوّر في المهام أو المشاريع', mine:'مهامي', active:'الحالية', everyone:'الكل',
   noTasks:'مفيش حاجة هنا.', noNews:'مفيش إعلانات لسه.', addMember:'إضافة موظف', editMember:'تعديل موظف', name:'الاسم', role:'الوظيفة', phone:'رقم الواتساب', phoneH:'بكود الدولة، مثلاً 201001234567 أو 966501234567',
-  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', deadline:'الديدلاين', needDue:'اختار الديدلاين', nDueSoon:'الديدلاين بكرة', nDueToday:'الديدلاين النهارده', nOverdue:'الديدلاين عدّى', nLateSup:'الديدلاين عدّى — {n}', dlTitle:'الديدلاينز', dlLate:'متأخرة', dlToday:'النهارده', dlTomorrow:'بكرة', dlWaSend:'فكّره على الواتساب', dlMine:'الديدلاينز بتاعتك', admDev:'{n} يقدر يفتح أي حساب على الجهاز ده من غير باسورد.', admForget:'اقفل الجهاز ده', saveOnly:'حفظ بس', saveWa:'احفظ وابعت واتساب', waEach:'دوس على كل واحد عشان تبعتله المهمة على الواتساب.', waNoNum:'مفيش رقم', phoneSelf:'رقم الواتساب بتاعك — المشرفين بيبعتولك عليه المهام والتذكيرات.', myAcc:'حسابي', phAsk:'ضيف رقم الواتساب بتاعك', phAskSub:'عشان المهام والتذكيرات توصلك على الواتساب', phBad:'اتأكد من الرقم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
+  newPost:'إعلان جديد', headline:'العنوان', message:'الرسالة', pinTop:'تثبيت فوق', signOut:'تغيير المستخدم', email:'الإيميل', emBad:'اكتب إيميل صحيح', emTitle:'خطوة واحدة كمان يا {n}', emSub:'ضيف الإيميل بتاعك عشان تفتح البوابة. المهام والتذكيرات والديدلاينز هتتبعتلك عليه.', emSave:'احفظ وافتح البوابة', deadline:'الديدلاين', needDue:'اختار الديدلاين', nDueSoon:'الديدلاين بكرة', nDueToday:'الديدلاين النهارده', nOverdue:'الديدلاين عدّى', nLateSup:'الديدلاين عدّى — {n}', dlTitle:'الديدلاينز', dlLate:'متأخرة', dlToday:'النهارده', dlTomorrow:'بكرة', dlWaSend:'فكّره على الواتساب', dlMine:'الديدلاينز بتاعتك', admDev:'{n} يقدر يفتح أي حساب على الجهاز ده من غير باسورد.', admForget:'اقفل الجهاز ده', saveOnly:'حفظ بس', saveWa:'احفظ وابعت واتساب', waEach:'دوس على كل واحد عشان تبعتله المهمة على الواتساب.', waNoNum:'مفيش رقم', phoneSelf:'رقم الواتساب بتاعك — المشرفين بيبعتولك عليه المهام والتذكيرات.', myAcc:'حسابي', phAsk:'ضيف رقم الواتساب بتاعك', phAskSub:'عشان المهام والتذكيرات توصلك على الواتساب', phBad:'اتأكد من الرقم', nTitle:'الإشعارات', nTask:'مهمة جديدة من {n}', nRemind:'تذكير من {n}', nComment:'{n} كتب ملاحظة', nStatus:'{n} غيّر الحالة: {s}', nNews:'إعلان من {n}', nFile:'{n} رفع ملف', nEmpty:'مفيش إشعارات لسه.', nGone:'الحاجة دي اتحذفت', nEnable:'شغّل الإشعارات على الموبايل ده', nOn:'الإشعارات شغالة على الجهاز ده', nBlocked:'الإشعارات مقفولة في المتصفح ده — افتحها من إعدادات المتصفح.', nIOS:'على الآيفون: دوس مشاركة ← Add to Home Screen، وافتح JACARALL من الشاشة الرئيسية، وبعدين شغّل الإشعارات من هنا.', nTest:'هيوصلك هنا تنبيه لما تجيلك مهمة جديدة أو تذكير.', rBtn:'ابعت تذكير', rSent:'التذكير اتبعت', rSentSub:'{n} هيشوفه فوق في البوابة أول ما يفتحها.', rWa:'ابعته كمان واتساب لـ', rNoPhone:'ضيف رقم الواتساب من تبويب الفريق عشان تقدر تفكّره على الواتساب كمان.', rOk:'تمام', rReminder:'تذكير', rFrom:'تذكير من {n}', rOpen:'افتح', rReminded:'التذكيرات', rLast:'آخر واحد', asOpen:'افتح الحساب ده', asOpened:'إنت دلوقتي في حساب {n}', asViewing:'إنت في حساب {n}', asBack:'ارجع لحساب {n}', confirmDel:'اضغط تاني للحذف',
   demo:'وضع تجريبي: البيانات محفوظة على الجهاز ده بس. لازم نربط قاعدة البيانات المشتركة عشان الكل يشوف نفس المهام.', synced:'مباشر', local:'الجهاز ده',
   blockedWhy:'إيه اللي موقفها؟', taskFor:'مهمة لـ', saved:'اتحفظ', deleted:'اتحذف', needTitle:'اكتب عنوان', needWho:'اختار شخص واحد على الأقل',
   nobody:'مش مسندة', tasksOpen:'مفتوحة', supervisor:'مشرف', today:'النهارده', tomorrow:'بكرة', daysLeft:'بعد {n} يوم', daysLate:'متأخرة {n} يوم', noDue:'من غير ميعاد', link:'افتح البوابة', by:'من', files:'الملفات', fDrop:'ارفع ملفات', fDropSub:'PDF، Excel، Word، صور — لحد ٢٥ ميجا للملف', fUpload:'ارفع', fUploadTitle:'رفع للملفات المشتركة', fUploading:'بيترفع…', fNote:'ملاحظة', fNotePh:'مثلاً: BOQ نهائي، تعديل ٢', fDone:'اترفع — الكل يقدر يشوفه', fFailed:'فيه ملفات ما اترفعتش — اتأكد من النت', fTooBig:'{n} أكبر من ٢٥ ميجا', fSearch:'دوّر في الملفات أو المشاريع أو الأسامي', fEmpty:'مفيش ملفات لسه. ارفع أول ملف.', fOpen:'افتح / نزّل', fShare:'مشاركة', fPreparing:'بيجهز الملف…', fReady:'جاهز', fMissing:'مش قادر يفتح الملف ده', fBy:'رفعه', fSize:'الحجم',
@@ -735,7 +736,7 @@ var view = lsGet('jh_view') || 'home';
 var filt = { scope:null, office:'all', status:'active', q:'' };
 
 function members(){
-  var list = SUPERVISORS.map(function(s){ var extra = db.team[s.id] || {}; return {id:s.id, name:s.name, role:extra.role || s.role, office:extra.office || s.office, dept:extra.dept || '', phone:extra.phone || '', sup:true, daily:!!s.daily}; });
+  var list = SUPERVISORS.map(function(s){ var extra = db.team[s.id] || {}; return {id:s.id, name:s.name, role:extra.role || s.role, office:extra.office || s.office, dept:extra.dept || '', phone:extra.phone || '', email:extra.email || '', sup:true, daily:!!s.daily}; });
   Object.keys(db.team).forEach(function(k){ var m = db.team[k]; if(!SUPERVISORS.some(function(s){ return s.id === k; })) list.push(Object.assign({sup:false}, m)); });
   return list;
 }
@@ -762,6 +763,7 @@ function render(){
   applyLang();
   app.innerHTML = '';
   if(!me){ app.appendChild(gate()); return; }
+  if(!me.asBy && member(me.id) && !validEmail(member(me.id).email)){ app.appendChild(emailGate()); return; }
   var sy = app.appendChild(h('div', {class:'wrap'}));
   if(me.asBy){ var adm = member(me.asBy); sy.appendChild(h('div', {class:'asbar'}, h('span', null, '👁 ' + t('asViewing').replace('{n}', me.name)),
     h('button', {class:'btn sm', onclick:function(){ if(adm) signIn(adm); }}, (lang === 'ar' ? '→ ' : '← ') + t('asBack').replace('{n}', adm ? adm.name.split(' ')[0] : '')))); }
@@ -1114,6 +1116,34 @@ function waTask(tk){
   ]);
 }
 function cleanPhone(v){ v = (v || '').replace(/\D/g, ''); if(/^0(1\d{9})$/.test(v)) v = '20' + v.slice(1); else if(/^05\d{8}$/.test(v)) v = '966' + v.slice(1); return v; }
+function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((v || '').trim()); }
+function saveEmail(v){
+  var cur = db.team[me.id] || {id:me.id, name:me.name}; var m = member(me.id) || {};
+  return write('team/' + me.id, Object.assign({id:me.id, name:m.name || me.name, role:m.role || '', office:m.office || 'EG', dept:m.dept || '', phone:m.phone || ''}, cur, {email:v.trim().toLowerCase()}));
+}
+function emailGate(){
+  var m = member(me.id) || {};
+  var em = h('input', {class:'inp', type:'email', inputmode:'email', autocomplete:'email', placeholder:'name@jacarall.com', value:m.email || ''});
+  var ph = h('input', {class:'inp', inputmode:'tel', placeholder:'01001234567', value:m.phone || ''});
+  function go(){
+    if(!validEmail(em.value)){ em.classList.add('bad'); em.focus(); return toast(t('emBad'), true); }
+    var p = saveEmail(em.value);
+    if(ph.value.trim() && cleanPhone(ph.value).length >= 10) p = p.then(function(){ return savePhone(ph.value); });
+    p.then(function(){ toast(t('saved')); render(); window.scrollTo(0, 0); });
+  }
+  em.addEventListener('keydown', function(e){ if(e.key === 'Enter') go(); });
+  em.addEventListener('input', function(){ em.classList.remove('bad'); });
+  setTimeout(function(){ em.focus(); }, 80);
+  return h('div', {class:'gate'},
+    h('img', {class:'logo', src:'logo-hub.png', alt:'JACARALL HUB', style:'margin:10px auto 0;display:block'}),
+    h('h1', null, t('emTitle').replace('{n}', me.name.split(' ')[0])),
+    h('p', {class:'sub'}, t('emSub')),
+    h('div', {class:'emcard'},
+      h('label', {class:'lbl'}, '✉︎ ' + t('email'), h('span', {class:'req'}, ' *')), em,
+      h('label', {class:'lbl'}, '✆ ' + t('phone') + ' · ' + t('optional')), ph,
+      h('div', {class:'btns'}, h('button', {class:'btn pri big', onclick:go}, t('emSave')))),
+    h('div', {style:'text-align:center;margin-top:18px'}, h('button', {class:'btn ghost sm', onclick:function(){ signOut(); }}, (lang === 'ar' ? '→ ' : '← ') + t('back'))));
+}
 function savePhone(v){
   var cur = db.team[me.id] || {id:me.id, name:me.name}; var m = member(me.id) || {};
   return write('team/' + me.id, Object.assign({id:me.id, name:m.name || me.name, role:m.role || '', office:m.office || 'EG', dept:m.dept || ''}, cur, {phone:cleanPhone(v)}));
@@ -1121,9 +1151,11 @@ function savePhone(v){
 function profile(){
   var m = member(me.id) || {};
   var ph = h('input', {class:'inp', inputmode:'tel', value:m.phone || '', placeholder:'01001234567'});
+  var em = h('input', {class:'inp', type:'email', inputmode:'email', value:m.email || '', placeholder:'name@jacarall.com'});
   var s = sheet(me.name, [
+    h('label', {class:'lbl'}, '✉︎ ' + t('email'), h('span', {class:'req'}, ' *')), em,
     h('label', {class:'lbl'}, '✆ ' + t('phone')), ph, h('div', {class:'hint'}, t('phoneSelf')),
-    h('div', {class:'btns'}, h('button', {class:'btn pri', onclick:function(){ savePhone(ph.value).then(function(){ toast(t('saved')); s.close(); render(); }); }}, t('save'))),
+    h('div', {class:'btns'}, h('button', {class:'btn pri', onclick:function(){ if(!validEmail(em.value)){ em.classList.add('bad'); return toast(t('emBad'), true); } saveEmail(em.value).then(function(){ return savePhone(ph.value); }).then(function(){ toast(t('saved')); s.close(); render(); }); }}, t('save'))),
     h('div', {class:'btns', style:'margin-top:22px;border-top:1px solid var(--line);padding-top:16px'}, h('button', {class:'btn ghost', onclick:function(){ s.close(); changePass(); }}, '🔑 ' + t('pwChange')))
   ]);
 }
@@ -1752,11 +1784,13 @@ function memberForm(m){
   var role = h('input', {class:'inp', value:m.role || '', placeholder:'Site Engineer, Designer…'});
   var office = h('select', {class:'sel'}, h('option', {value:'EG'}, '🇪🇬 ' + t('eg')), h('option', {value:'SA'}, '🇸🇦 ' + t('sa')), h('option', {value:'BOTH'}, '🇪🇬 🇸🇦 ' + t('all'))); office.value = m.office || 'EG';
   var phone = h('input', {class:'inp', value:m.phone || '', inputmode:'tel', placeholder:'201001234567'});
+  var email = h('input', {class:'inp', type:'email', value:m.email || '', inputmode:'email', placeholder:'name@jacarall.com'});
   var dept = h('select', {class:'sel'}, Object.keys(DEPTS).map(function(k){ return h('option', {value:k}, deptName(k)); })); dept.value = deptOf(m);
   var sh = sheet(isNew ? t('addMember') : t('editMember'), [
     h('label', {class:'lbl'}, t('name')), name,
     h('label', {class:'lbl'}, t('role')), role,
     h('div', {class:'row2'}, h('div', null, h('label', {class:'lbl'}, t('office')), office), h('div', null, h('label', {class:'lbl'}, t('dept')), dept)),
+    h('label', {class:'lbl'}, t('email')), email,
     h('label', {class:'lbl'}, t('phone')), phone, h('div', {style:'font-size:11.5px;color:var(--soft);margin-top:5px'}, t('phoneH')),
     (!isNew && m.id !== me.id && (db.auth||{})[m.id]) ? h('div', {style:'margin-top:16px'}, resetBtn(m)) : null,
     h('div', {class:'btns'},
@@ -1764,7 +1798,7 @@ function memberForm(m){
       h('button', {class:'btn pri', onclick:function(){
         if(!name.value.trim()) return toast(t('name'), true);
         var id = m.id || (name.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'm') + '-' + uid().slice(-4);
-        write('team/' + id, {id:id, name:name.value.trim(), role:role.value.trim(), office:office.value, dept:dept.value, phone:cleanPhone(phone.value)})
+        write('team/' + id, {id:id, name:name.value.trim(), role:role.value.trim(), office:office.value, dept:dept.value, phone:cleanPhone(phone.value), email:validEmail(email.value) ? email.value.trim().toLowerCase() : ''})
           .then(function(){ sh.close(); toast(t('saved')); render(); });
       }}, t('save')))
   ]);
